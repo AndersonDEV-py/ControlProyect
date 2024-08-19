@@ -81,6 +81,7 @@ import org.primefaces.model.map.Marker;
 
 //Autor: Ingeniero Kevin A. Santos
 
+
 @Named("actividadesMovilController")
 @ViewScoped
 
