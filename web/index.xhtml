@@ -1,0 +1,115 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html" 
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      >
+
+    <h:head>
+        <title>#{dataGeneralController.user.title}</title>
+        <h:outputStylesheet name="css/cssLayout.css"/>
+
+       
+    </h:head>
+    <h:body>
+
+        <f:event type="preRenderView" listener="#{dataGeneralController.confirmaSesion() }"/> 
+
+        <!--<p:idleMonitor timeout="1500000" onidle="PF('idleDialog').show()" />-->
+        <p:idleMonitor timeout="1500000" onidle="PF('idleDialog').show()" />
+
+        <p:confirmDialog id="confirmDialog" width="400" closable="true" 
+                         message="Recarga la pagina para iniciar!"
+                         header="¿Hola, Sigues aqui?" severity="alert" widgetVar="idleDialog">
+
+            <p:commandButton id="Logout" type="button" value="Recargar" style="float:right;"
+                             onclick="window.location = '#{facesContext.externalContext.requestContextPath}/';" />
+
+        </p:confirmDialog>       
+        
+             <script type="text/javascript">
+                    function pass1() {
+
+                        var field =  $('#form\\:txtClave');
+                        if (field.attr('type') === 'password') {
+                            field.attr('type', 'text');
+                        } else {
+                            field.attr('type', 'password'); 
+                        }
+
+                    }
+            </script> 
+        
+
+        <p:growl id="msj" showDetail="true"/>
+        <h:form id="form">
+
+            <center>
+                <div> </div>   
+                <br></br><br></br>
+                <div id="login_banner"></div>   
+                <br></br>
+
+                <h:panelGrid columns="2" style="font-size: 14px">
+
+                    <p:fieldset legend="LOGIN" style="margin-bottom:20px">
+                        <h:panelGrid columns="1" cellpadding="4">
+
+
+
+                            <p:outputLabel for="txtUsuario"  value="Usuario:" style="font-weight: bold"/>
+                            
+                            <p:inputText value="#{dataGeneralController.user.usuario}" size="27" style="text-transform: uppercase" id="txtUsuario" requiredMessage="Ingrese el usuario" required="false">
+
+                            </p:inputText>
+
+                            <p:outputLabel for="txtClave" value="Clave:" style="font-weight: bold" />
+                            <h:panelGrid columns="2" cellpadding="0">
+                                <p:password value="#{dataGeneralController.user.clave}" size="24" id="txtClave" requiredMessage="Ingrese la clave" autocomplete="false" />
+                                <h:panelGrid columns="2" cellpadding="0" id="pbt">
+                                   
+                                    <p:triStateCheckbox rendered="#{dataGeneralController.ver}" value="#{dataGeneralController.ver2}" stateOneIcon="fa fa-eye" stateTwoIcon="fa fa-eye" stateThreeIcon="fa fa-eye"  onchange="pass1()" >
+                                        <p:ajax  event="change" update="pbt" listener="#{dataGeneralController.clave2()}" />
+                                    </p:triStateCheckbox>
+                                    <p:triStateCheckbox rendered="#{!dataGeneralController.ver}" value="#{dataGeneralController.ver2}" stateOneIcon="fa fa-eye-slash" stateTwoIcon="fa fa-eye-slash" stateThreeIcon="fa fa-eye-slash" onchange="pass1()" >
+                                        <p:ajax event="change" update="pbt" listener="#{dataGeneralController.clave2()}" />
+                                     </p:triStateCheckbox>
+                            </h:panelGrid>
+                                
+                            </h:panelGrid>
+                            
+                            <h:panelGrid columns="1" cellpadding="0" style="text-align: center">
+                                <p:outputLabel value="Tus credenciales de acceso son personales" style="font-weight: bold;font-size: 11px;color: #D20005"/>
+                                <p:outputLabel value="protégelas!!!" style="font-weight: bold;font-size: 11px;color: #D20005;"/>
+
+                            </h:panelGrid>
+   
+                            <h:panelGroup style="display:block; text-align:center">
+                                <p:commandButton icon="fa fa-key"  action="#{dataGeneralController.validarUsuario()}" style="float:inside" value="Iniciar Sesion" update="form :msj" />
+                            </h:panelGroup> 
+
+                        </h:panelGrid> 
+
+                        <center>
+                            <br></br>
+                            <p:outputLabel value="#{dataGeneralController.ip}"/>
+                            <br></br>
+                            <p:outputLabel value="Versión Web 2.4.1" />
+                        </center>
+                    </p:fieldset>
+
+                </h:panelGrid>
+
+
+
+            </center>
+
+        </h:form>
+        <br />
+        <!-- <h:link outcome="welcomePrimefaces" value="Primefaces welcome page" />-->
+
+
+    </h:body>
+</html>
+

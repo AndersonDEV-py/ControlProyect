@@ -1,0 +1,259 @@
+<?xml version='1.0' encoding='UTF-8' ?> 
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html 
+    xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:p="http://primefaces.org/ui">
+
+
+    <h:head>
+        <meta content='text/html; charset=UTF-8' http-equiv="Content-Type"/>
+        <h:outputStylesheet name="/css/cssLayout.css"/>
+        <h:outputScript library="js" name="spanishLocale.js" />
+        <ui:insert name="head"></ui:insert>
+
+        <title>#{dataGeneralBean.user.title}</title>
+
+
+
+    </h:head>
+
+    <h:body>
+            <script type="text/javascript">
+                    function pass1() {
+                         
+                        var field =  $('#formCambio\\:pwd0');
+                        if (field.attr('type') === 'password') {
+                            field.attr('type', 'text');
+                        } else {
+                            field.attr('type', 'password'); 
+                        }
+
+                    }
+                    function pass1X() {
+
+                        var field =  $('#formCambio\\:pwd1');
+                        var field2 =  $('#formCambio\\:pwd2');
+                        if (field.attr('type') === 'password') {
+                            field.attr('type', 'text');
+                            field2.attr('type', 'text');
+                        } else {
+                            field.attr('type', 'password'); 
+                            field2.attr('type', 'password'); 
+                        }
+
+                    }
+                  
+            </script> 
+        <p:growl id="msjGeneral" showDetail="false"/>
+        <p:idleMonitor timeout="900000" onidle="PF('idleDialog').show()"  />
+       <!--<p:idleMonitor timeout="300000" onidle="window.location='#{facesContext.externalContext.requestContextPath}/';"  />-->
+
+        <p:confirmDialog id="confirmDialog" width="400" closable="true" 
+                         message="¿Hola, Sigues aqui?"
+                         header="Se ha detectado inactividad!!" severity="alert" widgetVar="idleDialog">
+            <center>
+                <p:commandButton id="Logout" type="button" value="Continuar" 
+                                 onclick="window.location = '#{dataGeneralController.url_actual}';" /></center>
+                         <!-- Anterior #{facesContext.externalContext.requestContextPath}/ -->
+        </p:confirmDialog>
+
+
+
+        
+        <p:sidebar widgetVar="sidebar1"  style="overflow: scroll;" >
+            <center>
+                <p:commandButton value="Ocultar" oncomplete="PF('sidebar1').hide()"/>
+            </center>
+            <h:form>
+                <!-- <p:scrollPanel style="width:330px;height:700px">-->
+
+                <p:menu toggleable="true" model="#{dataGeneralController.user.model}" style="width: 300px">    
+                </p:menu>
+
+
+
+
+            </h:form>
+
+
+
+
+
+        </p:sidebar>
+        <f:event type="preRenderView" listener="#{dataGeneralController.verificarSession()}"/>
+
+
+
+        <!--   <p:layout fullPage="true"> -->
+        <div>
+            <p:growl id="messages"/>
+
+            <!--<p:layoutUnit position="north" size="45">
+ 
+ 
+             </p:layoutUnit>-->
+            <div id="top">
+                <p:commandButton value="Menu" icon="ui-icon-plusthick" oncomplete="PF('sidebar1').show()" />
+                <!--  <h:graphicImage value="resources/images/fondotop.png" />        -->
+            </div>
+
+
+            <!--  <p:layoutUnit position="west"  header="Menu" collapsible="true">
+  
+  
+  
+                  <p:menu>
+                      <p:submenu label="Opciones">
+                          <p:menuitem value="Gestion de Visitas" url="/faces/migestion/gestion_visitas.xhtml" />
+                          <p:menuitem value="Tablero de Control" url="/faces/migestion/tablero_control.xhtml" />
+                          <p:menuitem value="Metas Asesores" url="/faces/migestion/ingreso_metas.xhtml" />
+                          <p:menuitem value="Opciones" url="/faces/erp_modulo/erp_menu.xhtml" />
+  
+                      </p:submenu>
+                      <p:submenu label="Parametros" >
+                          <p:menuitem value="Categoria Asesores" url="/faces/migestion/tipo_oficial.xhtml" />
+                          <p:menuitem value="Distribucion de Visitas" url="/faces/migestion/distribucion_visitas.xhtml" />
+  
+                      </p:submenu>
+                      <p:submenu label="Sesion" >
+                          <p:menuitem value="#{dataGeneralController.user.usuario.toUpperCase()}"  url="" />
+                          <p:menuitem value="#{dataGeneralController.ip}"  url=""   />
+                      </p:submenu>
+  
+                  </p:menu>
+                  
+                  
+                  <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+  
+                  <p:dialog widgetVar="statusDialog" modal="true" draggable="false" closable="false" resizable="false" showHeader="false">
+                      <p:graphicImage name="images/cargandoesp.gif" />
+                  </p:dialog>
+  
+              </p:layoutUnit>
+  
+            -->
+            <div id="content" > 
+                <!-- <p:layoutUnit position="center"> -->
+
+                <ui:insert name="bodyJR"> 
+                    <!-- 
+                    <p:panelGrid style="text-align: center;height: auto" >  
+                        <iframe src="http://192.168.0.253/modulo/pages/home_jsf.php?agencia=#{dataGeneralController.user.c_agencia}" 
+                                align="center"
+                                style="width: 99%;height: 99%;"
+                                scrolling="no"
+                                frameborder="0"
+                                />
+                    </p:panelGrid>
+                    -->
+
+                </ui:insert>  
+
+                <!--</p:layoutUnit>-->
+            </div> 
+
+            <div id="bottom"> 
+                <!--<p:layoutUnit position="south" size="35" closable="true" collapsible="false">-->
+
+                <h:panelGrid columns="18"  cellpadding="0" style="font-size:13px;color: #3b63a9">
+                    USUARIO:
+                    <p:outputLabel  value="#{dataGeneralController.user.nombre}" style="color: #3b63a9"/> 
+                    <h:outputText value="&#160;&#160;&#160;&#160;" />
+                    <p:commandButton value="Cerrar Sesion" style="font-size:10px;padding: 0px" action="#{dataGeneralController.cerrarSesion()}" > </p:commandButton>
+
+
+                    <p:spacer width="1" height="10" style="position: static; background-color: #A8A8A8; margin-left: 30px;margin-right: 30px" />
+                    <p:commandButton value="Cambiar Clave" style="font-size:10px;padding: 0px" oncomplete="PF('wdlCambioClave').show();" > </p:commandButton>
+
+                </h:panelGrid>
+
+                <!--</p:layoutUnit>-->
+            </div>  
+
+
+            <!--   </p:layout> -->
+
+        </div>
+
+        <p:dialog  header="CAMBIAR CONTRASEÑA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCambioClave" id="dlgCambioClave" showEffect="fold" hideEffect="explode" resizable="false">
+            
+
+            
+            <h:form id="formCambio">  
+          
+                    <p:outputLabel for="pwd0" styleClass="p-col-fixed" style="width:100px" value="Clave Anterior"/>
+              
+                        <h:panelGrid columns="2" cellpadding="0">
+                            <p:password id="pwd0" value="#{dataGeneralController.claveAnterior}"  requiredMessage="Ingrese la Clave Antetior" maxlength="50" label="Clave Anterior" required="true" />
+                            <h:panelGrid columns="2" cellpadding="0" id="pbt1">
+
+                                <p:triStateCheckbox rendered="#{dataGeneralController.ver}" value="#{dataGeneralController.ver2}" stateOneIcon="fa fa-eye" stateTwoIcon="fa fa-eye" stateThreeIcon="fa fa-eye"  onchange="pass1()" >
+                                    <p:ajax  event="change" update="pbt1" listener="#{dataGeneralController.clave2()}" />
+                                </p:triStateCheckbox>
+                                <p:triStateCheckbox rendered="#{!dataGeneralController.ver}" value="#{dataGeneralController.ver2}" stateOneIcon="fa fa-eye-slash" stateTwoIcon="fa fa-eye-slash" stateThreeIcon="fa fa-eye-slash" onchange="pass1()" >
+                                    <p:ajax event="change" update="pbt1" listener="#{dataGeneralController.clave2()}" />
+                                </p:triStateCheckbox>
+                            </h:panelGrid>
+                        
+                        </h:panelGrid>
+                 
+
+
+                <div class="p-field p-grid">
+                    <p:outputLabel for="pwd1" styleClass="p-col-fixed" style="width:100px" value="Nueva Clave"/>
+                    <div class="p-col">
+                        <h:panelGrid columns="2" cellpadding="0">
+                            <p:password id="pwd1" value="#{dataGeneralController.claveNueva}" match="pwd2" validatorMessage="La nueva clave y la confirmación deben coincidir" requiredMessage="Ingrese la nueva clave" maxlength="50" label="Nueva Clave" required="true" />
+                            <h:panelGrid columns="2" cellpadding="0" id="pbt2">
+
+                                <p:triStateCheckbox rendered="#{dataGeneralController.verX}" value="#{dataGeneralController.ver2X}" stateOneIcon="fa fa-eye" stateTwoIcon="fa fa-eye" stateThreeIcon="fa fa-eye"  onchange="pass1X()" >
+                                    <p:ajax  event="change" update="pbt2" listener="#{dataGeneralController.clave2X()}" />
+                                </p:triStateCheckbox>
+                                <p:triStateCheckbox rendered="#{!dataGeneralController.verX}" value="#{dataGeneralController.ver2X}" stateOneIcon="fa fa-eye-slash" stateTwoIcon="fa fa-eye-slash" stateThreeIcon="fa fa-eye-slash" onchange="pass1X()" >
+                                    <p:ajax event="change" update="pbt2" listener="#{dataGeneralController.clave2X()}" />
+                                </p:triStateCheckbox>
+                            </h:panelGrid>
+                        </h:panelGrid>
+                    </div>
+                </div>
+
+                <div class="p-field p-grid">
+                    <p:outputLabel for="pwd2" styleClass="p-col-fixed" style="width:100px" value="Confirmar Clave"/>
+                    <div class="p-col">
+                        <p:password id="pwd2" value="#{dataGeneralController.claveNueva}"  requiredMessage="Ingrese la confirmación" label="Confirmar Clave" required="true" />
+                    </div>
+                </div>
+
+
+                <center>
+                    <h:panelGrid   columns="1" cellpadding="5">
+                        <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" actionListener="#{dataGeneralController.cambiarClave()}"  value="Guardar" update=":msjGeneral"/>
+                    </h:panelGrid>
+                </center>
+
+
+                <h:panelGrid columns="1" cellpadding="0">
+                    <p:outputLabel  style="width:100px;font-weight:bold " value="Simbolos Permitidos:"/>
+                    <p:outputLabel  styleClass="p-col-fixed" style="width:100px" value="#{dataGeneralController.simbolosAut.replaceAll(',', '')}"/>
+                    <p:spacer width="200" height="1" style="position: fixed; background-color: #A8A8A8; margin-bottom: 0px;margin-top:  0px" />
+                    <p:outputLabel  styleClass="p-col-fixed" style="width:100px" value="1: Minimo 8 Caracteres"/>
+                    <p:outputLabel  styleClass="p-col-fixed" style="width:100px" value="2: Mayusculas y Minisculas"/>
+                    <p:outputLabel  styleClass="p-col-fixed" style="width:100px" value="3: Al menos un Numero"/>
+                    <p:outputLabel  styleClass="p-col-fixed" style="width:100px" value="4: Al menos un Simbolo"/>
+                </h:panelGrid>
+
+            </h:form>
+        </p:dialog>
+
+
+    </h:body>
+
+
+
+</html>
+
+

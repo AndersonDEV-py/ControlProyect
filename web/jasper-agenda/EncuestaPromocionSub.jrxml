@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="promocion" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6e99cca-04e3-422a-a3f4-46fc5cf9a252">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="266"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["20210319084812OMEDINA44759010778321756672"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:/Users/ds010106/Documents/NetBeansProjects/ControlProyect/web/resources/images/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pathfirma" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\firmasAPP\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select liteuid,
+ c.nombre
+,REPLACE(concat(concat(dir.departamento,', '), concat(dir.municipio,', '),dir.barrio),'DATO GENERICO','') domicilio
+,d.nrodocumento
+,dir.telefonomovil
+,dir.telefonofijo
+,v.resultadovisita
+,v.comentario
+,COALESCE((select nombre from ad_usuarios where usuariotopaz=v.usragenda),' ') nombreasesor
+,fechacompleto
+from ad_visitas v
+inner join ad_prestamos p on p.cuenta=v.prestamo and p.jtsoid=v.saldosjtsoid
+inner join ad_clientes c on p.idcliente=c.idcliente
+inner join ad_documentos d on p.idcliente=d.idcliente and d.principal='S'
+inner join ad_direcciones dir on p.idcliente=dir.idcliente and dir.tipodir='Real' and dir.formato='Personal'
+inner join (select dir.* from ad_agencias a
+				inner join ad_direcciones dir
+			on a.agenciaid=dir.idcliente
+			and dir.tipodir='Real'
+			and dir.formato='Sucursal') ad_agencia on ad_agencia.idcliente=p.idagencia
+where v.liteuid=$P{id}]]>
+	</queryString>
+	<field name="liteuid" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="domicilio" class="java.lang.String"/>
+	<field name="nrodocumento" class="java.lang.String"/>
+	<field name="telefonomovil" class="java.lang.String"/>
+	<field name="telefonofijo" class="java.lang.String"/>
+	<field name="resultadovisita" class="java.lang.String"/>
+	<field name="comentario" class="java.lang.String"/>
+	<field name="nombreasesor" class="java.lang.String"/>
+	<field name="fechacompleto" class="java.sql.Timestamp"/>
+	<title>
+		<band height="729" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="8" y="28" width="556" height="21" uuid="2a663c44-0dbe-4df9-9eca-2bf5ce25d9a1"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["ENCUESTA DE RENOVACION/SUBSIGUIENTE"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="48" width="556" height="1" uuid="050543cf-f02d-4ef5-987e-48bad7c3b1d4"/>
+				<graphicElement>
+					<pen lineWidth="6.0" lineStyle="Double" lineColor="#5B1400"/>
+				</graphicElement>
+			</line>
+			<textField>
+				<reportElement x="217" y="62" width="350" height="30" uuid="c040d79a-0a97-4406-99d5-484bd45709f1"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="62" width="200" height="30" uuid="47dc77cd-12e8-449a-8b4d-dcc40c975106"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nombre de Cliente:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="62" width="340" height="30" uuid="5cde7557-ecc0-4e76-b4f7-a1cc768f05f4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="122" width="200" height="60" uuid="437d68ec-999c-4b88-bdcd-398dd106f186"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Dirección del negocio o Domicilio:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="92" width="200" height="30" uuid="b1a2e98b-9fde-4460-8b27-8c973eb7fa95"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["No Identidad:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="182" width="200" height="30" uuid="b061c7c0-290d-4b35-ba3c-e70342192ef2"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Punto de Referencia:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="212" width="200" height="30" uuid="6fdd2cae-2384-42b9-be3f-ddfc5d9bd883"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tipo de Negocio:"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="242" width="200" height="30" uuid="b71c33db-7977-4e20-8594-06943855b22d"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Teléfono/Cel:"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="92" width="350" height="30" uuid="50d0cdbe-b0e1-4c5f-96dd-b138a578d0c2"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nrodocumento}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="122" width="350" height="60" uuid="b0f0b856-e698-484a-8be4-9dbb0006616c"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="182" width="350" height="30" uuid="b4018938-459c-4f1e-a419-b3ae0ce16416"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="212" width="350" height="30" uuid="9f3c7730-e5b4-49f5-a7ec-369ccba80f9a"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="242" width="350" height="30" uuid="64c972c4-5c79-4cfe-b19d-b486ca3470fe"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="30" y="369" width="512" height="245" uuid="8604cbb0-450d-4775-aba5-9e0bf7ed7079"/>
+				<textElement textAlignment="Justified" markup="none">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+					<paragraph lineSpacing="1_1_2"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Autorizo a la Financiera Solidaria S.A. (FINSOL), para que por el tramite financiero actual realicen las consultas (Titulo Personal, Sociedad, Representante Legal, Socios Principales, Miembros de Junta Directivas) pertinentes en la Central de Información Crediticia de la CNBS y los buros de crédito privado, a fin de verificar mi historial crediticio en el sistema financiero y comercial nacional; las listas de Riesgos para verificar la no vinculación con el lavado de Activos y/o Financiamiento al Terrorismo y otras fuentes de información requeridas por normativa vigente, pudiendo hacer otras consultas complementarias cuando lo consideren pertinentes, mientas mantenga relación comercial directa o indirecta con FINSOL."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="15" y="272" width="200" height="30" uuid="27842cbe-6be5-4c15-93ac-9c93c6430540"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Interesado: "]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="217" y="272" width="350" height="30" uuid="be9a18a5-7219-44cb-8b1e-398fdf3ae0ca"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="219" y="272" width="38" height="30" uuid="cc67b70c-e706-4799-885e-eb9bbb734d94"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["SI"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="257" y="272" width="38" height="30" uuid="826a2b55-257a-4735-bc06-42c0d9c59d35"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["NO"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="300" y="272" width="44" height="30" uuid="c287d421-a9b6-41c9-b888-b761bca4677f"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Monto"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="422" y="272" width="38" height="30" uuid="f36a22fe-76e7-4004-bbf3-35f2c99cf7d7"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Tasa"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="493" y="272" width="38" height="30" uuid="dfe622f8-efe9-41c2-aee5-bc70c716f8f0"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="10" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Plazo"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="242" width="340" height="30" uuid="676c3d54-7de8-4023-b8c2-1fca49c18f9a"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{telefonomovil}+($F{telefonofijo}.equals($F{telefonomovil})?"":", "+$F{telefonofijo})]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="225" y="123" width="340" height="59" uuid="e58a3501-2a40-4514-8b83-da6983e7b50f"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{domicilio}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="34" y="685" width="200" height="20" uuid="eda2cbd9-77c4-4eae-89d1-bd1984be8189"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Firma del Cliente]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="341" y="685" width="200" height="20" uuid="8fd4723a-0bd9-4d30-86c4-18885c24550d"/>
+				<textElement textAlignment="Center">
+					<font fontName="Arial" size="16"/>
+				</textElement>
+				<text><![CDATA[Nombre del Asesor]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="34" y="680" width="200" height="0" uuid="b4ebf251-db82-44a8-a2e3-b2dfee178a0f"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="342" y="680" width="200" height="0" uuid="507caf7b-db6b-4b61-b7f9-c5b095d9fc89"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="0" y="719" width="378" height="10" uuid="7da01603-9a47-4d48-bf2f-21d657f0e3f8"/>
+				<textElement markup="html">
+					<font fontName="Arial" size="6" isItalic="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Fecha Completado: "+($F{fechacompleto}==null?"<b>No Completado</b>":$F{fechacompleto})]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RetainShape" hAlign="Center" vAlign="Middle" isUsingCache="false" onErrorType="Icon">
+				<reportElement x="15" y="2" width="63" height="49" uuid="51d35bc4-9314-4a38-818a-7e645ff11821"/>
+				<imageExpression><![CDATA[new File($P{logo}+"logofinsol.png")]]></imageExpression>
+			</image>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="334" y="648" width="216" height="22" uuid="abebe475-cbd3-4d51-b5f2-4d18a53caefd"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreasesor}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="17" y="302" width="200" height="30" uuid="a0612c4d-4a23-4aed-b56b-b331bd3cb050"/>
+				<textElement verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Resultado: "]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="5" y="302" width="562" height="30" uuid="1ee0bc42-a993-41cb-bd64-356299c00148"/>
+				<box topPadding="7" leftPadding="15">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font fontName="Arial" size="14"/>
+				</textElement>
+				<textFieldExpression><![CDATA["                         "+$F{resultadovisita}+" /comentario: "+$F{comentario}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="237" y="278" width="20" height="20" uuid="703d2d53-6ec9-485c-abbb-537d39001656"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{resultadovisita}.equals("LLENO_SOLICITUD")?"X":$F{resultadovisita}.equals("LLENARA_DESPUES")?"X":""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="280" y="279" width="20" height="20" uuid="06f4eefd-3d34-4674-a7e2-15ad66b3206a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[$F{resultadovisita}.equals("NO_ACEPTO")?"X":""]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="38" y="599" width="189" height="93" uuid="ba9aedc0-3c1d-4d75-a7eb-b72ec07e256b"/>
+				<imageExpression><![CDATA[$P{pathfirma}+$F{liteuid}+"_"+$F{nrodocumento}+"_f.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

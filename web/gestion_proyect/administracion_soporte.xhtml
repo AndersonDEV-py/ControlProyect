@@ -1,0 +1,326 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="bodyJR">
+                <script type="text/javascript">
+                    //<![CDATA[
+                    function start() {
+                        PF('statusDialog').show();
+                    }
+
+                    function stop() {
+                        PF('statusDialog').hide();
+                    }
+                    //]]>
+                
+                    function handleMessage(facesmessage)
+                    {
+                      alert('hola');  
+                      facesmessage.severity = 'info';
+                      PF('wmsj').show([facesmessage]);
+                    }
+                
+                </script>  
+                
+                
+                <p:socket onMessage="handleMessage" channel="/notify">
+                    <p:ajax event="message" update=":form"/>
+                </p:socket>
+                
+                <p:growl id="msj" widgetVar="wmsj" showDetail="true"/>
+
+                <h:form id="form">
+
+
+                    <center>
+
+                        <p:tabView style="font-size:14px;" dynamic="true" cache="true" activeIndex="0">
+                            <p:tab title="PANEL DE SOPORTE"  >
+
+                                <h:panelGrid columns="2"  >
+
+                                    <h:panelGrid columns="1"  >
+                                        <p:panel header="Simbologia" >
+                                            <h:outputText id="s1" value="Pendiente Envio" style="background-color: #9E9DAB;font-weight:bold" />
+                                            <h:outputText value="||" />
+                                            <h:outputText id="s2" value="Archivo Enviado"  style="background-color: #06F2F9;font-weight:bold"/>
+                                            <h:outputText value="||" />
+                                            <h:outputText id="s3" value="Pendiente Subir"  style="background-color: #F7DF31;font-weight:bold"/>
+                                            <h:outputText value="||" />
+                                            <h:outputText id="s4" value="Completado"  style="background-color: #AEF77F;font-weight:bold"/>
+                                            <h:outputText value="||" />
+                                            <h:outputText id="s5" value="Denegado"  style="background-color: #FC5342;font-weight:bold"/>
+
+                                            <p:tooltip for="s1" value="Solicitudes para Enviar Archivos a Desarrolladores"
+                                                       showEffect="clip" hideEffect="explode" position="bottom"/>
+                                            <p:tooltip for="s2" value="Archivo Enviado a Desarrolladorse"
+                                                       showEffect="clip" hideEffect="explode" position="bottom"/>
+                                            <p:tooltip for="s3" value="Archivo Pendiente de Subir al Servidor"
+                                                       showEffect="clip" hideEffect="explode" position="bottom"/>
+                                            <p:tooltip for="s4" value="Solicitud Completada"
+                                                       showEffect="clip" hideEffect="explode" position="bottom"/>
+                                            <p:tooltip for="s5" value="Solicitud Denegada"
+                                                       showEffect="clip" hideEffect="explode" position="bottom"/>
+                                        </p:panel>
+                                       
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid columns="1"  >
+
+                                    </h:panelGrid>
+
+                                </h:panelGrid>
+                                <h:panelGrid columns="1"  >
+
+
+
+
+
+                                    <p:dataTable id="tablaArchivos"  
+                                                 
+                                                 emptyMessage="No hay datos" 
+                                                 scrollable="true" 
+                                                 scrollHeight="490"  
+                                                 style="min-width: 1200px; height: 500px; font-size:12px;;font-weight:bold" 
+                                                 value="#{admSoporteController.lstArchivos}" 
+                                                 var="arc" >
+
+                                        <p:column headerText="#" style="width:5px;background-color: #{arc.colorBack};">
+                                            <p:outputLabel value="#{arc.idArchivo}" />
+                                        </p:column>
+                                        <p:column headerText="NOMBRE" style="width:45px;background-color: #{arc.colorBack};" >
+                                            <p:outputLabel value="#{arc.nombre_archivo}"  />
+                                        </p:column>
+                                        <p:column headerText="SOLICITA" style="width:80px;background-color: #{arc.colorBack};">
+                                            <p:outputLabel value="#{arc.d_usuario_sol}" />
+                                        </p:column>
+                                        <p:column headerText="TIPO" style="width:35px;background-color: #{arc.colorBack};">
+                                            <p:outputLabel value="#{arc.tipo_archivo}" />
+                                        </p:column>
+                                        <p:column headerText="PROCESO" style="width:65px;background-color: #{arc.colorBack};">
+                                            <p:outputLabel value="#{arc.tipo_proceso}" />
+                                        </p:column>
+                                        <p:column headerText="COMENTARIO" style="width:80px;background-color: #{arc.colorBack};">
+                                            <p:outputLabel value="#{arc.comentario}" />
+                                        </p:column>
+
+                                        <p:column headerText="ANTERIOR#1" style="width:30px;background-color: #{arc.colorBack};">
+                                            <center>                                          
+                                                <p:commandButton rendered="#{arc.visibleBtIndicador3}" value="#{arc.archivo1}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo1,'A')}">
+                                                    <p:fileDownload value="#{arc.download}" />
+                                                </p:commandButton>
+                                            </center>
+                                        </p:column>
+                                        <p:column headerText="ANTERIOR#2" style="width:30px;background-color: #{arc.colorBack};">
+                                            <center>                                          
+                                                <p:commandButton rendered="#{arc.visibleBtIndicador4}" value="#{arc.archivo2}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo2,'A')}">
+                                                    <p:fileDownload value="#{arc.download}" />
+                                                </p:commandButton>
+                                            </center>
+                                        </p:column>
+                                        <p:column headerText="NUEVO#1" style="width:20px;background-color: #{arc.colorBack};">
+                                            <center>                                          
+
+                                                <p:commandButton rendered="#{arc.visibleBtIndicador1}" value="#{arc.archivo3}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo3,'D')}">
+                                                    <p:fileDownload value="#{arc.download}" />
+                                                </p:commandButton>
+                                            </center>
+                                        </p:column>
+                                        <p:column headerText="NUEVO#2" style="width:20px;background-color: #{arc.colorBack};">
+                                            <center>                                          
+
+                                                <p:commandButton rendered="#{arc.visibleBtIndicador2}" value="#{arc.archivo4}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo4,'D')}">
+                                                    <p:fileDownload value="#{arc.download}" />
+                                                </p:commandButton>
+                                            </center>
+                                        </p:column>
+
+
+                                        <p:column headerText="PROCESAR" style="width:25px;background-color: #{arc.colorBack};">
+                                            <center>                                          
+                                                <p:commandButton id="test" icon="fa fa-wrench" styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold"  immediate="true"  actionListener="#{admSoporteController.seleccionado(arc)}" update="dlgRespuesta dlgRespuesta2" />
+                                            </center>
+                                        </p:column>
+
+
+
+                                    </p:dataTable>
+
+
+
+
+                                </h:panelGrid>
+                            </p:tab>
+
+                        </p:tabView>
+                    </center>
+                </h:form>
+
+
+                <!-- Venta Dialogos -->
+
+                <!-- Dialogo enviar archivo solicitado-->
+                <p:dialog  header="ENVIAR ARCHIVO" modal="true" appendTo="@(body)" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlRespuesta" id="dlgRespuesta" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formRespuesta" >  
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admSoporteController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                                <p:ajax update="formRespuesta" listener="#{admSoporteController.listenerComboTipo()}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel   value="NOMBRE ARCHIVO"></p:outputLabel>
+                            <p:inputText disabled="true" value="#{admSoporteController.arch.nombre_archivo}" style="width:310px"  />
+
+
+                            <p:outputLabel   value="COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admSoporteController.arch.comentario_nuevo}" style="width:310px"/>
+
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="3">
+                            <p:commandButton rendered="#{admSoporteController.visibleBt1}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload').show();" value="ARCHIVO #1"  update=":msj" />
+                            <p:outputLabel   rendered="#{admSoporteController.visibleBt1}" value="=>"></p:outputLabel>
+                            <p:commandButton rendered="#{admSoporteController.arch.visibleBtIndicador3 }" value="#{admSoporteController.arch.archivo1}" icon="fa fa-check-circle"  style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                            <p:commandButton rendered="#{!admSoporteController.arch.visibleBtIndicador3 and admSoporteController.visibleBt1 }" value="No ha seleccionado" icon="fa fa-bed"  style="color:white;background:red;font-weight:bold" />
+
+                            <p:commandButton rendered="#{admSoporteController.visibleBt2}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload2').show();" value="ARCHIVO #2"  update=":msj" />
+                            <p:outputLabel   rendered="#{admSoporteController.visibleBt2}" value="=>"></p:outputLabel>
+                            <p:commandButton rendered="#{admSoporteController.arch.visibleBtIndicador4}" value="#{admSoporteController.arch.archivo2}" icon="fa fa-check-circle" style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                            <p:commandButton rendered="#{!admSoporteController.arch.visibleBtIndicador4 and admSoporteController.visibleBt2 }" value="No ha seleccionado" icon="fa fa-bed" style="color:white;background:red;font-weight:bold" />
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-check-circle" value="ENVIAR"  actionListener="#{admSoporteController.agregarArchivoLista('ENVIO')}" update=":msj :form" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Enviar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverBlack" style="color:WHITE;background:RED ;font-weight:bold" icon="fa fa-close" value="DENEGAR" actionListener="#{admSoporteController.agregarArchivoLista('DENEGADO')}" update=":msj :form" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Denegar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Dialogo respuesta solicitud carga archivo -->
+                <p:dialog  header="COMPLETAR SOLICITUD" modal="true" appendTo="@(body)" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlRespuesta2" id="dlgRespuesta2" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formRespuesta2" >  
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admSoporteController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                                <p:ajax update="formRespuesta2" listener="#{admSoporteController.listenerComboTipo()}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel   value="NOMBRE ARCHIVO"></p:outputLabel>
+                            <p:inputText disabled="true" value="#{admSoporteController.arch.nombre_archivo}" style="width:310px"  />
+
+
+                            <p:outputLabel   value="COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admSoporteController.arch.comentario_nuevo}" style="width:310px"/>
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-check-circle" value="COMPLETADO" actionListener="#{admSoporteController.agregarArchivoLista('COMPLETADO')}" update=":msj :form" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Completar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverBlack" style="color:WHITE;background:RED ;font-weight:bold" icon="fa fa-close" value="DENEGADO" actionListener="#{admSoporteController.agregarArchivoLista('DENEGADO')}" update=":msj :form" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Eliminar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Dialogo fileUPLOAD1 -->
+                <p:dialog  header="FILEUPLOAD #1" modal="true" appendTo="@(body)" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFileUpload" id="dlgFileUpload" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFile" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="1" >
+                            <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admSoporteController.handleFileUpload}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formRespuesta"   >
+                                <p:panelGrid   columns="1" >
+                                    <p:outputLabel value="Arrastre Aqui su Archivo"/>
+
+                                </p:panelGrid>
+
+                            </p:fileUpload>
+
+                        </p:panelGrid>
+
+
+                    </h:form>
+                </p:dialog>
+                <!-- Dialogo fileUPLOAD2 -->
+                <p:dialog  header="FILEUPLOAD #2" modal="true" appendTo="@(body)" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFileUpload2" id="dlgFileUpload2" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFile2" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="1" >
+                            <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admSoporteController.handleFileUpload2}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formRespuesta"   >
+                                <p:panelGrid   columns="1" >
+                                    <p:outputLabel value="Arrastre Aqui su Archivo"/>
+
+                                </p:panelGrid>
+
+                            </p:fileUpload>
+
+                        </p:panelGrid>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <center>
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
+                    </center>
+                </p:confirmDialog> 
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="#{admUsuariosController.imgLoadin}" />
+                </p:dialog>
+
+
+            </ui:define>
+        </ui:composition>
+
+
+
+    </h:body>
+</html>
+

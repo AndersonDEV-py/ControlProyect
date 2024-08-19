@@ -1,0 +1,251 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:c="http://xmlns.jcp.org/jsp/jstl/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="bodyJR">
+                <p:growl id="msj" showDetail="true"/>
+
+                <h:form id="form">                 
+                    <center>
+                        <p:tabView style="font-size:14px;" dynamic="true" cache="true" >
+                            <p:tab title="ENCUESTAS"  >
+                                <f:facet name="actions" >
+                                    <h:form>
+                                        <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" oncomplete="PF('wdlManual').show();"/>
+                                    </h:form>
+                                </f:facet>
+                                <h:panelGrid columns="1" >
+                                    <h:panelGrid columns="9"  >
+                                       <p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   />
+                                        <p:outputLabel value="SELECCIONE LA ENCUESTA A RESPONDER   "   />
+                                        <p:selectOneMenu id="Encuesta" value="#{encuestaController.filtroEncuesta}" style="width:300px" >
+                                            <f:selectItems value="#{encuestaController.lstEncuesta}" var="enc" itemValue="#{enc.codEncuesta}" itemLabel="#{enc.nombre}"/>   
+                                        </p:selectOneMenu>
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-newspaper-o" value="GENERAR ENCUESTA" style="color:white;background:#3b63a9;font-weight:bold" actionListener="#{encuestaController.nuevo()}" update="dlgEncuesta"/>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </p:tab>
+                            <p:tab title="LISTA ENCUESTAS INGRESADAS"  >
+                                <f:facet name="actions" >
+                                    <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" oncomplete="PF('wdlManual').show();"/>
+                                </f:facet>
+                                <h:panelGrid columns="1" > 
+                                    <h:panelGrid columns="9"  >             
+                                        <p:outputLabel value="FILTRAR POR FECHAS:"   />
+                                        <p:calendar id="txtfechaR1" locale="es" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{encuestaController.filtroFechaR1}"/>
+                                        <p:calendar id="txtfechaR2" locale="es" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{encuestaController.filtroFechaR2}"/>
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-filter" value="CONSULTAR ENCUESTAS" style="color:white;background:#3b63a9;font-weight:bold" actionListener="#{encuestaController.buscarLstEncuestasCreadas}" update="tablalista"/>
+                                    </h:panelGrid>       
+                                       <p:panel header="Encuestas Ingresadas"  style="min-width: 1100px;margin-left: -20px;margin-right: -20px;margin-bottom: 1%;">
+                                           <h:panelGrid columns="1"  >
+                                               <p:dataTable id="tablalista" emptyMessage="No hay datos" scrollable="true" scrollHeight="400"  style="font-size:10.5px;min-width: 1100px;margin-left: -10px;margin-right: -10px;margin-bottom: 1%;" value="#{encuestaController.lstEncuestasCreadas}" var="lstE" >
+                                                    <p:column headerText="Cod. Encuesta Cliente" style="width:10px;background-color: #{us.colorBack_T};"> 
+                                                        <p:outputLabel value="#{lstE.codigoEncuestaCliente}" />  
+                                                    </p:column>
+                                                    <p:column headerText="Fecha" style="width:10px;background-color: #{us.colorBack_T};">   
+                                                        <p:outputLabel value="#{lstE.fecha}" /> 
+                                                    </p:column>
+                                                    <p:column headerText="Cod. Cliente" style="width:10px;background-color: #{us.colorBack_T};"> 
+                                                        <p:outputLabel value="#{lstE.codCliente}" /> 
+                                                    </p:column>
+                                                   <p:column headerText="Cuenta" style="width:10px;background-color: #{us.colorBack_T};">   
+                                                       <p:outputLabel value="#{lstE.cuenta}" /> 
+                                                    </p:column>
+                                                   <p:column headerText="Cod. Encuesta" style="width:10px;background-color: #{us.colorBack_T};">     
+                                                       <p:outputLabel value="#{lstE.codEncuesta}" /> 
+                                                    </p:column>
+                                                    <p:column headerText="Nombre Encuesta" style="width:10px;background-color: #{us.colorBack_T};">     
+                                                        <p:outputLabel value="#{lstE.tipoEncuesta}" /> 
+                                                    </p:column>
+                                                   <p:column headerText="Usuario" style="width:10px;background-color: #{us.colorBack_T};">     
+                                                       <p:outputLabel value="#{lstE.usuario}" /> 
+                                                    </p:column>
+                                                   <p:column headerText="Imprimir" style="width:10px;background-color: #{us.colorBack_T};">
+                                                    <center>
+                                                        <h:commandLink id="reporte2"  style="color: maroon; font-weight: bold" value=" IMPRESION EN PDF" target="_black" actionListener="#{encuestaController.verDocumentoPDFLista(lstE.codigoEncuestaCliente,lstE.codEncuesta)}" />
+                                                    </center>
+                                                </p:column>
+                                                    </p:dataTable>
+                                           </h:panelGrid>
+                                       </p:panel>
+                                </h:panelGrid>
+                            </p:tab>
+                        </p:tabView>
+                    </center>
+                </h:form>
+                
+                <!-- Dialogos -->
+                
+                <!-- Dialogo Encuesta -->
+                <p:dialog  header="#{encuestaController.texto}" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1400px; max-height: 800px;" widgetVar="wdlEncuesta" id="dlgEncuesta" showEffect="fold" hideEffect="explode" resizable="false" modal="true"  positionType="absolute" >
+                        <h:panelGrid id="contenDlg" columns="1">
+                            <center>
+                                <h:form id="formCl" >
+                                    <h:panelGrid columns="2">
+                                        <p:outputLabel value="Fecha:"></p:outputLabel>
+                                        <p:outputLabel value="#{encuestaController.fecha}"></p:outputLabel>
+                                     </h:panelGrid> 
+                                     <h:panelGrid columns="3">
+                                        <p:outputLabel value="Código del Cliente"></p:outputLabel>
+                                        <p:inputText id="codCL" value="#{encuestaController.codCliente}" widgetVar="itCodCliente" ></p:inputText> 
+                                        <p:commandButton widgetVar="btmConsultar" styleClass="buttonOverRed" icon="fa  fa-search-plus" value="CONSULTAR"  actionListener="#{encuestaController.buscarCliente()}" style="color:white;background:#3b63a9;font-weight:bold" update="infoCliente"></p:commandButton>
+                                    </h:panelGrid> 
+                                    <h:panelGrid id="infoCliente" columns="2">
+                                        <p:outputLabel value="Nombre Cliente   " ></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.nombreC}" readonly="true" style="width: 600px " />
+                                        <p:outputLabel value="Agencia   "></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.nAgencia}" readonly="true" style="width: 600px " />
+                                        <p:outputLabel value="Jefe de Agencia   "></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.nombreJA}" readonly="true" style="width: 600px " />
+                                        <p:commandButton widgetVar="btmConsultarCuenta" styleClass="buttonOverRed" icon="fa  fa-search-plus" value="SELECCIONAR CUENTA" style="color:white;background:#3b63a9;font-weight:bold" actionListener="#{encuestaController.abrirDialogoCuentas()}" update="dlgwdlListaCuentas"/> 
+                                     </h:panelGrid>
+                                    </h:form>
+                                <h:form id="CuentaPreguntas">
+                                     <h:panelGrid id="infoCuenta" columns="4">
+                                        <p:outputLabel value="Cuenta" ></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.objeto.cuenta}" readonly="true" style="width: 600px "  required="true" requiredMessage="No ingresado información de la cuenta"/>
+                                        <p:outputLabel value="Producto" ></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.objeto.nombreProducto}" readonly="true" style="width: 600px " />
+                                        <p:outputLabel value="Asesor" ></p:outputLabel>
+                                        <p:inputText value="#{encuestaController.objeto.nombreUsuario}" readonly="true" style="width: 600px " />
+                                        <p:outputLabel value="TELÉFONO Fijo" ></p:outputLabel>
+                                        <p:inputText id="Telefono" value="#{encuestaController.telefono}" style="width: 600px "><p:keyFilter mask="num" /></p:inputText>
+                                        <p:outputLabel value="Celular" ></p:outputLabel>
+                                        <p:inputText id="Celular"  value="#{encuestaController.celular}" style="width: 600px " required="true" requiredMessage="Obligatorio: Ingrese Numero de Celular"/> 
+                                        <p:outputLabel value="E-mail" ></p:outputLabel>
+                                     <p:inputText value="#{encuestaController.email}" style="width: 600px "/> 
+                                    </h:panelGrid>
+                                    <h:panelGrid id="infoPreguntas" columns="1">
+                                       <h5>Conteste las Siguientes Preguntas. Nota: Especifique la respuesta en caso necesario. Las preguntas obligatorias están indicadas con el signo *</h5>
+                                       <!-- ui:repeat se encarga de itererar la lista lstEncuestaPregunta que contiene las preguntas  -->
+                                         <ui:repeat  value="#{encuestaController.lstEncuestaPregunta}" var="item" varStatus="status" >
+                                             <!-- p:outputLabel se muestra el detalle de la pregunta si no es obligatoria -->
+                                             <p:outputLabel value="#{item.detallePregunta}" rendered="#{item.obligatoria eq 0}"></p:outputLabel>
+                                             <!-- p:outputLabel se muestra el detalle de la pregunta si es obligaroria -->
+                                             <p:outputLabel value="#{item.detallePregunta}" rendered="#{item.obligatoria eq 1}"  indicateRequired="true"></p:outputLabel>
+                                             <!-- En esta opcion se dibuja el Primer selectOneRadio si la pregunta es de tipo selectOneRadio ó el Segundo selectOneRadio si la pregunta es de tipo selectOneRadio y es obligatoria-->
+                                            <h:panelGrid columns="2" rendered="#{item.codTipoPregunta eq 1}" >
+                                                <p:selectOneRadio id="console" value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rendered="#{item.codTipoPregunta eq 1 and item.obligatoria eq 0}" layout="grid" columns="1">
+                                                    <f:selectItems value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="opcion"  itemLabel="#{opcion.nombre}" itemValue="#{opcion.codPreguntaOpcion}" />
+                                                </p:selectOneRadio>
+                                                <p:selectOneRadio id="console2" value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rendered="#{item.codTipoPregunta eq 1 and item.obligatoria eq 1}" layout="grid" columns="1" required="true" requiredMessage="Pregunta Obligatoria"> 
+                                                    <f:selectItems value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="opcion"  itemLabel="#{opcion.nombre}" itemValue="#{opcion.codPreguntaOpcion}" />
+                                                </p:selectOneRadio> 
+                                                <h:panelGrid> 
+                                                     <!-- ui:repeat se encarga de iterar la lista de las opciones , el objetivo es dibujar a la par de las opciones que 
+                                                    requieran justifiacion un inputtext -->
+                                                    <ui:repeat value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="justificacion" rendered="#{item.codTipoPregunta eq 1}">
+                                                        <p:inputText value="respuesta" rendered="#{justificacion.justificacion eq 0}"  style=" width: 500px; visibility: hidden;" disabled="true" ></p:inputText>
+                                                        <p:outputLabel value="Especificar " rendered="#{justificacion.justificacion eq 1}"></p:outputLabel>
+                                                        <p:inputText value="#{encuestaController.mapJus[justificacion.codPreguntaOpcion]}" rendered="#{justificacion.justificacion eq 1}"  style=" width: 500px; visibility: "></p:inputText>
+                                                        <br/>
+                                                    </ui:repeat>  
+                                                </h:panelGrid>
+                                            </h:panelGrid>
+                                             <!-- En esta opcion se dibuja el Primer selectManyCheckbox si la pregunta es de tipo selectManyCheckbox ó el Segundo selectManyCheckbox si la pregunta es de tipo selectManyCheckbox y es obligatoria-->
+                                            <h:panelGrid columns="2" rendered="#{item.codTipoPregunta eq 2}">
+                                                <p:selectManyCheckbox id="basicAjax" value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rendered="#{item.codTipoPregunta eq 2 and item.obligatoria eq 0 }" layout="grid" columns="1" >
+                                                    <f:selectItems value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="opcionM"  itemLabel="#{opcionM.nombre}" itemValue="#{opcionM.codPreguntaOpcion}" />
+                                                </p:selectManyCheckbox>
+                                                <p:selectManyCheckbox id="basicAjax2" value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rendered="#{item.codTipoPregunta eq 2 and item.obligatoria eq 1}" layout="grid" columns="1" required="true" requiredMessage="Pregunta Obligatoria">
+                                                    <f:selectItems value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="opcionM"  itemLabel="#{opcionM.nombre}" itemValue="#{opcionM.codPreguntaOpcion}" />
+                                                </p:selectManyCheckbox>
+                                                <h:panelGrid>
+                                                    <!-- ui:repeat se encarga de iterar la lista de las opciones , el objetivo es dibujar a la par de las opciones que 
+                                                    requieran justifiacion un inputtext -->
+                                                    <ui:repeat value="#{encuestaController.obtenerOpciones(item.codEncuestaPregunta)}" var="justificacionM" rendered="#{item.codTipoPregunta eq 2}">
+                                                        <p:inputText value="respuesta" rendered="#{justificacionM.justificacion eq 0}"  style=" width: 500px; visibility: hidden;" disabled="true" ></p:inputText>
+                                                        <p:outputLabel value="Especificar " rendered="#{justificacionM.justificacion eq 1}"></p:outputLabel>
+                                                        <p:inputText value="#{encuestaController.mapJus[justificacionM.codPreguntaOpcion]}" rendered="#{justificacionM.justificacion eq 1}"  style=" width: 500px;"></p:inputText>
+                                                        <br/>
+                                                    </ui:repeat>  
+                                                </h:panelGrid>
+                                           </h:panelGrid>
+                                              <!-- En esta opcion se dibuja el Primer inputTextarea si la pregunta es de tipo inputTextarea ó el Segundo inputTextarea si la pregunta es de tipo inputTextarea y es obligatoria-->
+                                            <h:panelGrid columns="1" rendered="#{item.codTipoPregunta eq 3}">
+                                                <p:inputTextarea value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rows="5" cols="30" counter="display" maxlength="300" counterTemplate="{0} caracteres restantes"   rendered="#{item.codTipoPregunta eq 3 and item.obligatoria eq 0}"  style=" width: 600px"  ></p:inputTextarea>
+                                                <p:inputTextarea value="#{encuestaController.mapVal[item.codEncuestaPregunta]}" rows="5" cols="30" counter="display" maxlength="300" counterTemplate="{0} caracteres restantes"   rendered="#{item.codTipoPregunta eq 3 and item.obligatoria eq 1}"  style=" width: 600px" required="true" requiredMessage="Pregunta Obligatoria" ></p:inputTextarea>
+                                                <h:outputText id="display" class="block" rendered="#{item.codTipoPregunta eq 3}"/>
+                                                <br/>
+                                            </h:panelGrid> 
+                                            <br/>
+                                         </ui:repeat>
+                                    </h:panelGrid> 
+                                    <center> 
+                                    <p:commandButton widgetVar="btmGuardar" styleClass="buttonOverRed" icon="fa fa-floppy-o" value="GUARDAR ENCUESTA"  actionListener="#{encuestaController.validacionDatos()}" style="color:white;background:#3b63a9;font-weight:bold;" update="msj"/>
+                                 </center>
+                                </h:form>
+                            </center> 
+                        </h:panelGrid>
+                </p:dialog>
+                
+                <!-- Dialogo de Cuentas -->
+                <p:dialog  header="SELECCIONE UNA CUENTA " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaCuentas" id="dlgwdlListaCuentas" showEffect="fold" hideEffect="explode" resizable="false" modal="true" >
+                    <h:form id="formC">
+                        <h:panelGrid id="contenDlg" columns="1">
+                            <center>
+                                <p:dataTable id="tabla1"  emptyMessage="No hay datos" scrollable="true" scrollHeight="300"  style="font-size:10.5px;min-width: 900px;max-width: 900px" value="#{encuestaController.lstCuentas}" var="cu" >
+                                    <p:column headerText="CUENTA" style="width:10px;">
+                                        <p:outputLabel value="#{cu.cuenta}" />
+                                    </p:column>
+                                    <p:column headerText="PRODUCTO" style="width:10px;">
+                                        <p:outputLabel value="#{cu.producto}" />
+                                    </p:column>
+                                    <p:column headerText="NOMBRE PRODUCTO" style="width:10px;">
+                                        <p:outputLabel value="#{cu.nombreProducto}" />
+                                    </p:column>
+                                    <p:column headerText="ASESOR" style="width:10px;">
+                                        <p:outputLabel value="#{cu.nombreUsuario}" />
+                                    </p:column>
+                                    <p:column headerText="SELECT" style="width:10px;background-color: #{us.colorBack_T};">
+                                <center>
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-check-circle" style="color:black;background:gold;font-weight:bold"  immediate="true"  actionListener="#{encuestaController.seleccionar(cu)}" update="dlgEncuesta" oncomplete="PF('wdlListaCuentas').hide();" />
+                                </center>
+                            </p:column>
+                                </p:dataTable>
+                            </center>
+                        </h:panelGrid>
+                    </h:form>  
+                </p:dialog>
+                
+                <!-- Dialogo de Impresion -->
+                <p:dialog  header="Desea imprimir" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlPdf" id="dlgwdlPdf" showEffect="fold" hideEffect="explode" resizable="false" modal="true">
+                    <h:form>
+                        <center>
+                             <h:commandLink id="reporte2"  style="color: maroon; font-weight: bold" value=" IMPRESION EN PDF" target="_black" actionListener="#{encuestaController.verDocumentoPDF()}" />
+                        </center>
+                    </h:form>
+                </p:dialog>
+                
+                <!-- Dialogo de Manual de Usuario -->
+                <p:dialog  header="Manual de Usuario" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1500px; max-height: 900px;" widgetVar="wdlManual" id="dlgwdManual" showEffect="fold" hideEffect="explode" resizable="false" minimizable="true">
+                    <h:form>
+                        <center>
+                            <p:media value="//jasper-encuesta//ManualUsuario.pdf" width="1400px%" height="800px"/>
+                        </center>
+                    </h:form>
+                </p:dialog>
+                
+                <!-- Dialogo de Inactividad -->
+                 <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                   <p:graphicImage name="#{encuestaController.imgLoadin}" />
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

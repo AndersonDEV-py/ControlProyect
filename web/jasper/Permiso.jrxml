@@ -1,0 +1,576 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Permiso" pageWidth="612" pageHeight="792" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6e99cca-04e3-422a-a3f4-46fc5cf9a252">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="528"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[14]]></defaultValueExpression>
+	</parameter>
+	<parameter name="logo" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT [id]
+      ,[fecha_creado]
+      ,[fecha_autorizado]
+      ,[fecha_asigno_desarrollo]
+      ,[fecha_completado]
+      ,[fecha_aceptado]
+      ,[fecha_finalizado]
+      ,[fecha_rechazado]
+      ,[circular]
+      ,[prioridad]
+      ,[nuevo]
+      ,[c_usuario_sol]
+      ,[c_agencia]
+      ,[descripcion]
+      ,R.[nombre]
+      ,[c_desarrollador]
+      ,[fecha_autorizado_area]
+      ,[c_usuario_area]
+      ,[c_usuario_jefe_p]
+      ,[c_area]
+      ,[aplicativo]
+      ,[especifique_otros]
+      ,[tipo_comando]
+      ,[ambiente]
+      ,[cantidad_registros_a]
+      ,[tipo_objeto]
+      ,[nombre_objeto]
+      ,[c_dba]
+      ,[fecha_inicio_permiso]
+      ,[fecha_fin_permiso]
+      ,[id_req_padre]
+      ,[tipo_registro]
+      ,R.[estado]
+      ,E.Nombre as d_usuario_area
+      ,E2.Nombre as d_desarrollador
+      ,E3.Nombre as d_jefe_p
+      ,E4.Nombre as d_dba
+  FROM [SGR].[dbo].[GP_REQUERIMIENTO] R
+  left join [SGR].[dbo].Empleados E on R.c_usuario_area=E.Empleado_Id
+  left join [SGR].[dbo].Empleados E2 on R.c_usuario_sol=E2.Empleado_Id
+  left join [SGR].[dbo].Empleados E3 on R.c_usuario_jefe_p=E3.Empleado_Id
+  left join [SGR].[dbo].Empleados E4 on R.c_dba=E4.Empleado_Id
+  where R.id=$P{id}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="fecha_creado" class="java.sql.Timestamp"/>
+	<field name="fecha_autorizado" class="java.sql.Timestamp"/>
+	<field name="fecha_asigno_desarrollo" class="java.sql.Timestamp"/>
+	<field name="fecha_completado" class="java.sql.Timestamp"/>
+	<field name="fecha_aceptado" class="java.sql.Timestamp"/>
+	<field name="fecha_finalizado" class="java.sql.Timestamp"/>
+	<field name="fecha_rechazado" class="java.sql.Timestamp"/>
+	<field name="circular" class="java.lang.String"/>
+	<field name="prioridad" class="java.lang.String"/>
+	<field name="nuevo" class="java.lang.String"/>
+	<field name="c_usuario_sol" class="java.lang.String"/>
+	<field name="c_agencia" class="java.lang.String"/>
+	<field name="descripcion" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="c_desarrollador" class="java.lang.String"/>
+	<field name="fecha_autorizado_area" class="java.sql.Timestamp"/>
+	<field name="c_usuario_area" class="java.lang.String"/>
+	<field name="c_usuario_jefe_p" class="java.lang.String"/>
+	<field name="c_area" class="java.lang.String"/>
+	<field name="aplicativo" class="java.lang.String"/>
+	<field name="especifique_otros" class="java.lang.String"/>
+	<field name="tipo_comando" class="java.lang.String"/>
+	<field name="ambiente" class="java.lang.String"/>
+	<field name="cantidad_registros_a" class="java.lang.Integer"/>
+	<field name="tipo_objeto" class="java.lang.String"/>
+	<field name="nombre_objeto" class="java.lang.String"/>
+	<field name="c_dba" class="java.lang.String"/>
+	<field name="fecha_inicio_permiso" class="java.sql.Timestamp"/>
+	<field name="fecha_fin_permiso" class="java.sql.Timestamp"/>
+	<field name="id_req_padre" class="java.lang.Integer"/>
+	<field name="tipo_registro" class="java.lang.String"/>
+	<field name="estado" class="java.lang.String"/>
+	<field name="d_usuario_area" class="java.lang.String"/>
+	<field name="d_desarrollador" class="java.lang.String"/>
+	<field name="d_jefe_p" class="java.lang.String"/>
+	<field name="d_dba" class="java.lang.String"/>
+	<title>
+		<band height="750" splitType="Stretch">
+			<textField>
+				<reportElement x="241" y="60" width="46" height="20" uuid="6732e0c3-3ac5-44bb-880a-cf8c709d62e9"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Update_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="0" y="0" width="572" height="17" uuid="f6d69d30-585f-43ea-abcb-6538d58b5793"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD DE PERMISOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="15" y="62" width="131" height="19" uuid="c258789f-ab69-405d-96f1-fb03af2dec2e"/>
+				<textElement>
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[TIPO DE COMANDO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="239" y="81" width="50" height="19" uuid="0b2bba02-a24a-4c27-ab97-1810186db17d"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[UPDATE]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="223" width="106" height="19" uuid="2e1c84d6-b923-44b8-842f-2e381d7c0f26"/>
+				<textElement>
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[TIPO DE OBJETO:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="16" y="262" width="308" height="19" uuid="ec0a736a-50f3-45a0-bc4e-d3f8e2dfce64"/>
+				<textElement>
+					<font size="12" isBold="true" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[MOTIVO DE ACCESO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="123" y="223" width="423" height="20" uuid="e19a80c3-aa16-459e-a341-3a680c13e64b"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{tipo_objeto}]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="222" width="543" height="1" uuid="050543cf-f02d-4ef5-987e-48bad7c3b1d4"/>
+			</line>
+			<textField>
+				<reportElement x="16" y="281" width="530" height="196" uuid="aa7ea5c5-4417-4a23-833f-5f420c08a098"/>
+				<box topPadding="5" leftPadding="5" rightPadding="5">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textFieldExpression><![CDATA[$F{descripcion}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="RealSize" vAlign="Bottom" isUsingCache="false" onErrorType="Icon">
+				<reportElement x="5" y="0" width="79" height="27" uuid="a3a3d0e5-b3ef-464e-855f-d084e798e0a3"/>
+				<imageExpression><![CDATA[new File($P{logo}+"logo.png")]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="1" y="16" width="572" height="17" uuid="063c042b-7167-4f0c-aa10-3586bcc2a3f8"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[AREA BASE DE DATOS]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="33" width="572" height="17" uuid="8b05449d-4aa6-4118-b8f5-420205134e62"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[DEPTO. TECNOLOGIAS DE INFORMACION]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="332" y="82" width="50" height="19" uuid="70a6f33c-c9fe-4ab0-916f-f236e256c935"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[DELETE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="334" y="61" width="46" height="20" uuid="a63f576a-0a2c-49ac-9db2-b2172a0bd36c"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Delete_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="422" y="61" width="46" height="20" uuid="6af6bf40-756d-4f60-aa15-319a442f737c"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Insert_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="420" y="82" width="50" height="19" uuid="632a5c55-e97f-4c2f-9a9c-212f08bd5761"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[INSERT]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="175" width="193" height="19" uuid="b1b2a850-4753-43f7-8fba-00b910218ab6"/>
+				<textElement>
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[AMBIENTE DE BASE DE DATOS:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="418" y="199" width="50" height="19" uuid="13519ee8-11be-4541-a227-37f1db8812a7"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[TESTING]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="223" y="198" width="71" height="19" uuid="6bba0dc6-5ddf-40a8-bc18-1fabf26c899f"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[PRODUCCION]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="332" y="178" width="46" height="20" uuid="0484ad96-a146-4d12-b9e9-b760cc5f7045"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{ambiente}.contains("Mes_Anterior_TPA")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="310" y="199" width="82" height="19" uuid="a02e1c66-1fec-491a-8af7-476201847fb3"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[MES ANTERIOR]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="420" y="178" width="46" height="20" uuid="581da761-993c-4924-b083-fab9aabdce1d"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{ambiente}.contains("Testing_TPA")?"X":"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="236" y="177" width="46" height="20" uuid="5b97a173-b5f1-4b90-bc6d-0e5e89b563ab"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{ambiente}.contains("Produccion_TPA")?"X":"")]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="54" width="543" height="1" uuid="40ac7518-9f64-4cb5-ad4a-6398ab073b4e"/>
+			</line>
+			<line>
+				<reportElement x="5" y="55" width="1" height="167" uuid="bd5cf685-68fe-4edf-a41d-079c70dacce9"/>
+			</line>
+			<line>
+				<reportElement x="548" y="55" width="1" height="167" uuid="f70e9dbf-cced-4fa7-acbf-4f48ddbcebfc"/>
+			</line>
+			<staticText>
+				<reportElement x="84" y="548" width="100" height="16" uuid="15664c5f-885c-4bca-a9da-cee2dcee38bd"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Solicitado Por:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="48" y="543" width="180" height="1" uuid="06b42d33-c3be-4bbd-93a0-fbf74efbe693"/>
+			</line>
+			<staticText>
+				<reportElement x="53" y="562" width="166" height="16" uuid="997716e7-4c54-4c9e-960a-63956a810975"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[ANALISTA PROGRAMADOR]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="17" y="575" width="262" height="16" uuid="aa10d023-b047-493b-9761-f898e1bdaa2a"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_desarrollador}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="562" width="134" height="16" uuid="e3fcd80e-9fa9-4a2c-99af-895c6ed849db"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[JEFE PROYECTO]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="294" y="575" width="255" height="16" uuid="1267208b-bae7-4f3e-b042-4943a4b372a1"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_jefe_p}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="369" y="548" width="100" height="16" uuid="ae1e0d4c-16ba-4292-aaef-675a185288aa"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Autorizado Por:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="333" y="543" width="180" height="1" uuid="7c7c4b21-93e1-48b2-a618-7d80bcaba788"/>
+			</line>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="61" y="591" width="141" height="16" uuid="686a02c6-3e58-4cb2-b46e-6c94dccd19f8"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_creado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="351" y="591" width="141" height="16" uuid="ed0de259-2225-4ba8-81db-dbf86febdc6b"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_autorizado}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="71" y="721" width="141" height="16" uuid="657ca644-9b8d-42cb-9c92-6547ec29d175"/>
+				<textElement textAlignment="Center"/>
+				<textFieldExpression><![CDATA[$F{fecha_autorizado_area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="63" y="692" width="166" height="16" uuid="5b761f7d-cfd8-4c7b-8c55-a3bc13267882"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[GERENTE O JEFE AREA]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="27" y="705" width="262" height="16" uuid="ee82c26c-b9f5-44a7-82b9-9da851765f1a"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_usuario_area}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="94" y="678" width="100" height="16" uuid="cd5cff0a-255a-4f8c-9c32-87411c359d01"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Vo. Bo.:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="58" y="673" width="180" height="1" uuid="ebaa53a8-7ed9-4a02-885a-5856a3b1b207"/>
+			</line>
+			<staticText>
+				<reportElement x="338" y="692" width="166" height="16" uuid="8351e9cb-cbdc-4a45-82ef-c793edbc3071"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[DBA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="369" y="678" width="100" height="16" uuid="22620648-0d21-4ede-8062-1d1d43a4b59c"/>
+				<textElement textAlignment="Center">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Ejecutado Por:]]></text>
+			</staticText>
+			<line>
+				<reportElement x="333" y="673" width="180" height="1" uuid="148c6c76-9e77-448a-b57a-cee625b02c6b"/>
+			</line>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="401" y="721" width="96" height="14" uuid="cc189eef-fd48-4690-b6e9-5fa4931ea74a"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_inicio_permiso}]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="302" y="705" width="262" height="16" uuid="9af07533-ddb2-4c9b-a5df-0488c306506b"/>
+				<textElement textAlignment="Center" markup="none">
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{d_dba}]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="85" y="478" width="106" height="65" uuid="2bb0205d-ecd6-43e6-b8e2-1558bc66d4f9"/>
+				<imageExpression><![CDATA["\\\\Helpdesk\\Angie\\Prueba_firmas\\"+$F{c_usuario_sol}+".jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="362" y="478" width="106" height="65" uuid="f5b41ac1-32ae-4a34-87ad-f906220d8b91"/>
+				<imageExpression><![CDATA["\\\\Helpdesk\\Angie\\Prueba_firmas\\"+$F{c_usuario_jefe_p}+".jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="79" y="608" width="106" height="65" uuid="384e7434-ee26-4473-917d-177550002648"/>
+				<imageExpression><![CDATA["\\\\Helpdesk\\Angie\\Prueba_firmas\\"+$F{c_usuario_area}+".jpg"]]></imageExpression>
+			</image>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="371" y="608" width="106" height="65" uuid="902dd627-98a5-4c2b-8591-a8de405a95e8"/>
+				<imageExpression><![CDATA["\\\\Helpdesk\\Angie\\Prueba_firmas\\"+$F{c_dba}+".jpg"]]></imageExpression>
+			</image>
+			<staticText>
+				<reportElement x="164" y="83" width="50" height="19" uuid="02914c03-1304-449c-9039-15b80077bc80"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[SELECT]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="166" y="62" width="46" height="20" uuid="35f81562-9dd9-4605-a234-6062261b42eb"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Select_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="166" y="117" width="46" height="20" uuid="45d1c1e5-3a56-4521-9d09-950bae1296ec"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Truncate_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="157" y="138" width="68" height="19" uuid="de7fb7b6-cce9-4e9e-854e-e2f185d12f18"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[TRUNCATE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="243" y="116" width="46" height="20" uuid="97df8d8e-8b32-4bde-af23-a0914d4d21f4"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Excecute_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="234" y="137" width="68" height="19" uuid="db519af4-2aa4-4e1e-8848-7eac8b03cdec"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[EXCECUTE]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="333" y="116" width="46" height="20" uuid="47fd86cc-9c75-46a5-9542-283b86f7d3f2"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Debug_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="324" y="137" width="68" height="19" uuid="9c299406-79ac-4d23-b6ae-7e397639c4a1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[DEBUG]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="424" y="116" width="46" height="20" uuid="3170105f-e9ae-44cf-b8f8-8963023dd322"/>
+				<box>
+					<pen lineWidth="2.5"/>
+					<topPen lineWidth="2.5"/>
+					<leftPen lineWidth="2.5"/>
+					<bottomPen lineWidth="2.5"/>
+					<rightPen lineWidth="2.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle"/>
+				<textFieldExpression><![CDATA[($F{tipo_comando}.contains("Drop_TPP")?"X":"")]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="415" y="137" width="68" height="19" uuid="eb326c3a-cdd7-49b5-8b33-ce5f7a0a0905"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="10" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[DROP]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="17" y="242" width="140" height="19" uuid="7a47ca61-aa59-415d-8237-447d3e1f59af"/>
+				<textElement>
+					<font size="12" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[NOMBRE DE OBJETO:]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="157" y="241" width="389" height="20" uuid="74120165-c3fc-427c-a020-00a0cbe6e0bb"/>
+				<box>
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Left"/>
+				<textFieldExpression><![CDATA[$F{nombre_objeto}]]></textFieldExpression>
+			</textField>
+			<textField pattern="dd/MM/yyyy HH:mm:ss" isBlankWhenNull="true">
+				<reportElement x="401" y="733" width="96" height="14" uuid="c36752c1-b66b-45d3-9469-c3576c795b13"/>
+				<textElement textAlignment="Left">
+					<font size="9"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{fecha_fin_permiso}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="353" y="721" width="49" height="15" uuid="8aa57b5f-3053-462f-b611-79bd32d70981"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F/H Inicio:]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="352" y="732" width="49" height="15" uuid="45c02fac-ee65-4b4f-a1f1-339eeb1b1e29"/>
+				<textElement>
+					<font size="9" isBold="true"/>
+				</textElement>
+				<text><![CDATA[F/H Fin:]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

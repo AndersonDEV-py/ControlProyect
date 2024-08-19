@@ -1,0 +1,1580 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="bodyJR">
+                <p:growl id="msj" showDetail="true"/>
+
+                <h:form id="form">
+
+
+                    <center>
+
+                        <p:tabView style="font-size:14px;" dynamic="true" cache="true" activeIndex="0">
+                            <p:tab title="PANEL DE DESARROLLADORES"  >
+                                <f:facet name="actions" >
+                                    <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold"/>
+                                      
+                                </f:facet>
+                                <h:panelGrid columns="2" >
+                                    <p:panel header="Requerimientos"  footer="Requerimientos Asignados" style="min-width: 500px">
+                                        <h:panelGrid columns="1"  >
+                                            <p:dataTable id="tabla1"  emptyMessage="No hay datos" scrollable="true" scrollHeight="177"  style="font-size:10px;min-width: 500px" value="#{admDesarrolloController.lstReq}" var="req" >
+
+                                                <p:column headerText="ID" style="width:10px;background-color: #{req.colorBack_R}">
+                                                    <p:outputLabel value="#{req.id}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE REQU" style="width:70px;background-color: #{req.colorBack_R}">
+                                                    <p:outputLabel value="#{req.nombre_corto}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:20px;background-color: #{req.colorBack_R}">
+                                                    <p:outputLabel value="#{req.estado}" />
+                                                </p:column>
+                                                <p:column headerText="VER" style="width:20px;background-color: #{req.colorBack_R}">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  actionListener="#{admDesarrolloController.modificar(req)}"  oncomplete="PF('wdlRequerimiento').show();" update="dlgRequerimiento"   />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+                                    <p:panel header="Casos de Ayuda" footer="Casos" style="min-width: 500px">
+                                        <h:panelGrid columns="1" >
+                                            <p:dataTable id="tabla2" emptyMessage="No hay datos" scrollable="true" scrollHeight="177"  style="font-size:10px;min-width: 500px" value="#{admDesarrolloController.lstCasos}"  var="cas" >
+                                                <p:column headerText="ID" style="width:10px;background-color: #{cas.colorBack_R}">
+                                                    <p:outputLabel value="#{cas.id}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE REQU" style="width:70px;background-color: #{cas.colorBack_R}">
+                                                    <p:outputLabel value="#{cas.nombre_corto}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:20px;background-color: #{cas.colorBack_R}">
+                                                    <p:outputLabel value="#{cas.estado}" />
+                                                </p:column>
+                                                <p:column headerText="VER" style="width:20px;background-color: #{cas.colorBack_R}">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDesarrolloController.modificar(cas)}"  oncomplete="PF('wdlCaso').show();" update="dlgCaso"   />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+
+                                    <h:panelGrid columns="2" >
+                                        <p:fieldset legend="¿Que hice hoy?" style="margin-bottom:20px;min-width: 200px">
+                                            <h:panelGrid columns="1" cellpadding="5">
+                                                <p:commandButton styleClass="buttonOverRed" icon="fa fa-list-alt" value="LLENAR DAILY" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold"  actionListener="#{admDesarrolloController.nuevoDiario()}" oncomplete="PF('wdlDiario').show();"  update="msj dlgDiario"   />
+                                            </h:panelGrid>
+                                        </p:fieldset>
+
+
+
+
+                                    </h:panelGrid>
+                                    <p:panel header="Solicitudes Ayuda" footer="Solicitudes de Ayuda Enviadas" style="min-width: 500px">
+                                        <h:panelGrid columns="1" >
+                                            <p:dataTable id="tabla3" emptyMessage="No hay datos" scrollable="true" scrollHeight="177"  style="font-size:10px;min-width: 500px" value="#{admDesarrolloController.lstAyuda}"  var="ayu" >
+                                                <p:column headerText="ID|ID_REQ" style="width:10px;background-color: #{ayu.colorBack_T};">
+                                                    <p:outputLabel value="#{ayu.id}|#{ayu.id_req_padre}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE REQU" style="width:70px;background-color: #{ayu.colorBack_T};">
+                                                    <p:outputLabel value="#{ayu.nombre_corto}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:25px;background-color: #{ayu.colorBack_T};">
+                                                    <p:outputLabel value="#{ayu.estado}" />
+                                                </p:column>
+                                                <p:column headerText="VER" style="width:10px;background-color: #{ayu.colorBack_T};">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDesarrolloController.ver_ayuda_enviada(ayu)}"  update="dlgEjecutaSQL dlgPermiso"   />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+
+
+                                </h:panelGrid>
+
+                            </p:tab>
+                            <p:tab title="HISTORIAL SOLICITUDES"  >
+
+                                <h:panelGrid columns="7" >
+
+                                    <p:outputLabel value="Nom.Proyecto:"   />
+                                    <p:inputText style="width:150px" id="txtnom" value="#{admDesarrolloController.fil_nombre_proye}" />
+
+                                    <p:outputLabel value="Tipo:"   />  
+                                    <p:selectOneMenu  value="#{admDesarrolloController.fil_tipo}" effect="fold" style="width:160px">
+                                        <f:selectItem  itemLabel="Requerimiento" itemValue="R"/>
+                                        <f:selectItem  itemLabel="Casos Ayuda" itemValue="C"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Estado:"   />   
+                                    <p:selectOneMenu id="estado"  value="#{admDesarrolloController.fil_estado}" effect="fold" style="width:170px">
+                                        <f:selectItem  itemLabel="Todos" itemValue=""/>
+                                        <f:selectItem  itemLabel="En Desarrollo" itemValue="En Desarrollo"/>
+                                        <f:selectItem  itemLabel="Completado" itemValue="Completado"/>
+                                        <f:selectItem  itemLabel="Aceptado" itemValue="Aceptado"/>
+                                        <f:selectItem  itemLabel="Finalizado" itemValue="Finalizado"/>
+
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-calendar" value="FECHAS" style="color:white;background:#3b63a9;font-weight:bold"  oncomplete="PF('wdlFechas').show();" update="dlgFechas" />
+
+
+                                    <h:commandLink title="Exportar a Excel" style="border-color: #000000">
+                                        <p:graphicImage name="images/export/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tabla4"   fileName="Historial_Req" />
+                                    </h:commandLink>
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-refresh" value="CONSULTAR"  actionListener="#{admDesarrolloController.listarReq('x')}" style="color:white;background:#3b63a9;font-weight:bold" update="form" />
+                                </h:panelGrid>
+
+
+                                <p:dataTable id="tabla4" styleClass="tabla"  emptyMessage="No hay resultados para los parametros establecidos" scrollable="true" scrollHeight="500"  style="font-size:9px;min-width: 1000px" value="#{admDesarrolloController.lstHistorial}" var="his" >
+
+                                    <p:column headerText="ID" style="width:10px">
+                                        <p:outputLabel value="#{his.id}" />
+                                    </p:column>
+
+                                    <p:column headerText="NOMBRE PROYECTO" style="width:80px;font-size:10px;" sortBy="#{his.nombre_corto}">
+                                        <p:outputLabel value="#{his.nombre_corto}" />
+                                    </p:column>
+                                    <p:column headerText="USUARIO SOLICITA" style="width:90px;font-size:10px;" sortBy="#{his.d_usuario}">
+                                        <p:outputLabel value="#{his.d_usuario}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA RECEPCION" style="width:40px;font-size:10px;" sortBy="#{his.fecha}">
+                                        <p:outputLabel value="#{his.fecha}" />
+                                    </p:column>
+                                    <p:column headerText="PRIORIDAD" style="width:20px;font-size:10px;" sortBy="#{his.prioridad}">
+                                        <p:outputLabel value="#{his.prioridad}" />
+                                    </p:column>
+                                    <p:column headerText="ESTADO" style="width:40px;font-size:10px;" sortBy="#{his.estado}">
+                                        <p:outputLabel value="#{his.estado}" />
+                                    </p:column>
+
+                                    <p:column headerText="DESARROLLADOR" width="0" styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.d_developer}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA_AUTORIZADO_TI" width="0" styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.fecha_autorizado}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA_ASIGNO_DESARROLLO" width="0"  styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.fecha_asginado_dev}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA_COMPLETADO" width="0" styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.fecha_completado}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA_ACEPTADO_AREA" width="0" styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.fecha_aceptado}" />
+                                    </p:column>
+                                    <p:column headerText="FECHA_FINALIZADO" width="0" styleClass="vd-hidden-column">
+                                        <p:outputLabel value="#{his.fecha_finalizado}" />
+                                    </p:column>
+
+                                    <p:column headerText="VER" style="width:20px" exportable="false">
+                                        <center>
+                                            <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDesarrolloController.ver_modificar(his)}"  update="dlgRequerimiento dlgCaso"   />
+                                        </center>
+                                    </p:column>
+
+                                </p:dataTable>
+
+
+
+
+
+                            </p:tab>
+
+                        </p:tabView>
+                    </center>
+                </h:form>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <center>
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
+                    </center>
+                </p:confirmDialog> 
+
+
+
+
+
+                <!-- Venta Dialogos -->
+
+
+                <p:dialog  header="REQUERIMIENTO ##{admDesarrolloController.objeto.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlRequerimiento" id="dlgRequerimiento" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formReq">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objeto.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objeto.fecha}" style="width:90px"/>
+                                    <p:outputLabel   value="CIRCULAR"></p:outputLabel>
+                                    <p:inputText  value="#{admDesarrolloController.objeto.circular}" style="width:100px"/>
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="3" cellpadding="5">
+                                <p:fieldset legend="Prioridad" style="margin-bottom:5px">
+                                    <p:selectOneRadio id="prioridad" value="#{admDesarrolloController.objeto.prioridad}" >
+                                        <f:selectItem itemLabel="Baja" itemValue="Baja" />
+                                        <f:selectItem itemLabel="Media" itemValue="Media" />
+                                        <f:selectItem itemLabel="Alta" itemValue="Alta" />
+                                    </p:selectOneRadio>
+
+                                </p:fieldset>
+                                <p:fieldset legend="Tipo" style="margin-bottom:5px">
+                                    <p:selectOneRadio id="tipo" value="#{admDesarrolloController.objeto.nuevo}" >
+                                        <f:selectItem itemLabel="Nuevo" itemValue="S" />
+                                        <f:selectItem itemLabel="Modificacion" itemValue="M" />
+
+                                    </p:selectOneRadio>
+
+                                </p:fieldset>
+
+                                <p:fieldset legend="Adjuntos(#{admDesarrolloController.objeto.lstDocument.size()}) " style="margin-bottom:5px">
+                                    <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle"  value="Documentos" oncomplete="PF('wdlAdjunto').show();" update="dlgAdjunto"/>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="NOMBRE REQUERIMIENTO:"></p:outputLabel>
+                                <p:inputText  value="#{admDesarrolloController.objeto.nombre_corto}"   />
+                                <h:panelGrid   columns="#{admDesarrolloController.procesando.equalsIgnoreCase('VER')?2:1}">
+
+
+                                    <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDesarrolloController.verRequerimeintoPDF('RequerimientoP')}" />
+
+                                    <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('VER')?true:false}" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Ayudas" oncomplete="PF('wdlDocumentacion').show();" actionListener="#{admDesarrolloController.listarDocumentacionRequerimiento()}" immediate="true" update="dlgDocumentacion"/>
+                                    <h:commandLink id="reporte2" value="Ver Formato Finalizacion" target="_black" actionListener="#{admDesarrolloController.verFormadoFin2PDF('Aceptacion')}" />
+                                </h:panelGrid>    
+                            </h:panelGrid>
+
+
+
+                            <p:outputLabel style="font-weight:bold"  value="BREVE DESCRIPCION DEL REQUERIMIENTO:"></p:outputLabel>
+                            <p:inputTextarea  rows="8" cols="60" value="#{admDesarrolloController.objeto.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('COMPLETAR')?false:true}" disabled="#{admDesarrolloController.disable_bt_completar()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" oncomplete="PF('wdlCompletado').show();PF('wdlRequerimiento').hide();" actionListener="#{admDesarrolloController.nuevo_Completar('R')}"  value="COMPLETAR" update="msj form dlgCompletado" immediate="true"  >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDesarrolloController.disable_bt_completar()}"  style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-play-circle" oncomplete="PF('wdlTipoCaso').show();"  value="SOLICITAR AYUDA" update="msj form :dlgTipoCaso" >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlRequerimiento').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+
+                <!-- OTRO DIALOGO -->
+                <p:dialog  header="CASO ##{admDesarrolloController.objeto.id}  ASIGNADO: #{admDesarrolloController.objeto.d_developer} " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCaso" id="dlgCaso" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCaso">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objeto.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objeto.fecha}" style="width:90px"/>
+                                    <p:outputLabel   value="AGENCIA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objeto.d_agencia}" style="width:100px"/>
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Aplicativo Con Problemas:" >
+                                    <p:selectManyCheckbox  id="aplicativo" value="#{admDesarrolloController.objeto.aplicativo}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Clientes" itemValue="Clientes_AP" />
+                                        <f:selectItem itemLabel="Solicitudes" itemValue="Solicitudes_AP" />
+                                        <f:selectItem itemLabel="Prestamos" itemValue="Prestamos_AP" />
+                                        <f:selectItem itemLabel="Garantias" itemValue="Garantias_AP" />
+                                        <f:selectItem itemLabel="Cuentas Ahorro" itemValue="Cuentas_Ahorro_AP" />
+                                        <f:selectItem itemLabel="Deposito Plazo" itemValue="Deposito_Plazo_AP" />
+                                        <f:selectItem itemLabel="Venta Seguros" itemValue="Venta_Seguros_AP" />
+                                        <f:selectItem itemLabel="Caja" itemValue="Caja_AP" />
+                                        <f:selectItem itemLabel="Contabilidad" itemValue="Contabilidad_AP" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros_AP" >
+
+                                        </f:selectItem>
+
+                                    </p:selectManyCheckbox>
+                                    <p:inputText placeholder="Especifique otros.." value="#{admDesarrolloController.objeto.especifique_otro}" style="width:450px"/>
+                                </p:fieldset>
+
+                                <p:fieldset legend="Adjuntos(#{admDesarrolloController.objeto.lstDocument.size()})" style="margin-bottom:5px">
+                                    <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle"  value="Documentos" oncomplete="PF('wdlAdjunto').show();" update="dlgAdjunto"/>
+                                </p:fieldset>
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="NOMBRE DEL CASO:"></p:outputLabel>
+                                <p:inputText  value="#{admDesarrolloController.objeto.nombre_corto}"   />
+                                <h:panelGrid   columns="#{admDesarrolloController.procesando.equalsIgnoreCase('VER')?2:1}">
+
+
+                                    <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDesarrolloController.verRequerimeintoPDF('CasoAyuda')}" />
+                                    <p:commandButton styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('VER')?true:false}" icon="fa fa-dedent"   value="Ayudas" oncomplete="PF('wdlDocumentacion').show();" actionListener="#{admDesarrolloController.listarDocumentacionRequerimiento()}" immediate="true" update="dlgDocumentacion"/>
+                                    <h:commandLink id="reporte2" value="Ver Formato Finalizacion" target="_black" actionListener="#{admDesarrolloController.verFormadoFin2PDF('Aceptacion')}" />
+                                </h:panelGrid>
+                            </h:panelGrid>
+
+
+                            <p:outputLabel style="font-weight:bold"  value="BREVE DESCRIPCION DEL PROBLEMA:"></p:outputLabel>
+                            <p:inputTextarea  rows="8" cols="60" value="#{admDesarrolloController.objeto.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('COMPLETAR')?false:true}" disabled="#{admDesarrolloController.disable_bt_completar_c()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" oncomplete="PF('wdlCompletado').show();PF('wdlCaso').hide();" actionListener="#{admDesarrolloController.nuevo_Completar('C')}"  value="COMPLETAR" update="msj form dlgCompletado" immediate="true"  >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{admDesarrolloController.disable_bt_completar_c()}" rendered="#{admDesarrolloController.disable_bt_aceptar_c()}" style="color:white;background:red ;font-weight:bold" icon="fa fa-close"   actionListener="#{admDesarrolloController.rechazarCaso()}"  update="msj form"  value="RECHAZAR CASO" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar este Caso ##{admDesarrolloController.objeto.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed"  rendered="#{!admDesarrolloController.disable_bt_aceptar_c()}" disabled="#{admDesarrolloController.disable_bt_aceptar_c()}" style="color:black;background: aqua;font-weight:bold" icon="fa fa-plug"   actionListener="#{admDesarrolloController.aceptarCaso()}"  update="msj form"  value="ACEPTAR CASO" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Tomar este Caso ##{admDesarrolloController.objeto.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDesarrolloController.disable_bt_completar_c()}" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-play-circle"  oncomplete="PF('wdlTipoCaso').show();"  value="SOLICITAR AYUDA" update="msj form :dlgTipoCaso" >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlCaso').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <!-- Archivos Adjuntos-->
+                <p:dialog  header="Adjuntos"  style="font-size:14px;background:#DEDDDD;" widgetVar="wdlAdjunto" id="dlgAdjunto" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formAdjunto" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="2" >
+                            <p:panelGrid   columns="1" >
+                                <h4>Lista de archivos Agregados</h4>
+                                <p:dataTable id="tablaA" emptyMessage="No hay documentos" scrollable="true" scrollHeight="177"  style="width: 400px;height: 200px; font-size:12px;;font-weight:bold" value="#{admDesarrolloController.objeto.lstDocument}" var="do" >
+
+                                    <p:column headerText="Documento" style="width:80px; background-color: #{do.color}">
+                                        <p:outputLabel value="#{do.nombre}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ver" style="width:20px; background-color: #{do.color}">
+                                        <center>
+                                            <p:commandButton id="downloadLink" rendered="#{do.estado==1?true:false}" icon="fa fa-arrow-circle-down"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{admDesarrolloController.objeto.prepDownload(do)}">
+                                                <p:fileDownload value="#{admDesarrolloController.objeto.download}" />
+                                            </p:commandButton>
+
+                                        </center>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:panelGrid>
+
+
+
+
+                        </p:panelGrid>
+
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlAdjunto').hide();"  value="CERRAR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- DIALOGO  OPCION-->
+                <p:dialog  header="TIPO DE AYUDA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlTipoCaso" id="dlgTipoCaso" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formTipoCaso">  
+                        <h:panelGrid   columns="1" cellpadding="5">
+                            <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-flash" oncomplete="PF('wdlTipoCaso').hide();PF('wdlRequerimiento').hide();PF('wdlCaso').hide();PF('wdlEjecutaSQL').show();" actionListener="#{admDesarrolloController.nueva_Ayuda('Ejecutar SQL')}" value="EJECUTAR SCRIPT SQL &nbsp;&nbsp;&nbsp;" update="formEjecuta" >
+                            </p:commandButton>
+                            <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-unlock" oncomplete="PF('wdlTipoCaso').hide();PF('wdlRequerimiento').hide();PF('wdlCaso').hide();PF('wdlPermiso').show();" actionListener="#{admDesarrolloController.nueva_Ayuda('Permiso Sobre Objeto')}" value="PERMISO SOBRE OBJETO" update="formPermiso">
+                            </p:commandButton>
+                            <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-paperclip" oncomplete="PF('wdlTipoCaso').hide();PF('wdlRequerimiento').hide();PF('wdlCaso').hide();PF('wdlArchivo').show();" actionListener="#{admDesarrolloController.listarArchivos()}" value="ARCHIVO DEL SISTEMA" update="formArchivo dlgArchivo">
+                            </p:commandButton>
+                            <p:commandButton rendered="#{admDesarrolloController.objeto.tipo_registro.equalsIgnoreCase('R')?true:false}" styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-paperclip" oncomplete="PF('wdlTipoCaso').hide();PF('wdlRequerimiento').hide();PF('wdlCaso').hide();PF('wdlEstructuras').show();" actionListener="#{admDesarrolloController.listarSolicitudEstructuras()}" value="CAMBIO EN ESTRUCTURAS" update="formArchivo dlgEstructuras">
+                            </p:commandButton>
+                        </h:panelGrid>
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlTipoCaso').hide();"  value="CERRAR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <!-- DIALOGO EJEUCTAR SQL-->
+                <p:dialog  header="AYUDA A EJECUTAR SCRIPT ##{admDesarrolloController.objetoSecundario.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlEjecutaSQL" id="dlgEjecutaSQL" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formEjecuta">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objetoSecundario.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objetoSecundario.fecha}" style="width:90px"/>
+
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Tipo de Comando:" >
+                                    <p:selectManyCheckbox  id="tipoComando" required="true" requiredMessage="Seleccione tipo de comando" value="#{admDesarrolloController.objetoSecundario.tipo_comando}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Update" itemValue="Update_TPC" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_TPC" />
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_TPC" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                                <p:fieldset legend="Ambiente Base de Datos:" >
+                                    <p:selectOneRadio  id="ambiente" required="true" requiredMessage="Seleccione Ambiente" value="#{admDesarrolloController.objetoSecundario.ambiente}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Produccion" itemValue="Produccion_TPA" />
+                                        <f:selectItem itemLabel="Mes Anterior" itemValue="Mes_Anterior_TPA" />
+                                        <f:selectItem itemLabel="Testing" itemValue="Testing_TPA" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="Cantidad de Registros Afectados:"></p:outputLabel>
+                                <p:inputNumber decimalPlaces="0" required="true" requiredMessage="Ingrese la cantidad de Registros Afectados" value="#{admDesarrolloController.objetoSecundario.cant_reg_afec}"   />
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="2">    
+                                <p:commandButton styleClass="buttonOverRed"  style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Ver Requerimiento de Origen y la Documentacion" actionListener="#{admDesarrolloController.ver_ayuda_Origen()}" update="msj dlgRequerimiento dlgCaso" immediate="true"/>
+                                <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDesarrolloController.verFormadoSQLPermisoPDF('EjecutarSQL')}" />
+                            </h:panelGrid>
+
+                            <p:outputLabel style="font-weight:bold"  value="DESCRIPCION DE LO SOLICITADO:"></p:outputLabel>
+                            <p:inputTextarea required="true" requiredMessage="Ingrese la descripcion" rows="8" cols="60" value="#{admDesarrolloController.objetoSecundario.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('COMPLETAR')?false:true}" disabled="#{admDesarrolloController.disable_bt_completar_ayuda()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" actionListener="#{admDesarrolloController.actualizarAyudaEstadoCompletado()}"  value="COMPLETAR" update="msj form" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud ##{admDesarrolloController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDesarrolloController.operacion.equalsIgnoreCase('U')?true:false}" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="GUARDAR AYUDA" actionListener="#{admDesarrolloController.insertarCasoE()}" update="msj form " >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlEjecutaSQL').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- DIALOGO PERMISO SOBRE OBJETO-->
+                <p:dialog  header="AYUDA CON PERMISO SOBRE OBJETO ##{admDesarrolloController.objetoSecundario.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlPermiso" id="dlgPermiso" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formPermiso">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objetoSecundario.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDesarrolloController.objetoSecundario.fecha}" style="width:90px"/>
+
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Tipo de Permiso:" >
+                                    <p:selectManyCheckbox  id="tipoPermiso" required="true" requiredMessage="Seleccione tipo de Permiso" value="#{admDesarrolloController.objetoSecundario.tipo_comando}"  layout="grid" columns="4">
+                                        <f:selectItem itemLabel="Select" itemValue="Select_TPP" />
+                                        <f:selectItem itemLabel="Update" itemValue="Update_TPP" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_TPP" />
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_TPP" />
+                                        <f:selectItem itemLabel="Truncate" itemValue="Truncate_TPP" />
+                                        <f:selectItem itemLabel="Excecute" itemValue="Excecute_TPP" />
+                                        <f:selectItem itemLabel="Debug" itemValue="Debug_TPP" />
+                                        <f:selectItem itemLabel="Drop" itemValue="Drop_TPP" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                                <p:fieldset legend="Ambiente Base de Datos:" >
+                                    <p:selectOneRadio  id="ambiente" required="true" requiredMessage="Seleccione Ambiente" value="#{admDesarrolloController.objetoSecundario.ambiente}"  layout="grid" columns="2">
+                                        <f:selectItem itemLabel="Produccion" itemValue="Produccion_TPA" />
+                                        <f:selectItem itemLabel="Mes Anterior" itemValue="Mes_Anterior_TPA" />
+                                        <f:selectItem itemLabel="Testing" itemValue="Testing_TPA" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="4">
+                                <p:outputLabel   value="Tipo Objeto:"></p:outputLabel>
+                                <p:inputText required="true" requiredMessage="Ingrese tipo de objetos" value="#{admDesarrolloController.objetoSecundario.tipo_objeto}"  />
+                                <p:outputLabel   value="Nombre Objeto:"></p:outputLabel>
+                                <p:inputText required="true" requiredMessage="Ingrese nombre de objetos" value="#{admDesarrolloController.objetoSecundario.nombre_objeto}"   />
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="2">
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.operacion.equalsIgnoreCase('U')?true:false}" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Ver Requerimiento de Origen y la Documentacion" actionListener="#{admDesarrolloController.ver_ayuda_Origen()}" update="dlgRequerimiento dlgCaso"/>
+                                <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDesarrolloController.verFormadoSQLPermisoPDF('Permiso')}" />
+                            </h:panelGrid>
+
+                            <p:outputLabel style="font-weight:bold"  value="DESCRIPCION DE LO SOLICITADO:"></p:outputLabel>
+                            <p:inputTextarea required="true" requiredMessage="Ingrese la descripcion" rows="8" cols="60" value="#{admDesarrolloController.objetoSecundario.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.procesando.equalsIgnoreCase('COMPLETAR')?false:true}" disabled="#{admDesarrolloController.disable_bt_completar_ayuda()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" actionListener="#{admDesarrolloController.actualizarAyudaEstadoCompletado()}"  value="COMPLETAR" update="msj form" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud ##{admDesarrolloController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDesarrolloController.operacion.equalsIgnoreCase('U')?true:false}" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="GUARDAR AYUDA" actionListener="#{admDesarrolloController.insertarCasoP()}" update="msj form" >
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlPermiso').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+                <script type="text/javascript">
+                    function nextTab() {
+
+                        PF('tabViewVar').select(1);
+
+                    }
+                </script>
+
+
+                <!-- DIALOGO COMPETADO -->
+                <p:dialog  header="COMPLETAR ##{admDesarrolloController.objetoFinalizacion.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCompletado" id="dlgCompletado" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCompletar">  
+
+                        <p:tabView id="tabViewVar" widgetVar="tabViewVar" style="font-size:14px;background:#DEDDDD;" dynamic="true" cache="true" activeIndex="0">
+
+
+                            <p:tab title="PAGINA #1"  >
+                                <h:panelGrid columns="1">
+                                    <center>
+                                        <h:panelGrid columns="6">
+                                            <p:outputLabel   value="SOLICITADO:"></p:outputLabel>
+                                            <p:inputText readonly="true" value="#{admDesarrolloController.objetoFinalizacion.d_usuario}" style="width:230px"  />
+                                            <p:outputLabel   value="FECHA:"></p:outputLabel>
+                                            <p:inputText readonly="true" value="#{admDesarrolloController.objetoFinalizacion.fecha}" style="width:90px"/>
+                                            <p:outputLabel   value="COMPLETADO:"></p:outputLabel>
+                                            <p:inputText readonly="true" value="#{admDesarrolloController.objetoFinalizacion.fecha_completado}" style="width:90px"/>
+
+                                        </h:panelGrid>
+                                    </center>
+
+                                    <h:panelGrid   columns="2" cellpadding="5">
+                                        <p:fieldset legend="Aplicativo Con Problemas:" >
+                                            <p:selectManyCheckbox  id="aplicativo" required="true" requiredMessage="Seleccione aplicativo" value="#{admDesarrolloController.objetoFinalizacion.aplicativo}"  layout="grid" columns="3">
+                                                <f:selectItem itemLabel="Clientes" itemValue="Clientes_AP" />
+                                                <f:selectItem itemLabel="Solicitudes" itemValue="Solicitudes_AP" />
+                                                <f:selectItem itemLabel="Prestamos" itemValue="Prestamos_AP" />
+                                                <f:selectItem itemLabel="Garantias" itemValue="Garantias_AP" />
+                                                <f:selectItem itemLabel="Cuentas Ahorro" itemValue="Cuentas_Ahorro_AP" />
+                                                <f:selectItem itemLabel="Deposito Plazo" itemValue="Deposito_Plazo_AP" />
+                                                <f:selectItem itemLabel="Venta Seguros" itemValue="Venta_Seguros_AP" />
+                                                <f:selectItem itemLabel="Caja" itemValue="Caja_AP" />
+                                                <f:selectItem itemLabel="Contabilidad" itemValue="Contabilidad_AP" />
+                                                <f:selectItem itemLabel="Otros" itemValue="Otros_AP" />
+
+                                            </p:selectManyCheckbox>
+                                            <p:inputText placeholder="Especifique otros.." value="#{admDesarrolloController.objetoFinalizacion.especifique_otro}" style="width:450px"/>
+                                        </p:fieldset>
+
+                                        <p:fieldset legend="Aplicativo Padre:" >
+                                            <p:selectManyCheckbox  id="aplicativoP" required="true" requiredMessage="Seleccione aplicativo Padre" value="#{admDesarrolloController.objetoFinalizacion.aplicativo_primario}"  layout="grid" columns="1">
+                                                <f:selectItem itemLabel="Topaz" itemValue="Topaz_AP" />
+                                                <f:selectItem itemLabel="Anexos Topaz" itemValue="Anexos_Topaz_AP" />
+                                                <f:selectItem itemLabel="Otros" itemValue="Otros_AP" />
+
+                                            </p:selectManyCheckbox>
+                                            <p:inputText placeholder="Especifique otros.." value="#{admDesarrolloController.objetoFinalizacion.especifique_otro_primario}" style="width:200px"/>
+                                        </p:fieldset>
+
+                                    </h:panelGrid>
+                                    <h:panelGrid   columns="4">
+                                        <p:outputLabel   value="Desarrollador:"></p:outputLabel>
+                                        <p:inputText  value="#{admDesarrolloController.objetoFinalizacion.d_developer}" readonly="true" style="width:350px"  />
+                                        <p:commandButton styleClass="buttonOverRed" rendered="#{admDesarrolloController.operacion.equalsIgnoreCase('U')?false:true}" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Requerimiento Origen" actionListener="#{admDesarrolloController.ver_Origen_Completar()}" immediate="true" update="dlgRequerimiento dlgCaso dlgEjecutaSQL dlgPermiso"/>
+
+                                    </h:panelGrid>
+                                    <p:outputLabel style="font-weight:bold"  value="DETALLE DE LA SOLUCION:"></p:outputLabel>
+                                    <h:panelGrid   columns="2">
+                                        <p:inputTextarea  rows="7" cols="60" value="#{admDesarrolloController.objetoFinalizacion.descripcion_solucion}" autoResize="false" style="width:500px;height: 190px"/>
+
+                                        <p:fieldset legend="Tipo de Archivo:" >
+                                            <p:selectManyCheckbox  id="tipoArchivo"  value="#{admDesarrolloController.objetoFinalizacion.tipo_archivo}"  layout="grid" columns="1">
+                                                <f:selectItem itemLabel="Reporte" itemValue="Reporte_TP" />
+                                                <f:selectItem itemLabel="Operacion" itemValue="Opercion_TP" />
+                                                <f:selectItem itemLabel="Procedimiento Almacedado" itemValue="Procedimiento_TP" />
+                                                <f:selectItem itemLabel="Otros" itemValue="Otros_TP" />
+
+
+                                            </p:selectManyCheckbox>
+                                            <p:inputText placeholder="Especifique otros.." value="#{admDesarrolloController.objetoFinalizacion.especifique_otro_tipo_archivo }" style="width:150px"/>
+                                        </p:fieldset>
+
+
+                                    </h:panelGrid>
+                                    <center>
+                                        <h:panelGrid   columns="5">
+
+                                            <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-step-forward" onclick="nextTab();"  value="SIGUIENTE PAGINA" update="formCompletar:tabViewVar" />
+
+                                        </h:panelGrid>
+                                    </center>
+
+
+
+                                </h:panelGrid>
+                            </p:tab>
+
+                            <p:tab title="PAGINA #2"  >
+                                <h:panelGrid columns="1">
+                                    <p:fieldset legend="Origen de Falla:" >
+                                        <p:selectManyCheckbox  id="origenfalla" value="#{admDesarrolloController.objetoFinalizacion.origen_problema}"  layout="grid" columns="4">
+                                            <f:selectItem itemLabel="Problema Comunicacion" itemValue="Problema_Comunica_OP" />
+                                            <f:selectItem itemLabel="Fallo Impresora" itemValue="Fallo_Impresora_OP" />
+                                            <f:selectItem itemLabel="Falta Conocimiento Politica" itemValue="Falta_Conoc_OP" />
+                                            <f:selectItem itemLabel="Por Aplicativo" itemValue="Por_Aplicativo_OP" />
+                                            <f:selectItem itemLabel="Problema de Saldo" itemValue="Problema_Saldo_OP" />
+                                            <f:selectItem itemLabel="Por Usuario" itemValue="Por_Usuario_OP" />
+                                            <f:selectItem itemLabel="No Conoce el Programa" itemValue="No_Conoce_Pro_OP" />
+                                            <f:selectItem itemLabel="Otro Motivo" itemValue="Otro_OP" />
+
+                                        </p:selectManyCheckbox>
+                                        <center>
+                                            <p:inputText placeholder="Especifique otros.." value="#{admDesarrolloController.objetoFinalizacion.especifique_otro_origen}" style="width:450px"/>
+                                        </center>
+
+                                    </p:fieldset>
+
+                                    <h:panelGrid   columns="2">
+                                        <p:outputLabel   value="Ubicacion del archivo modificado"></p:outputLabel>
+                                        <p:inputText  value="#{admDesarrolloController.objetoFinalizacion.ubicacion_archivo}" style="width:520px"  />
+
+                                    </h:panelGrid>
+                                    <h:panelGrid   columns="4">
+                                        <p:outputLabel   value="Usuario Realizo Pruebas:"></p:outputLabel>
+                                        <p:inputText value="#{admDesarrolloController.objetoFinalizacion.persona_pruebas}"  style="width:200px"  />
+                                        <p:outputLabel  value="Duraccion de Pruebas:"></p:outputLabel>
+                                        <p:inputText  value="#{admDesarrolloController.objetoFinalizacion.duraccion_pruebas}"  style="width:200px"  />
+                                    </h:panelGrid>
+
+                                    <p:outputLabel style="font-weight:bold"  value="Observaciones de las Pruebas:"></p:outputLabel>
+                                    <p:inputTextarea disabled="true" rows="8" cols="60" value="#{admDesarrolloController.objetoFinalizacion.observacion_pruebas}" autoResize="false" style="width:760px;height: 60px"/>
+
+
+                                    <p:fieldset legend="Resolucion:" >
+                                        <p:outputPanel id="customPanel" style="margin-bottom:10px">
+                                            <p:selectOneRadio id="customRadio" value="#{admDesarrolloController.objetoFinalizacion.resolucion}" layout="custom">
+                                                <f:selectItem itemLabel="Aceptacion" itemValue="Aceptacion" />
+                                                <f:selectItem itemLabel="Rechazo" itemValue="Rechazo" />
+                                                <f:selectItem itemLabel="Reformulacion" itemValue="Reformulacion" />
+                                            </p:selectOneRadio>
+
+                                            <h:panelGrid columns="3" cellpadding="5">
+
+                                                <h:panelGrid columns="2" >
+                                                    <p:radioButton id="opt1" for="customRadio" itemIndex="0"  />
+                                                    <h:outputLabel for="opt1" value="Aceptacion" />
+                                                </h:panelGrid>
+                                                <h:panelGrid columns="2" >
+                                                    <p:radioButton id="opt2" for="customRadio" itemIndex="1" />
+                                                    <h:outputLabel for="opt2" value="Rechazo" />
+                                                </h:panelGrid>
+                                                <h:panelGrid columns="2" >
+                                                    <p:radioButton id="opt3" for="customRadio" itemIndex="2" />
+                                                    <h:outputLabel for="opt3" value="Reformulacion" />
+                                                </h:panelGrid>
+
+                                                <p:inputTextarea disabled="true" rows="8" cols="60" value="#{admDesarrolloController.objetoFinalizacion.descripcion_acepto}" autoResize="false" style="width:230px;height: 50px"/>
+                                                <p:inputTextarea disabled="true" rows="8" cols="60" value="#{admDesarrolloController.objetoFinalizacion.descripcion_rechazo}" autoResize="false" style="width:230px;height: 50px"/>
+                                                <p:inputTextarea disabled="true" rows="8" cols="60" value="#{admDesarrolloController.objetoFinalizacion.descripcion_refurmulo}" autoResize="false" style="width:230px;height: 50px"/>
+
+
+                                            </h:panelGrid>
+                                        </p:outputPanel>
+
+
+
+                                    </p:fieldset>
+
+
+                                </h:panelGrid>
+                                <center>
+                                    <h:panelGrid   columns="5">
+                                        <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-step-forward" actionListener="#{admDesarrolloController.actualizarEstadoCompletado()}" value="GUARDAR" update="msj form" />
+                                    </h:panelGrid>
+
+                                </center>
+
+                            </p:tab>
+                        </p:tabView>
+
+
+
+
+                    </h:form>
+                </p:dialog>
+
+                <!-- Dialogo Fechas -->
+                <p:dialog  header="FILTROS DE FECHA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFechas" id="dlgFechas" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFec">  
+                        <p:fieldset legend="Recepcion" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaR1" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaR1}"/>
+                                <p:calendar id="txtfechaR2" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaR2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Asignacion" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaA1" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaA1}"/>
+                                <p:calendar id="txtfechaA2" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaA2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+                        <p:fieldset legend="Completado" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaC1" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaC1}"/>
+                                <p:calendar id="txtfechaC2" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDesarrolloController.fechaC2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlFechas').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- Documentacion-->
+                <p:dialog  header="Documentacion"  style="font-size:14px;background:#DEDDDD;" widgetVar="wdlDocumentacion" id="dlgDocumentacion" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formDocumentacion" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="1" >
+                            <h4>Documentacion</h4>
+                            <p:dataTable id="tablaD" emptyMessage="No hay datos" scrollable="true" scrollHeight="177"  style="width: 600px;height: 200px; font-size:12px;;font-weight:bold" value="#{admDesarrolloController.lstDocuemtacion}" var="doc" >
+
+                                <p:column headerText="ID" style="width:10px;">
+                                    <p:outputLabel value="#{doc.id}" />
+                                </p:column>
+                                <p:column headerText="NOMBRE" style="width:100px;">
+                                    <p:outputLabel value="#{doc.nombre_corto}" />
+                                </p:column>
+                                <p:column headerText="TIPO" style="width:80px;">
+                                    <p:outputLabel value="#{doc.d_tipo_registro}" />
+                                </p:column>
+                                <p:column headerText="ESTADO" style="width:80px;">
+                                    <p:outputLabel value="#{doc.estado}" />
+                                </p:column>
+
+                                <p:column headerText="VER" style="width:20px;">
+                                    <center>                                          
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold" actionListener="#{admDesarrolloController.ver_Origen_Completar(doc)}" immediate="true"  update="dlgCaso dlgPermiso dlgEjecutaSQL dlgRequerimiento dlgCargaProce"   />
+                                    </center>
+                                </p:column>
+                            </p:dataTable>
+
+                        </p:panelGrid>
+
+
+
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlDocumentacion').hide();"  value="CERRAR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>                 
+
+
+
+                <!-- DIALOGO PASAR ARCHIVO-->
+                <p:dialog  header="SOLICITUD DE ARCHIVOS REQUERIMIENTO ##{admDesarrolloController.objeto.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlArchivo" id="dlgArchivo" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formArchivo">  
+
+                        <h:panelGrid columns="1">
+
+                            <h:panelGrid columns="3">
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-download"  oncomplete="PF('wdlDescarga').show();"  value="DESCARGA" actionListener="#{admDesarrolloController.nuevoArchivoDescargaCarga()}" immediate="true" />
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-upload"  oncomplete="PF('wdlCargarNuevo').show();"  value="CARGAR NUEVO" actionListener="#{admDesarrolloController.nuevoArchivoDescargaCarga()}"  immediate="true" />
+
+                                <p:panel header="Simbologia" >
+                                    <h:outputText id="s1" value="Pendiente Recibir" style="background-color: #9E9DAB;font-weight:bold" />
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s2" value="Archivo Recibido"  style="background-color: #06F2F9;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s3" value="Pendiente Subir"  style="background-color: #F7DF31;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s4" value="Completado"  style="background-color: #AEF77F;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s5" value="Denegado"  style="background-color: #FC5342;font-weight:bold"/>
+
+                                    <p:tooltip for="s1" value="Solicitudes pendientes de recibir archivos"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s2" value="Archivo Recibido"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s3" value="Archivo Pendiente de subir al servidor"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s4" value="Solicitud Completada"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s5" value="Solicitud Denegada"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                </p:panel>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="tablaArchivos" emptyMessage="No hay datos" scrollable="true" scrollHeight="177"  style="min-width: 1100px;height: 500px; font-size:12px;;font-weight:bold" value="#{admDesarrolloController.lstArchivos}" var="arc" >
+
+                                <p:column headerText="#" style="width:10px;background-color: #{arc.colorBack}">
+                                    <p:outputLabel value="#{arc.idArchivo}" />
+                                </p:column>
+                                <p:column headerText="NOMBRE" style="width:60px;background-color: #{arc.colorBack};">
+                                    <p:outputLabel value="#{arc.nombre_archivo}" />
+                                </p:column>
+                                <p:column headerText="TIPO" style="width:50px;background-color: #{arc.colorBack}">
+                                    <p:outputLabel value="#{arc.tipo_archivo}" />
+                                </p:column>
+                                <p:column headerText="PROCESO" style="width:65px;background-color: #{arc.colorBack}">
+                                    <p:outputLabel value="#{arc.tipo_proceso}" />
+                                </p:column>
+                                <p:column headerText="COMENTARIO" style="width:80px;background-color: #{arc.colorBack}">
+                                    <p:outputLabel value="#{arc.comentario}" />
+                                </p:column>
+
+                                <p:column headerText="ANTERIOR#1" style="width:30px;background-color: #{arc.colorBack}">
+                                    <center>                                          
+                                        <p:commandButton rendered="#{arc.visibleBtIndicador3}" value="#{arc.archivo1}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo1,'A')}">
+                                            <p:fileDownload value="#{arc.download}" />
+                                        </p:commandButton>
+                                    </center>
+                                </p:column>
+                                <p:column headerText="ANTERIOR#2" style="width:30px;background-color: #{arc.colorBack}">
+                                    <center>                                          
+                                        <p:commandButton rendered="#{arc.visibleBtIndicador4}" value="#{arc.archivo2}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo2,'A')}">
+                                            <p:fileDownload value="#{arc.download}" />
+                                        </p:commandButton>
+                                    </center>
+                                </p:column>
+                                <p:column headerText="NUEVO#1" style="width:20px;background-color: #{arc.colorBack}">
+                                    <center>                                          
+
+                                        <p:commandButton rendered="#{arc.visibleBtIndicador1}" value="#{arc.archivo3}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo3,'D')}">
+                                            <p:fileDownload value="#{arc.download}" />
+                                        </p:commandButton>
+                                    </center>
+                                </p:column>
+                                <p:column headerText="NUEVO#2" style="width:20px;background-color: #{arc.colorBack}">
+                                    <center>                                          
+
+                                        <p:commandButton rendered="#{arc.visibleBtIndicador2}" value="#{arc.archivo4}"  style="color:black;background:gold;font-weight:bold"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{arc.prepDownload(arc.archivo4,'D')}">
+                                            <p:fileDownload value="#{arc.download}" />
+                                        </p:commandButton>
+                                    </center>
+                                </p:column>
+
+
+                                <p:column headerText="PROCESAR" style="width:25px;background-color: #{arc.colorBack}">
+                                    <center>                                          
+                                        <p:commandButton icon="fa fa-wrench" styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold"  immediate="true" actionListener="#{admDesarrolloController.seleccionado(arc)}" update="dlgProcesar" />
+                                    </center>
+                                </p:column>
+                            </p:dataTable>
+
+
+                        </h:panelGrid>
+
+                        <center>
+
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>            
+
+                <!-- Dialogo agregar solicitud descarga -->
+                <p:dialog  header="SOLICITUD DESCARGA ARCHIVO" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlDescarga" id="dlgDescarga" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formDescarga">  
+                        <h:panelGrid columns="1">
+                            <p:outputLabel   value="NOMBRE ARCHIVO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.arch.nombre_archivo}" style="width:310px"  />
+                            <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
+                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel   value="COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.arch.comentario}" style="width:310px"/>
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="Agregar" oncomplete="PF('wdlDescarga').hide();" actionListener="#{admDesarrolloController.agregarArchivoLista('DESCARGA')}" update=":msj :form :formArchivo" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <!-- Dialogo procear -->
+                <p:dialog  header="PROCESAR: #{admDesarrolloController.tituloProcesa}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlProcesar" id="dlgProcesar" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formProcesar" >  
+                        <center><h3>#{admDesarrolloController.tituloProcesa}</h3></center>
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                                <p:ajax update="formProcesar" listener="#{admDesarrolloController.listenerComboTipo2()}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel  value="NOMBRE ARCHIVO(solo nombre)"></p:outputLabel>
+                            <p:inputText disabled="true" required="true" requiredMessage="Tiene que ingresar el nombre del archivo" value="#{admDesarrolloController.arch.nombre_archivo}" style="width:310px"  />
+
+
+                            <p:outputLabel   value="NUEVO COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.arch.comentario_nuevo}" style="width:310px"/>
+
+
+                        </h:panelGrid>
+                        <center>
+                            <h:panelGrid columns="3">
+                                <p:commandButton rendered="#{admDesarrolloController.visibleBt1}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload').show();" value="ARCHIVO NUEVO#1"  update=":msj" />
+                                <p:outputLabel   rendered="#{admDesarrolloController.visibleBt1}" value="=>"></p:outputLabel>
+                                <p:commandButton rendered="#{admDesarrolloController.arch.visibleBtIndicador1 }" value="#{admDesarrolloController.arch.archivo3}" icon="fa fa-check-circle"  style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                                <p:commandButton rendered="#{!admDesarrolloController.arch.visibleBtIndicador1 and admDesarrolloController.visibleBt1 }" value="No ha seleccionado" icon="fa fa-bed"  style="color:white;background:red;font-weight:bold" />
+
+                                <p:commandButton rendered="#{admDesarrolloController.visibleBt2}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload2').show();" value="ARCHIVO NUEVO#2"  update=":msj" />
+                                <p:outputLabel   rendered="#{admDesarrolloController.visibleBt2}" value="=>"></p:outputLabel>
+                                <p:commandButton rendered="#{admDesarrolloController.arch.visibleBtIndicador2}" value="#{admDesarrolloController.arch.archivo4}" icon="fa fa-check-circle"  style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                                <p:commandButton rendered="#{!admDesarrolloController.arch.visibleBtIndicador2 and admDesarrolloController.visibleBt2 }" value="No ha seleccionado" icon="fa fa-bed" style="color:white;background:red;font-weight:bold" />
+                            </h:panelGrid>
+                        </center>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton rendered="#{admDesarrolloController.bt_resubir}"  styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-repeat" value="Subir Version Nueva" actionListener="#{admDesarrolloController.procesar_Archivo('SUBIR')}" update=":msj :form :formArchivo" />
+                            </h:panelGrid>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton rendered="#{admDesarrolloController.bt_finalizar}" styleClass="buttonOverRed" style="color:black;background:#00A905 ;font-weight:bold" icon="fa fa-check-circle" value="Finalizar" actionListener="#{admDesarrolloController.procesar_Archivo('FINALIZAR')}" update=":msj :form :formArchivo" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton rendered="#{admDesarrolloController.bt_cancelar}" styleClass="buttonOverBlack" style="color:WHITE;background:RED ;font-weight:bold" icon="fa fa-close" value="Cancelar"  actionListener="#{admDesarrolloController.procesar_Archivo('CANCELADO')}" update=":msj :form :formArchivo" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Eliminar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>  
+
+
+
+                <!-- Dialogo agregar solicitud carga nuevo -->
+                <p:dialog  header="CARGAR NUEVO ARCHIVO" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCargarNuevo" id="dlgCargarNuevo" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCargaNuevo" >  
+                        <h:panelGrid columns="1">
+
+                            <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
+                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                                <p:ajax update="formCargaNuevo" listener="#{admDesarrolloController.listenerComboTipo()}"/>
+                            </p:selectOneMenu>
+
+                            <p:outputLabel   value="NOMBRE ARCHIVO(solo nombre)"></p:outputLabel>
+                            <p:inputText required="true" requiredMessage="Tiene que ingresar el nombre del archivo" value="#{admDesarrolloController.arch.nombre_archivo}" style="width:310px"  />
+
+
+                            <p:outputLabel   value="COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.arch.comentario}" style="width:310px"/>
+
+
+                        </h:panelGrid>
+                        <h:panelGrid columns="3">
+                            <p:commandButton rendered="#{admDesarrolloController.visibleBt1}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload').show();" value="ARCHIVO NUEVO#1"  update=":msj" />
+                            <p:outputLabel   rendered="#{admDesarrolloController.visibleBt1}" value="=>"></p:outputLabel>
+                            <p:commandButton rendered="#{admDesarrolloController.arch.visibleBtIndicador1 }" value="#{admDesarrolloController.arch.archivo3}" icon="fa fa-check-circle" style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                            <p:commandButton rendered="#{!admDesarrolloController.arch.visibleBtIndicador1 and admDesarrolloController.visibleBt1 }" value="No ha seleccionado" icon="fa fa-bed" style="color:white;background:red;font-weight:bold" />
+
+                            <p:commandButton rendered="#{admDesarrolloController.visibleBt2}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-cloud-upload" oncomplete="PF('wdlFileUpload2').show();" value="ARCHIVO NUEVO#2"  update=":msj" />
+                            <p:outputLabel   rendered="#{admDesarrolloController.visibleBt2}" value="=>"></p:outputLabel>
+                            <p:commandButton rendered="#{admDesarrolloController.arch.visibleBtIndicador2}" value="#{admDesarrolloController.arch.archivo4}" icon="fa fa-check-circle" style="color:black;background:greenyellow;font-weight:bold"  immediate="true" update=":msj" />
+                            <p:commandButton rendered="#{!admDesarrolloController.arch.visibleBtIndicador2 and admDesarrolloController.visibleBt2 }" value="No ha seleccionado" icon="fa fa-bed" style="color:white;background:red;font-weight:bold" />
+                        </h:panelGrid>
+
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-check-circle" value="Agregar" actionListener="#{admDesarrolloController.agregarArchivoLista('CARGA_NUEVO')}" update=":msj :form :formArchivo" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+                <!-- DIALOGO CAMBIO DE ESTRUCTURAS-->
+                <p:dialog  header="SOLICITUD CAMBIO DE ESTRUCTURAS ##{admDesarrolloController.objeto.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlEstructuras" id="dlgEstructuras" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formEstructuras">  
+
+                        <h:panelGrid columns="1">
+
+                            <h:panelGrid columns="3">
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-download"  oncomplete="PF('wdlDescargaProce').show();"  value="DESCARGA PROCEDIMIENTO" actionListener="#{admDesarrolloController.nueva_Ayuda_Estructura()}" immediate="true" />
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-upload"  oncomplete="PF('wdlCargaProce').show();"  value="CARGAR NUEVA ESTRUCTURA" actionListener="#{admDesarrolloController.nueva_Ayuda_Estructura()}" update="dlgCargaProce" immediate="true" />
+
+                                <p:panel header="Simbologia" >
+                                    <h:outputText id="s1" value="Pendiente Recibir" style="background-color: #9E9DAB;font-weight:bold" />
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s2" value="Script Recibido"  style="background-color: #06F2F9;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s3" value="Pendiente Subir"  style="background-color: #F7DF31;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s4" value="Completado"  style="background-color: #AEF77F;font-weight:bold"/>
+                                    <h:outputText value="||" />
+                                    <h:outputText id="s5" value="Denegado"  style="background-color: #FC5342;font-weight:bold"/>
+
+                                    <p:tooltip for="s1" value="Solicitudes pendientes de recibir script"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s2" value="Script Recibido"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s3" value="Script Pendiente de subir al servidor"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s4" value="Solicitud Completada"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                    <p:tooltip for="s5" value="Solicitud Denegada"
+                                               showEffect="clip" hideEffect="explode" position="bottom"/>
+                                </p:panel>
+
+                            </h:panelGrid>
+
+                            <p:dataTable id="tablaEstructuras" emptyMessage="No hay datos" scrollable="true" scrollHeight="450"  style="min-width: 1100px;height: 500px; font-size:12px;;font-weight:bold" value="#{admDesarrolloController.lstEstructurasSol}" var="arc" >
+
+                                <p:column headerText="#" style="width:10px;background-color: #{arc.colorBack_Est};">
+                                    <p:outputLabel value="#{arc.id}" />
+                                </p:column>
+                                <p:column headerText="NOMBRE" style="width:60px;background-color: #{arc.colorBack_Est};">
+                                    <p:outputLabel value="#{arc.nombre_corto}" />
+                                </p:column>
+                                <p:column headerText="TIPO" style="width:50px;background-color: #{arc.colorBack_Est};">
+                                    <p:outputLabel value="#{arc.objetoTarea}" />
+                                </p:column>
+                                <p:column headerText="FECHA" style="width:65px;background-color: #{arc.colorBack_Est};">
+                                    <p:outputLabel value="#{arc.fecha}" />
+                                </p:column>
+                                <p:column headerText="ESTADO" style="width:65px;background-color: #{arc.colorBack_Est};">
+                                    <p:outputLabel value="#{arc.estado}" />
+                                </p:column>
+                                <p:column headerText="SCRIPT RECIBIDO" style="width:50px;background-color: #{arc.colorBack_Est};">
+                                    <center>                                          
+                                        <p:commandButton rendered="#{arc.scriptSQLAnterior.length()>1}" icon="fa fa-eye" styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" actionListener="#{admDesarrolloController.seleccionarEstructura(arc)}" oncomplete="var htmlTag = document.getElementById('dlgCodigo2');htmlTag.style.height = Math.floor(window.innerHeight*0.7)+'px';PF('wdlCodigo2').show();" update=":dlgCodigo2" immediate="true"  />
+                                    </center>
+                                </p:column>
+                                <p:column headerText="PROCESAR" style="width:25px;background-color: #{arc.colorBack_Est};">
+                                    <center>                                          
+                                        <p:commandButton icon="fa fa-wrench" styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" oncomplete="PF('wdlCargaProce').show();" actionListener="#{admDesarrolloController.seleccionarEstructura(arc)}" immediate="true"  update="dlgCargaProce" />
+                                    </center>
+                                </p:column>
+                            </p:dataTable>
+
+
+                        </h:panelGrid>
+
+                        <center>
+
+                        </center>
+
+
+                    </h:form>
+                </p:dialog> 
+
+                <!-- Dialogo agregar solicitud descarga procedimiento-->
+                <p:dialog  header="SOLICITUD DESCARGA PROCEDIMIENTO" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlDescargaProce" id="dlgDescargaProce" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formDescargaPro">  
+                        <h:panelGrid columns="1">
+                            <p:outputLabel   value="NOMBRE ESTRUCTURA"></p:outputLabel>
+                            <p:inputText required="true" requiredMessage="Ingrese el nombre de la estructura" value="#{admDesarrolloController.objetoEst.nombre_corto}" style="width:310px;text-transform: uppercase"   />
+                            <p:outputLabel   value="TIPO ESTRUCTURA"></p:outputLabel>
+                            <p:selectOneMenu required="true" requiredMessage="Seleccione el tipo de estructura" id="tipoArchivo" value="#{admDesarrolloController.objetoEst.objetoTarea}" effect="fold" style="width:300px">
+                                <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
+                                <f:selectItems var="tp" value="#{admDesarrolloController.lstTipoBD}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
+                            </p:selectOneMenu>
+
+
+                            <p:outputLabel   value="COMENTARIO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.notas}" style="width:310px"/>
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="Solicitar" actionListener="#{admDesarrolloController.insertarEstructura('D')}" update=":msj :form :formEstructuras" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Dialogo solicitud carga nueva estructura-->
+                <p:dialog  header="SOLICITUD CARGA ESTRUCTURA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCargaProce" id="dlgCargaProce" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCargaPro">  
+                        <center>
+                            <h:panelGrid columns="6">
+                                <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                <p:inputText readonly="true" value="#{admDesarrolloController.objetoEst.d_usuario}" style="width:300px"  />
+                                <p:outputLabel   value="FECHA"></p:outputLabel>
+                                <p:inputText readonly="true" value="#{admDesarrolloController.objetoEst.fecha}" style="width:90px"/>
+                            </h:panelGrid>
+                        </center>
+                        <h:panelGrid columns="2">
+
+
+                            <h:panelGrid columns="1">
+
+                                <h:panelGrid columns="2">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel   value="NOMBRE ESTRUCTURA"></p:outputLabel>
+                                        <p:inputText readonly="#{admDesarrolloController.objetoEst.scriptSQLAnterior.length()>1}" value="#{admDesarrolloController.objetoEst.nombre_corto}" style="width:310px;text-transform: uppercase"   />
+                                    </h:panelGrid>
+
+                                    <p:commandButton  styleClass="buttonOverRed" style="color:black;background:greenyellow;font-weight:bold; margin-left: 50px" icon="fa fa-code" value="NUEVO SCRIPT SQL" oncomplete="var htmlTag = document.getElementById('dlgCodigo');htmlTag.style.height = Math.floor(window.innerHeight*0.7)+'px';PF('wdlCodigo').show();"   update=":msj :dlgCodigo"  />
+
+
+
+                                </h:panelGrid>
+
+
+
+                                <h:panelGrid   columns="3" cellpadding="5">
+                                    <p:fieldset legend="Tarea a Realizar" style="margin-bottom:5px">
+                                        <p:selectOneRadio id="prioridad" value="#{admDesarrolloController.objetoEst.tarea}" >
+                                            <f:selectItem itemLabel="Crear" itemValue="Crear" />
+                                            <f:selectItem itemLabel="Modificar" itemValue="Modificar" />
+                                            <f:selectItem itemLabel="Eliminar" itemValue="Eliminar" />
+                                        </p:selectOneRadio>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Ambiente" style="margin-bottom:5px">
+                                        <p:selectOneMenu  value="#{admDesarrolloController.objetoEst.ambiente}" effect="fold" style="width:160px">
+                                            <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                            <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
+                                            <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />
+                                            <f:selectItem itemLabel="Desarrollo" itemValue="Desarrollo" />
+                                            <f:selectItem itemLabel="Mes Anterior" itemValue="Anterior" />
+                                            <f:selectItem itemLabel="Liberaciones" itemValue="Liberaciones" />
+                                            <f:selectItem itemLabel="Db Eventuales" itemValue="Db Eventuales" />
+                                            <f:selectItem itemLabel="Abanks" itemValue="Abanks" />
+                                            <f:selectItem itemLabel="Branch" itemValue="Branch" />
+                                            <f:selectItem itemLabel="Perdida" itemValue="Perdida" />
+                                        </p:selectOneMenu>
+                                    </p:fieldset>
+                                </h:panelGrid>
+                                <p:fieldset legend="Objeto Afectado" style="margin-bottom:5px" >
+                                    <p:selectOneRadio disabled="#{admDesarrolloController.objetoEst.scriptSQLAnterior.length()>1}" value="#{admDesarrolloController.objetoEst.objetoTarea}" layout="grid" columns="5">
+                                        <f:selectItem itemLabel="Tabla" itemValue="Tabla" />
+                                        <f:selectItem itemLabel="Constraint" itemValue="Constraint" />
+                                        <f:selectItem itemLabel="Index" itemValue="Index" />
+                                        <f:selectItem itemLabel="Synonsym" itemValue="Synonsym" />
+                                        <f:selectItem itemLabel="Role" itemValue="Role" />
+                                        <f:selectItem itemLabel="User" itemValue="User" />
+                                        <f:selectItem itemLabel="Profile" itemValue="Profile" />
+                                        <f:selectItem itemLabel="Funcion" itemValue="Funcion" />
+                                        <f:selectItem itemLabel="Trigger" itemValue="Trigger" />
+                                        <f:selectItem itemLabel="Paquetes" itemValue="Paquetes" />
+                                        <f:selectItem itemLabel="Procedimiento" itemValue="Procedimiento" />
+                                        <f:selectItem itemLabel="Privilegio" itemValue="Privilegio" />
+                                        <f:selectItem itemLabel="Job" itemValue="Job" />
+                                        <f:selectItem itemLabel="Export" itemValue="Export" />
+                                        <f:selectItem itemLabel="Import" itemValue="Import" />
+                                        <f:selectItem itemLabel="Vista" itemValue="Vista" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+                                <h:panelGrid   columns="3" cellpadding="5">
+                                    <p:outputLabel   value="USUARIOS QUE LO UTILIZARAN:"></p:outputLabel>
+                                    <p:chips
+                                        id="chips"
+                                        widgetVar="pf-chips"
+                                        value="#{admDesarrolloController.objetoEst.des_usuarios_utilizan}"
+                                        styleClass="width:280px;max-height: 20px;"
+                                        onblur="
+                                                var e = document.createEvent('Event');
+                                                e.initEvent('keydown');
+                                                e.keyCode = 13;
+                                                e.which = 13;
+                                                PF('pf-chips').input[0].dispatchEvent(e);
+                                        "
+                                        onkeypress="
+                                                if (event.keyCode === 32 || event.keyCode === 44)
+                                                {
+                                                    var e = document.createEvent('Event');
+                                                    e.initEvent('keydown');
+                                                    e.keyCode = 13;
+                                                    e.which = 13;
+                                                    PF('pf-chips').input[0].dispatchEvent(e);
+                                                }"
+
+                                        ><p:keyFilter regEx="/[a-z0-9_]/i"/>  
+                                    </p:chips>
+
+
+                                </h:panelGrid>
+
+                                <p:fieldset legend="Actividades que podran realizar los usuarios" style="margin-bottom:5px">
+                                    <p:selectManyCheckbox  value="#{admDesarrolloController.objetoEst.actividades_usuarios}"  >
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_AC" />
+                                        <f:selectItem itemLabel="Update" itemValue="Update_AC" />
+                                        <f:selectItem itemLabel="Select" itemValue="Select_AC" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_AC" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="3" style="margin-left:-15px;">
+                                    <p:selectOneMenu  value="#{admDesarrolloController.tipo_conOracle}" effect="fold" style="width:40px">
+                                        <f:selectItem itemLabel="Testing" itemValue="1"/>    
+                                        <f:selectItem itemLabel="Desarrollo" itemValue="2"/>
+                                    </p:selectOneMenu>
+                                    <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-download" value="Obtener Tabla Existente" actionListener="#{admDesarrolloController.obtenerTablaEstructura()}" update="msj formCargaPro"  />    
+                                    <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-plus"  value="Campo" actionListener="#{admDesarrolloController.nuevo_Campo()}" update="msj" />    
+                                </h:panelGrid>
+
+
+                                <p:panel header="Estructura de Tabla" style="min-width: 410px;max-width: 410px;margin-left: -10px; padding:0px; ">
+                                    <h:panelGrid columns="1"  >
+                                        <p:dataTable id="tablaSQL"  
+                                                     emptyMessage="No hay datos" 
+                                                     scrollable="true" 
+                                                     scrollHeight="360"  
+                                                     style="font-size:9px;min-width: 400px;max-width: 400px;margin-left:-15px; padding:0px;height: 380px " 
+                                                     value="#{admDesarrolloController.objetoEst.lstTabla}" 
+                                                     var="tbl" 
+                                                     editable="true" 
+                                                     editMode="cell" 
+
+                                                     rowKey="#{tbl.nombre}"
+                                                     selection="#{admDesarrolloController.objetoEst.tbl}" 
+                                                     selectionMode="single">
+                                            <p:column headerText="NOMBRE CAMPO" style="width:60px;">
+
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.nombre}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.nombre}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            <p:column headerText="TIPO" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.tipo}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.tipo}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="LONGITUD" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.tamano}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.tamano}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="CONSTRAINT" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.constraint}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.constraint}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+
+
+                                        </p:dataTable>
+                                        <p:contextMenu for="tablaSQL" widgetVar="contex">
+                                            <p:menuitem value="Cerrar" icon="fa fa-close" />
+                                            <p:menuitem value="Quitar"  icon="fa fa-trash" action="#{admDesarrolloController.deleteRow()}"/>
+                                        </p:contextMenu>
+                                    </h:panelGrid>
+
+                                </p:panel>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                        <h:panelGrid   columns="2">
+                            <p:outputLabel   value="NOTA:"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.notas}" style="width:980px"/>
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:commandButton rendered="#{admDesarrolloController.objetoEst.tipo_registro.equalsIgnoreCase('U') || admDesarrolloController.objetoEst.tipo_registro==null}" styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="Solicitar" actionListener="#{admDesarrolloController.insertarEstructura('C')}" update=":msj :form :formEstructuras" />
+                                <p:commandButton rendered="#{admDesarrolloController.objetoEst.estado.equalsIgnoreCase('Completado DBA') || admDesarrolloController.objetoEst.estado.equalsIgnoreCase('Rechazado')}" styleClass="buttonOverRed" style="color:black;background:#00A905 ;font-weight:bold" icon="fa fa-check-circle" value="Finalizar" actionListener="#{admDesarrolloController.finalizarEstructura()}" update=":msj :form :formEstructuras" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                            </h:panelGrid>
+
+                        </center>
+
+                    </h:form>
+
+                </p:dialog> 
+
+                <!-- Dialogo agregar campos a la tabla-->
+                <p:dialog  header="AGREGAR CAMPO TABLA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCampo" id="dlgCampo" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCampo">  
+                        <h:panelGrid columns="1">
+                            <p:outputLabel   value="NOMBRE CAMPO"></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.tbl.nombre}" style="width:250px;text-transform: uppercase"   />
+                            <p:outputLabel   value="TIPO "></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.tbl.tipo}" style="width:250px"   />
+                            <p:outputLabel   value="LONGITUD "></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.tbl.tamano}" style="width:250px"   />
+                            <p:outputLabel   value="CONSTRANIT "></p:outputLabel>
+                            <p:inputText value="#{admDesarrolloController.objetoEst.tbl.constraint}" style="width:250px"   />
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" value="Agregar" oncomplete="PF('wdlCampo').hide();" actionListener="#{admDesarrolloController.agregarCampo()}" update=":msj :formCargaPro" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+                <!-- Dialogo script-->
+                <p:dialog  header="script" style="font-size:14px;background:#DEDDDD;height: 100% !important;" widgetVar="wdlCodigo" id="dlgCodigo" width="70%" height="400" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="true" >
+                    <h:form id="formCodigo">  
+                        <p:inputTextarea value="#{admDesarrolloController.objetoEst.scriptSQL}" style="width: 100% !important; height: 90% !important;"  rows="21" autoResize="false" />
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="1">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlCodigo').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+                <!-- Dialogo script-->
+                <p:dialog  header="script anterior" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCodigo2" id="dlgCodigo2" width="70%" height="120%" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formCodigo2">  
+                        <p:inputTextarea value="#{admDesarrolloController.objetoEst.scriptSQLAnterior}" style="width: 100% !important;"  rows="25" autoResize="false" />
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlCodigo2').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- Dialogo fileUPLOAD1 -->
+                <p:dialog  header="FILEUPLOAD #1" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFileUpload" id="dlgFileUpload" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFile" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="1" >
+                            <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admDesarrolloController.handleFileUpload}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formCargaNuevo :formProcesar"   >
+                                <p:panelGrid   columns="1" >
+                                    <p:outputLabel value="Arrastre Aqui su Archivo"/>
+
+                                </p:panelGrid>
+
+                            </p:fileUpload>
+
+                        </p:panelGrid>
+
+
+                    </h:form>
+                </p:dialog>
+                <!-- Dialogo fileUPLOAD2 -->
+                <p:dialog  header="FILEUPLOAD #2" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFileUpload2" id="dlgFileUpload2" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFile2" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="1" >
+                            <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admDesarrolloController.handleFileUpload2}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formCargaNuevo :formProcesar"   >
+                                <p:panelGrid   columns="1" >
+                                    <p:outputLabel value="Arrastre Aqui su Archivo"/>
+
+                                </p:panelGrid>
+
+                            </p:fileUpload>
+
+                        </p:panelGrid>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- Dialogo Daily-->
+                <p:dialog  header="Daily" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlDiario" id="dlgDiario" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <p:ajax event="open" update="formDiario:content"/>
+                    <h:form id="formDiario">  
+
+                        <h:panelGrid   columns="2" >
+                            <p:outputLabel   value="USUARIO:"></p:outputLabel>
+                            <p:inputText readonly="true" value="#{admDesarrolloController.diario.d_desarrolador}" style="width:300px"  />
+                            <h:panelGrid   columns="1" >
+
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " value="Nuevo" actionListener="#{admDesarrolloController.nuevoDiario()}" update=":msj :formDiario" />
+                
+                                <p:dataTable id="tablaDiarios" emptyMessage="No hay datos" scrollable="true" scrollHeight="450"  style="min-width: 130px; max-width: 130px;  height: 450px; font-size:12px;;font-weight:bold" value="#{admDesarrolloController.lstDiarios}" var="dai" >
+
+                                    <p:column headerText="Ultimos" style="width:30px;">
+                                        <center>                                          
+                                            <p:commandButton value="#{dai.fecha}" styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" actionListener="#{admDesarrolloController.obtenerDaily(dai)}" update="formDiario" />
+                                        </center>
+                                    </p:column>
+                                </p:dataTable>      
+                            </h:panelGrid>
+
+                            <p:panelGrid   columns="1" >
+                                <p:outputLabel   value="DETALLE DE LO REALIZADO:"  style="width:500px;color:black;background: orange;font-weight:bold"></p:outputLabel>
+                                <p:textEditor id="content" readonly="#{!admDesarrolloController.bt_daily}" widgetVar="editor1"  style="max-width: 600px; " value="#{admDesarrolloController.diario.detalle}"  height="400" >
+                                    <f:facet name="toolbar">
+                                        <span class="ql-formats">
+                                            <select class="ql-font" />
+                                            <select class="ql-size" />
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-bold" />
+                                            <button class="ql-italic" />
+                                            <button class="ql-underline" />
+                                            <button class="ql-strike" />
+                                        </span>
+                                        <span class="ql-formats">
+                                            <select class="ql-color" />
+                                            <select class="ql-background" />
+                                        </span>
+                                        
+                                        <span class="ql-formats">
+                                            <button class="ql-script" value="sub" />
+                                            <button class="ql-script" value="super" />
+                                        </span>
+                                        
+                                        <span class="ql-formats">
+                                            <button class="ql-header" value="1" />
+                                            <button class="ql-header" value="2" />
+                                            <!--
+                                            <button class="ql-blockquote" />
+                                            <button class="ql-code-block" />
+                                            -->
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-list" value="ordered" />
+                                            <button class="ql-list" value="bullet" />
+                                            <button class="ql-indent" value="-1" />
+                                            <button class="ql-indent" value="+1" />
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-direction" value="rtl" />
+                                            <select class="ql-align" />
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-link" />
+                                            <button class="ql-formula" />
+                                             <!--
+                                            <button class="ql-image" />
+                                            <button class="ql-video" />
+                                              -->
+                                        </span>
+                                        <span class="ql-formats">
+                                            <button class="ql-clean" />
+                                        </span>
+
+                                    </f:facet>
+                                </p:textEditor>
+                            </p:panelGrid>
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  disabled="#{!admDesarrolloController.bt_daily}" styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Enviar" actionListener="#{admDesarrolloController.guardarDiario()}" update=":msj formDiario" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="#{admDesarrolloController.imgLoadin}" />
+                </p:dialog>
+
+
+            </ui:define>
+        </ui:composition>
+
+
+
+    </h:body>
+</html>
+

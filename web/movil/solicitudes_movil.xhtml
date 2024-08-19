@@ -1,0 +1,323 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="head">
+                <script type="text/javascript" src="https://maps.google.com/maps/api/js?key=AIzaSyAdccFApU84ojEu-UhV4kh_Ebhn9N8FP0Y"></script>
+            </ui:define>
+            <ui:define name="bodyJR">
+                <p:growl id="msj" showDetail="true"/>
+
+                <h:form id="form">                 
+                    <center>
+                        <p:tabView style="font-size:12px;margin-bottom: 1%;height: 100%;" dynamic="true" cache="true" >
+                            <p:tab title="SOLICITUDES MOVILES"  >
+                                <f:facet name="actions" >
+                                    <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold"/>
+
+                                </f:facet>
+                                
+                                <h:panelGrid columns="1" >
+                                    <h:panelGrid columns="15"  >
+
+                                        <p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   />
+                                        <p:outputLabel value="BUSCAR POR NOMBRE CLIENTE:"   />
+                                        <p:inputText style="width:150px" id="txtnom" value="#{solicitudesMovilController.filtroNombre}" />
+
+                                        <p:selectOneMenu id="agencia" value="#{solicitudesMovilController.filtroAgencia}" style="width:120px">
+                                            <p:ajax update="asesor" listener="#{solicitudesMovilController.listarAsesor()}" />
+                                            <f:selectItems value="#{solicitudesMovilController.lstAgencias}" var="age" itemValue="#{age.agenciaid}" itemLabel="#{age.agencia}"/>  
+                                        </p:selectOneMenu>
+
+                                        <p:selectOneMenu id="asesor" value="#{solicitudesMovilController.filtroAsesor}" style="width:200px">
+                                            <f:selectItems value="#{solicitudesMovilController.lstAsesores}" var="ase" itemValue="#{ase.usuariotopaz}" itemLabel="#{ase.nombre}"/>  
+
+                                        </p:selectOneMenu>
+                                        <p:outputLabel value="ESTADO"   />
+                                        <p:selectOneMenu id="estado"  value="#{solicitudesMovilController.filtroEstado}" style="width:100px">
+                                            <p:ajax update="rechazo" listener="#{solicitudesMovilController.onClickllenarFiltroEstado()}" />
+                                            <f:selectItem  itemLabel="TODAS" itemValue="NUEVA,COMPLETADA,DEVOLUCION,RECHAZADA,FINALIZADA"/>
+                                            <f:selectItem  itemLabel="NUEVA/FALTAN DATOS" itemValue="NUEVA"/>
+                                            <f:selectItem  itemLabel="COMPLETADA" itemValue="COMPLETADA"/>
+                                            <f:selectItem  itemLabel="DEVOLUCION" itemValue="DEVOLUCION"/>
+                                            <f:selectItem  itemLabel="RECHAZADA" itemValue="RECHAZADA"/>
+                                            <f:selectItem  itemLabel="FINALIZADA" itemValue="FINALIZADA"/>
+
+                                        </p:selectOneMenu>
+                                        <h:panelGrid columns="2" id="rechazo"  >
+                                            <p:outputLabel value="RECHAZO" rendered="#{solicitudesMovilController.visibleMotivos}" />
+                                            <p:selectOneMenu value="#{solicitudesMovilController.filtroRechazo}" style="width:100px" rendered="#{solicitudesMovilController.visibleMotivos}">
+                                                <f:selectItem  itemLabel="TODOS" itemValue="Ingresada_Por_Error,No_Cumple_Requisitos,Malas_Referencias,Cliente_No_Quiere_Continuar,Rechazada_Por_Jefe"/>
+                                                 <f:selectItem  itemLabel="INGR. POR ERROR" itemValue="Ingresada_Por_Error"/>
+                                                 <f:selectItem  itemLabel="SIN REQUISITOS" itemValue="No_Cumple_Requisitos"/>
+                                                 <f:selectItem  itemLabel="MALAS REFERENCIAS" itemValue="Malas_Referencias"/>
+                                                 <f:selectItem  itemLabel="CLIETE NO ACEPTO" itemValue="Cliente_No_Quiere_Continuar"/>
+                                                 <f:selectItem  itemLabel="RECHAZADA POR EL JEFE" itemValue="Rechazada_Por_Jefe"/>
+                                            </p:selectOneMenu>
+                                        </h:panelGrid>
+                                        
+
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-calendar" value="FECHAS" style="color:white;background:#3b63a9;font-weight:bold"  oncomplete="PF('wdlFechas').show();" update="dlgFechas" />
+
+                                        <h:commandLink title="Exportar a Excel" style="border-color: #000000">
+                                            <p:graphicImage name="images/export/excel.png" width="24"/>
+                                            <p:dataExporter type="xls" target="tabla1"   fileName="ActividadesMovil" />
+                                        </h:commandLink>
+
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-refresh" value="CONSULTAR"  actionListener="#{solicitudesMovilController.listarActi('x')}" style="color:white;background:#3b63a9;font-weight:bold" update="tabla1,paneltot1" />
+
+
+
+
+                                    </h:panelGrid>
+
+
+
+                                    <p:panel header="Solicitudes"  style="min-width: 1100px;margin-left: -20px;margin-right: -20px;margin-bottom: 1%;height: 100%;" >
+                                        
+                                        <h:panelGrid columns="1"  >
+                                            <p:dataTable id="tabla1"  emptyMessage="No hay Datos, selecione filttros y presione el boton CONSULTAR.." scrollable="true"  scrollHeight="400" style="font-size:9px;min-width: 1100px;margin-left: -10px;margin-right: -10px;margin-bottom: 1%;height: auto !important;" value="#{solicitudesMovilController.lstSolicitudes}" var="data" >
+                                                <p:column headerText="SECUENCIA" style="width:4px;" sortBy="#{data.secuencia}">
+                                                    <p:outputLabel value="#{data.secuencia}" />
+                                                </p:column>                                        
+                                                <p:column headerText="NOMBRE_ASESOR" style="width:40px;" sortBy="#{data.nombreasesor}">
+                                                    <p:outputLabel value="#{data.nombreasesor}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE_CLIENTE" style="width:55px;;">
+                                                    <p:outputLabel value="#{data.nombrecompleto}" />
+                                                </p:column>
+                                                <p:column headerText="MONTO SOL" style="width:10px;" sortBy="#{data.montosolicitado}">
+                                                    <p:outputLabel value="#{data.montosolicitado}" ><f:convertNumber type="currency" currencySymbol="L" /></p:outputLabel>
+                                                </p:column>
+                                                <p:column headerText="FECHA_SOLICITUD" style="width:25px;;" sortBy="#{data.fecharegistro}">
+                                                    <h:outputText value="#{data.fecharegistro}" >
+                                                        <f:convertDateTime timeZone="GMT-6" pattern="dd/MM/yyyy h:mm a"/> 
+                                                    </h:outputText>
+                                                </p:column>
+                                                <p:column headerText="DIAS TRANS." style="width:10px;" sortBy="#{data.diastranscurridos}">
+                                                    <p:outputLabel value="#{data.diastranscurridos}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:25px;;" sortBy="#{data.estadosolicitud}">
+                                                    <h:outputText value="#{data.estadosolicitud}" >
+                                                    </h:outputText>
+                                                </p:column>
+                                               
+                                                <p:column  headerText="AGENCIA" width="0" styleClass="vd-hidden-column">
+                                                    <p:outputLabel value="#{data.agenciaDet}" />
+                                                </p:column>
+
+                                                <p:column headerText="VER" style="width:1px;;" exportable="false">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true"  actionListener="#{solicitudesMovilController.seleccionar(data,'U')}" update="dlgSolicitudes"    />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+
+                                </h:panelGrid>
+                               
+                                <h:panelGrid id="paneltot1" columns="10" style="margin-top:-5px;margin-bottom:0px" cellpadding="5"> 
+                                    <p:outputLabel style="margin-left:20px" value="Resultados:"/>
+                                    <p:inputNumber readonly="true" inputStyle="margin-left:-10px;width:50px;color:gold;background:black;" decimalPlaces="0" value="#{solicitudesMovilController.lstSolicitudes.size()}" /> 
+                                </h:panelGrid>
+                            </p:tab>
+                           
+
+                        </p:tabView>
+                    </center>
+                </h:form>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <center>
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
+                    </center>
+                </p:confirmDialog> 
+
+
+
+
+
+                <!-- Venta Dialogos -->
+
+
+                <p:dialog  header=" #DETALLES" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlSolicitudes" id="dlgSolicitudes" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formDlg">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="4">
+                                    <p:outputLabel   value="ID-REGISTRO"></p:outputLabel>
+                                    <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.liteuidsol}" style="width:360px"/>
+                                    <p:outputLabel   value="N°SECUENCIA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.secuencia}" style="width:210px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4">
+                                    <p:outputLabel   value="NOM.ASESOR"></p:outputLabel>
+                                    <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.nombreasesor}" style="width:355px"/>
+                                    <p:outputLabel   value="NOM.AGENCIA"  ></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.agenciaDet}" style="width:200px"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="4">
+                                    <p:outputLabel   value="NOM.CLIENTE"></p:outputLabel>
+                                    <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.nombrecompleto}" style="width:354px"/>
+                                    <p:outputLabel   value="FECHA REGISTRO"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.fecharegistro}" style="width:180px">
+                                        <f:convertDateTime timeZone="GMT-6" pattern="dd/MM/yyyy hh:mm a"/>
+                                    </p:inputText>
+                                </h:panelGrid>
+                              <h:panelGrid columns="8">
+                                    <p:outputLabel   value="MONTO SOL."></p:outputLabel>
+                                    <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.montosolicitado}" style="width:130px"><f:convertNumber type="currency" currencySymbol="L " /></p:inputText>
+                                    <p:outputLabel   value="PLAZO SOL"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.plazo} Meses" style="width:100px"/>
+                                    <p:outputLabel   value="TI"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.ti} %" style="width:80px"><f:convertNumber type="percent" integerOnly="true" /></p:inputText>
+                                    <p:outputLabel   value="FORMA PAGO"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{solicitudesMovilController.objeto.formapagoDet}" style="width:130px"/>
+                                </h:panelGrid>
+                                
+                                <h:panelGrid columns="8">
+                                     <p:outputLabel   value="ESTADO SOLICITUD"></p:outputLabel>
+                                     <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.estadosolicitud}" style="width:130px"></p:inputText>
+                               
+                                     <p:commandButton  rendered="#{solicitudesMovilController.objeto.gpslatitud.equals('0')?false: true }" value="Hogar" styleClass="buttonOverRed" style="color:black;background:yellow ;font-weight:bold" icon="fa fa-map-marker"  oncomplete="PF('wdlUbicacionH').show();" actionListener="#{solicitudesMovilController.objeto.iniMapH()}"  immediate="true" update="dlgUbicacionH,msj" />
+
+                                     <p:commandButton  rendered="#{solicitudesMovilController.objeto.neglatitud.equals('0')?false: true }" value="Negocio" styleClass="buttonOverRed" style="color:black;background:yellow ;font-weight:bold" icon="fa fa-map-marker"  oncomplete="PF('wdlUbicacionN').show();" actionListener="#{solicitudesMovilController.objeto.iniMapN()}"  immediate="true" update="dlgUbicacionN,msj" />
+
+                                </h:panelGrid>
+                                
+                                
+                            </center>
+
+
+                        </h:panelGrid>
+
+                        
+                        <h:panelGrid columns="2">
+                            <p:outputLabel   value="COMENTARIO ASESOR"></p:outputLabel>
+                            <p:inputText  readonly="true" value="#{solicitudesMovilController.objeto.comentario}" style="width:630px"></p:inputText>
+                            <p:outputLabel   value="COMENTARIO JEFE"></p:outputLabel>
+                            <p:inputText value="#{solicitudesMovilController.objeto.comentariojefe}" style="width:630px"></p:inputText>    
+                        </h:panelGrid>
+                        
+                        <h:panelGrid columns="2"  >
+                        <p:panel header="PROCESAR SOLICITUD-JEFE AGENCIA"   style="font-size:12px;width: 400px"  >
+                            <h:panelGrid columns="4"  >
+                                <p:commandButton  styleClass="buttonOverRed" disabled="#{solicitudesMovilController.disableBtnAutDevRech}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle"  actionListener="#{solicitudesMovilController.resultadoJefe('FINALIZADA')}" update="msj @([id$=tabla1])"  value="AUTORIZAR" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Autorizar?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{solicitudesMovilController.disableBtnDevolver}" style="color:black;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle"  actionListener="#{solicitudesMovilController.resultadoJefe('DEVOLUCION')}" update="msj @([id$=tabla1])" value="DEVOLVER">
+                                    <p:confirm header="Confirmacion" message="¿Desea Devolver?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{solicitudesMovilController.disableBtnAutDevRech}" style="color:white;background:red ;font-weight:bold"  icon="fa fa-remove" actionListener="#{solicitudesMovilController.resultadoJefe('RECHAZADA')}" update="msj @([id$=tabla1])"  value="RECHAZAR"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar?"  icon="ui-icon-alert" />
+                                </p:commandButton>
+                            
+                            </h:panelGrid>
+                         </p:panel>
+                        <h:panelGrid columns="2"  >
+                            <p:outputLabel   value="1° " style="font-weight:bold"/>
+                            <h:commandLink id="reporte1" title="Sol" style="color: maroon; font-weight: bold" value="SOLICITUD EN PDF" target="solicitudcredito" actionListener="#{solicitudesMovilController.verDocumentoPDF(solicitudesMovilController.objeto.liteuidsol ,'EvaluacionCred1')}" />
+                            <p:outputLabel   value="2° " style="font-weight:bold"/>
+                            <h:commandLink id="reporte2"  style="color: maroon; font-weight: bold" value="CONOZCA CLIENTE EN PDF" target="_black" actionListener="#{solicitudesMovilController.verDocumentoPDF(solicitudesMovilController.objeto.liteudcasc ,'ConozcaSuCliente')}" />
+                            <p:outputLabel   value="3° " style="font-weight:bold"/>
+                            <h:commandLink id="reporte3" title="Seg" style="color: maroon; font-weight: bold" value="SEGURO DE VIDA PDF" target="segurovida" actionListener="#{solicitudesMovilController.verDocumentoPDF(solicitudesMovilController.objeto.liteuidsol ,'Seguros')}" />
+                            <p:outputLabel   value="4° " style="font-weight:bold"/>
+                            <h:commandLink id="reporte4" title="Otr" style="color: maroon; font-weight: bold" value="OTROS INGRESOS PDF" target="otrosingresos" actionListener="#{solicitudesMovilController.verDocumentoPDF(solicitudesMovilController.objeto.liteuidsol ,'Otros_Ingresos')}" />
+                            <p:outputLabel   value="5° " style="font-weight:bold"/>
+                           
+                            <p:commandButton style="width:160px;" oncomplete="PF('wdlPdf1').show();" update=":dlgPdf1" value="EQUIFAX PDF" actionListener="#{solicitudesMovilController.generarPDFEquifax(solicitudesMovilController.objeto.identidad)}"  />
+                        </h:panelGrid>
+                    </h:panelGrid>
+                        
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlSolicitudes').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- Dialogo Fechas -->
+
+
+                <p:dialog  header="FILTROS DE FECHA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFechas" id="dlgFechas" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFec">  
+                        <p:fieldset legend="Fecha de Solicitud:" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaR1" locale="es" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{solicitudesMovilController.filtroFechaR1}"/>
+                                <p:calendar id="txtfechaR2" locale="es" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{solicitudesMovilController.filtroFechaR2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+          
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlFechas').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+                <!-- Dialogo MAPA -->
+
+
+                <p:dialog  header="Ubicacion Hogar" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionH" id="dlgUbicacionH" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formUbicaH">  
+
+                         <!--Honduras 14.4041703,-86.7056069  -->
+                         <p:gmap center="#{solicitudesMovilController.objeto.gpslatitud},#{solicitudesMovilController.objeto.gpslongitud}" zoom="15" type="MAP" model="#{solicitudesMovilController.objeto.simpleModelH}"  style="width:850px;height:550px" >
+
+                        </p:gmap> 
+                        
+
+
+                    </h:form>
+                </p:dialog>
+                
+                <p:dialog  header="Ubicacion Negocio" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionN" id="dlgUbicacionN" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formUbicaN">  
+
+                         <!--Honduras 14.4041703,-86.7056069  -->
+                         <p:gmap center="#{solicitudesMovilController.objeto.neglatitud},#{solicitudesMovilController.objeto.neglongitud}" zoom="15" type="MAP" model="#{solicitudesMovilController.objeto.simpleModelN}"  style="width:850px;height:550px" >
+
+                        </p:gmap>                         
+                    </h:form>
+                </p:dialog>
+                
+                
+                <!-- Dialogo PDF -->
+                
+                <p:dialog  header="PDF EQUIFAX" widgetVar="wdlPdf1"  id="dlgPdf1" showEffect="fold" hideEffect="fold"  height="600" width="70%" resizable="false" >
+
+                    <p:media value="#{solicitudesMovilController.rutaPdfEquifax}" width="100%" height="95%">
+                        Tu navegador no puede mostrar el pdf, <h:outputLink value="#{solicitudesMovilController.rutaPdfEquifax}">click</h:outputLink> para descargarlo.
+                    </p:media>
+
+                </p:dialog>
+  
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="#{solicitudesMovilController.imgLoadin}" />
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

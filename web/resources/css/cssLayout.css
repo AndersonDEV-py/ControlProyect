@@ -1,0 +1,127 @@
+#top {
+    background-color: #ffffff;
+    background-image:  url("#{resource['images/fondotop.png']}");  
+    /* border-top-left-radius: 10px;
+     border-top-right-radius: 10px;
+     box-shadow: 0px 2px 2px 2px rgba(0,0,0,0.7);*/
+    box-shadow: 3px 3px 3px #c2dfef;
+    height: 49px;
+    /*left: 0px;*/
+    position: relative;    
+    top: 0px;
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+#bottom {
+   position: fixed;
+   bottom: 0;
+/*   background-color: #8ECAEB;*/
+   padding: 5px;
+   
+   box-shadow: 0px 0px 10px #c2dfef;
+/*   border-radius: 10px;*/
+   color: white;
+   height: 25px;
+   width: 100%;
+   margin: 0px 0px 0px 0px;
+   text-align: center;
+   margin-top: 0px;
+   font-weight:bold;
+
+}
+#login_banner {
+    background-color: #ffffff;
+    background-image:  url("#{resource['images/logo.png']}");  
+    height: 100px;
+    position: relative;    
+    top: 0px;
+
+    width: 100%;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+
+.buttonOverRed:hover {
+                        /*display: block;*/
+                        /*margin-left:40px;*/
+                        color:red !important;
+                        /*background:#cc0000 !important;*/
+                        /*font-weight:bold;*/
+                       /* background-image: url('#{request.contextPath}/resources/images/car/Ford.gif') !important;*/
+                    }
+
+.buttonOverBlack:hover {
+                        /*display: block;*/
+                        /*margin-left:40px;*/
+                        color:black !important;
+                        /*background:#cc0000 !important;*/
+                        /*font-weight:bold;*/
+                       /* background-image: url('#{request.contextPath}/resources/images/car/Ford.gif') !important;*/
+                    }
+                    
+.tabla1 tbody tr {
+    height : 500px;
+    max-height: 500px;
+
+}
+
+#tabla {
+    width: 200px;
+}
+#tabla tr {
+    color: darkorange;
+}
+#tabla tr td {
+    height: 80px;
+}
+.tabla1 .ui-datatable .ui-datatable-data tr{
+    height : 200px;
+}
+.vd-hidden-column {
+    display: none;
+    width: 0;
+    height: 0;
+}
+/* 
+#menuBar{    
+   margin-top: 10px;
+   top: 110px;  
+  background-color: #F60D0D;
+   position: relative;    
+}
+
+
+
+.left_content{
+   float: none;
+   left: 10px;
+   top: 10px;
+   background-color: #dddddd;
+   padding: 15px; 
+    margin-top: 30px;
+   
+}
+
+#left {
+   float: left;
+   background-color: #ece3a5;
+   box-shadow: 0px 2px 2px rgba(0,0,0,0.7);
+   height: 150px;
+   padding: 5px;
+   width: 300px;
+   margin-top: 5px;
+   top: 110px;  
+}
+.center_content {    
+   position: relative;
+   background-color: #dddddd;
+   padding: 5px;   
+   margin-top: 30px;
+    
+}
+*/
+
+
+

@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Estructuras_Sub" pageWidth="330" pageHeight="450" orientation="Landscape" columnWidth="320" leftMargin="5" rightMargin="5" topMargin="5" bottomMargin="5" uuid="51ebb190-3965-4a2d-b480-37cb13b16f01">
+	<property name="ireport.zoom" value="1.5"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[93]]></defaultValueExpression>
+	</parameter>
+	<parameter name="desde" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[1]]></defaultValueExpression>
+	</parameter>
+	<parameter name="hasta" class="java.lang.Integer" isForPrompting="false">
+		<defaultValueExpression><![CDATA[31]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[SELECT [id]
+      ,[idReq]
+      ,[nombre_campo]
+      ,[tipo_campo]
+      ,[tamano_campo]
+      ,[contraint_campo]
+  FROM [SGR].[dbo].[GP_REQ_TABLA]
+  where idReq=$P{id}
+and n_campo>=$P{desde} and n_campo<=$P{hasta}]]>
+	</queryString>
+	<field name="id" class="java.lang.Integer"/>
+	<field name="idReq" class="java.lang.String"/>
+	<field name="nombre_campo" class="java.lang.String"/>
+	<field name="tipo_campo" class="java.lang.String"/>
+	<field name="tamano_campo" class="java.lang.String"/>
+	<field name="contraint_campo" class="java.lang.String"/>
+	<title>
+		<band height="20">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="315" height="18" backcolor="#CCCCCC" uuid="b991bf52-3db5-44a0-9cbe-3421b226aa6f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Estructura de la Tabla]]></text>
+			</staticText>
+		</band>
+	</title>
+	<columnHeader>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="0" width="138" height="12" backcolor="#CCCCCC" uuid="27c3bff9-e47e-4cf3-878e-cda50a967cdd"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Nombre del campo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="138" y="0" width="75" height="12" backcolor="#CCCCCC" uuid="5975cbc5-17c0-4118-8422-0b669a68fddc"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Tipo]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="213" y="0" width="51" height="12" backcolor="#CCCCCC" uuid="2f24c2b6-d345-4226-a855-43b80e3f0781"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Longitud]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="264" y="0" width="51" height="12" backcolor="#CCCCCC" uuid="72fb6b12-cf5a-4e65-beed-c44df60caffa"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<text><![CDATA[Constraint]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<textField>
+				<reportElement mode="Transparent" x="0" y="0" width="138" height="12" backcolor="#FFFFFF" uuid="f51f6d54-105a-4e60-a53b-5340b07394b0"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombre_campo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="138" y="0" width="75" height="12" backcolor="#FFFFFF" uuid="ea79a12b-b542-4bfb-9506-1309893e0f3f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+					<paragraph leftIndent="4"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tipo_campo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="213" y="0" width="51" height="12" backcolor="#FFFFFF" uuid="9fcec31b-edbe-456f-b4ba-57e27f524bc5"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{tamano_campo}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="264" y="0" width="51" height="12" backcolor="#FFFFFF" uuid="c4add703-5d0b-4601-833c-cd028798229f"/>
+				<box>
+					<pen lineWidth="0.5"/>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle" markup="none">
+					<font size="9" isBold="false" isPdfEmbedded="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{contraint_campo}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

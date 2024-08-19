@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compromiso" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6e99cca-04e3-422a-a3f4-46fc5cf9a252">
+	<property name="ireport.zoom" value="3.0"/>
+	<property name="ireport.x" value="86"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["189522"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="nombreusr" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA[""]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select 1 as testing]]>
+	</queryString>
+	<field name="testing" class="java.lang.Integer"/>
+	<title>
+		<band height="740" splitType="Stretch">
+			<staticText>
+				<reportElement x="0" y="7" width="572" height="21" uuid="69adbf15-9911-488b-a3e0-e46bc26a8625"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[SOLICITUD Y EVALUACION CREDITICIA]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="28" width="572" height="21" uuid="9ba8f89a-365b-420c-b5fb-9d5400ce96fa"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="14" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[PRODUCTO RAPI CRECE Y EMPRESARIAL FINSOL]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="50" width="572" height="21" forecolor="#FFFFFF" backcolor="#999999" uuid="20f331da-809e-40ea-8783-1716ab9948e6"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="13" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Datos Persona Natural]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="71" width="185" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="8d6a5aa6-c7c3-4348-89dc-3b5adf96250d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Primer Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="185" y="71" width="185" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="568cb3b9-4471-446a-a62b-864ef27f0150"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Segundo Nombre]]></text>
+			</staticText>
+			<textField>
+				<reportElement mode="Transparent" x="0" y="92" width="185" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="bb631f5e-99a9-46e3-bf61-d11e443a5ff1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement mode="Transparent" x="185" y="92" width="185" height="21" forecolor="#000000" backcolor="#FFFFFF" uuid="27dbb932-61c9-4c45-8a08-bb84c8671e53"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Opaque" x="370" y="71" width="185" height="21" forecolor="#000000" backcolor="#CCCCCC" uuid="b33eb086-b115-4c11-9190-ecd16e56c2ba"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="12" isBold="false" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Segundo Nombre]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Opaque" x="0" y="113" width="572" height="21" forecolor="#FFFFFF" backcolor="#999999" uuid="51905bc5-1a30-45f5-a6af-009e31264de5"/>
+				<box>
+					<topPen lineWidth="0.5" lineColor="#000000"/>
+					<leftPen lineWidth="0.5" lineColor="#000000"/>
+					<bottomPen lineWidth="0.0" lineColor="#000000"/>
+					<rightPen lineWidth="0.5" lineColor="#000000"/>
+				</box>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="13" isBold="true" isUnderline="false"/>
+				</textElement>
+				<text><![CDATA[Datos Persona Juridica]]></text>
+			</staticText>
+		</band>
+	</title>
+</jasperReport>

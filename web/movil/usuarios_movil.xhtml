@@ -1,0 +1,300 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="bodyJR">
+                <p:growl id="msj" showDetail="true"/>
+
+                <script type="text/javascript">
+                    function pass1C() {
+
+                        var field = $('#formUs\\:txtClave');
+                        if (field.attr('type') === 'password') {
+                            field.attr('type', 'text');
+                        } else {
+                            field.attr('type', 'password');
+                        }
+
+                    }
+                </script> 
+
+                <h:form id="form">                 
+                    <center>
+                        <p:tabView style="font-size:14px;" dynamic="true" cache="true" >
+                            <p:tab title="ADMINISTRACION DE USUARIOS MOVILES"  >
+                                <f:facet name="actions" >
+                                    <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold"/>
+
+                                </f:facet>
+
+
+                                <h:panelGrid columns="1" >
+
+
+                                    <h:panelGrid columns="9"  >
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-plus" style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold" value="NUEVO USUARO" actionListener="#{usuariosMovilController.nuevo()}"  oncomplete="PF('wdlUsuario').show();" update="dlgUsuario"/>
+                                        <p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   /><p:outputLabel value="  "   />
+                                        <p:outputLabel value="BUSCAR POR (NOMBRE|ID|AGENCIA) EMPLEADO:"   />
+                                        <p:inputText style="width:200px" id="txtnom" value="#{usuariosMovilController.filtroNombre}" />
+                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-refresh" value="CONSULTAR"  actionListener="#{usuariosMovilController.listarUs('x')}" style="color:white;background:#3b63a9;font-weight:bold" update="tabla1" />
+                                    </h:panelGrid>
+
+
+
+                                    <p:panel header="Usuarios Registrados"  style="min-width: 1100px;margin-left: -20px;margin-right: -20px;margin-bottom: 1%;">
+                                        <h:panelGrid columns="1"  >
+                                            <p:dataTable id="tabla1" emptyMessage="No hay datos" scrollable="true" scrollHeight="400"  style="font-size:10.5px;min-width: 1100px;margin-left: -10px;margin-right: -10px;margin-bottom: 1%;" value="#{usuariosMovilController.lstUsuarios}" var="us" >
+
+                                                <p:column headerText="EMPLEADOID" style="width:10px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.empleadoid}" />
+                                                </p:column>
+                                                <p:column headerText="USUARIO" style="width:20px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.usuariotopaz}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE" style="width:60px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.nombre}" />
+                                                </p:column>
+                                                <p:column headerText="PUESTO" style="width:25px;background-color: #{us.colorBack_T};" sortBy="#{us.puesto}">
+                                                    <p:outputLabel value="#{us.puesto}" />
+                                                </p:column>
+                                                <p:column headerText="CORREO" style="width:30px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.correo}" />
+                                                </p:column>
+                                                <p:column headerText="AGENCIA" style="width:25px;background-color: #{us.colorBack_T};" sortBy="#{us.agencia}">
+                                                    <p:outputLabel value="#{us.agencia}" />
+                                                </p:column>
+                                                <p:column headerText="ULTIMOCAMBIO" style="width:25px;background-color: #{us.colorBack_T};">
+                                                    <h:outputText value="#{us.ultimocambio}" >
+                                                        <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                                    </h:outputText>                                                    
+                                                </p:column>
+                                                <p:column headerText="INTENTOS" style="width:10px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.intentos}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:10px;background-color: #{us.colorBack_T};">
+                                                    <p:outputLabel value="#{us.estado}" >
+                                                        <f:converter converterId="estadoConverter"/>
+                                                    </p:outputLabel>
+                                                </p:column>
+
+                                                <p:column headerText="VER" style="width:10px;background-color: #{us.colorBack_T};">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true"  actionListener="#{usuariosMovilController.seleccionar(us,'U')}"  update="dlgUsuario"/>
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+
+                                </h:panelGrid>
+
+                            </p:tab>
+
+
+
+                        </p:tabView>
+                    </center>
+                </h:form>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <center>
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
+                    </center>
+                </p:confirmDialog> 
+
+
+
+
+
+                <!-- Venta Dialogos -->
+
+
+                <p:dialog  header="#{usuariosMovilController.texto} USUARIO ##{usuariosMovilController.objeto.empleadoid}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUsuario" id="dlgUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formUs">  
+
+                        <h:panelGrid id="contenDlg" columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="EMPLADO_ID"></p:outputLabel>
+                                    <p:commandButton value="#{usuariosMovilController.objeto.empleadoid}" styleClass="buttonOverRed"  style="color:black;background:white;font-weight:bold; width: 100px"  immediate="true"  actionListener="#{usuariosMovilController.abrirDialogoListaEmpleados()}"  update="dlgListaUsuario"    />
+                                    <p:outputLabel   value="USUARIO_TOPAZ"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{usuariosMovilController.objeto.usuariotopaz}" style="width:150px" />
+                                    <p:outputLabel   value="PUESTO"></p:outputLabel>
+                                    <p:inputText value="#{usuariosMovilController.objeto.puesto}" style="width:210px" required="true" requiredMessage="El Puesto no puede estar vacio"/>
+                                </h:panelGrid>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="NOMBRE"></p:outputLabel>
+                                    <p:inputText  value="#{usuariosMovilController.objeto.nombre}" style="width:400px" required="true" requiredMessage="El nombre no puede estar vacio"/>
+                                    <p:outputLabel   value="CORREO"></p:outputLabel>
+                                    <p:inputText  value="#{usuariosMovilController.objeto.correo}" style="width:200px" required="true" requiredMessage="El correo no puede estar vacio"/>
+                                </h:panelGrid>
+
+                            </center>
+
+
+                            <h:panelGrid   columns="7">
+                                <p:outputLabel   value="INTENTOS"></p:outputLabel>
+                                <p:inputNumber decimalPlaces="0" value="#{usuariosMovilController.objeto.intentos}" minValue="0" maxlength="3" size="13" />
+
+
+                                <p:outputLabel   value="ESTADO"></p:outputLabel>
+                                <p:selectOneMenu id="estado"  value="#{usuariosMovilController.objeto.estado}"  style="width:100px">
+                                    <f:selectItem itemLabel="ACTIVO" itemValue="1" />
+                                    <f:selectItem itemLabel="INACTIVO" itemValue="0" />
+                                    <f:selectItem itemLabel="CAMBIOCLAVE" itemValue="2" />
+                                </p:selectOneMenu>
+
+                                <p:spacer  style="width:3px;height:20px" />
+                                <p:outputLabel   value="ULTIMO CAMBIO: "></p:outputLabel>
+                                <p:inputText readonly="true" value="#{usuariosMovilController.objeto.ultimocambio}" style="width:220px">
+                                    <f:convertDateTime pattern="dd/MM/yyyy"/>
+                                </p:inputText>
+
+
+                            </h:panelGrid>
+
+                            <h:panelGrid   columns="6" id="panelx">
+                                <p:outputLabel   value="ID.DISPOSITIVO"></p:outputLabel>
+                                <p:commandButton styleClass="buttonOverRed" icon="fa fa-undo" style="color:black;background:gold;font-weight:bold"  actionListener="#{usuariosMovilController.limpiarIMEI()}" update="panelx"   />
+                                <p:inputText id="iddispo" value="#{usuariosMovilController.objeto.imei}" style="width:210px"/>
+
+                                <p:outputLabel   value="NUEVA CONTRASEÑA:"></p:outputLabel>
+                                <h:panelGrid columns="2" cellpadding="0">
+                                    <p:password id="txtClave" size="25" value="#{usuariosMovilController.objeto.contrasenia}" style="width:190px"/>
+                                    <h:panelGrid columns="2" cellpadding="0" id="pbt">
+                                        <p:triStateCheckbox rendered="#{usuariosMovilController.verC}" value="#{usuariosMovilController.ver2C}" stateOneIcon="fa fa-eye" stateTwoIcon="fa fa-eye" stateThreeIcon="fa fa-eye"  onchange="pass1C()" >
+                                            <p:ajax  event="change" update="pbt" listener="#{usuariosMovilController.clave2C()}" />
+                                        </p:triStateCheckbox>
+                                        <p:triStateCheckbox rendered="#{!usuariosMovilController.verC}" value="#{usuariosMovilController.ver2C}" stateOneIcon="fa fa-eye-slash" stateTwoIcon="fa fa-eye-slash" stateThreeIcon="fa fa-eye-slash" onchange="pass1C()" >
+                                            <p:ajax event="change" update="pbt" listener="#{usuariosMovilController.clave2C()}" />
+                                        </p:triStateCheckbox>
+                                    </h:panelGrid>
+                                </h:panelGrid>
+                            </h:panelGrid>
+                            <h:panelGrid   columns="6" id="panelx2">
+                                <p:commandButton styleClass="buttonOverRed" icon="fa fa-home" value="AGENCIAS(#{usuariosMovilController.seleccionadasLength()})"  style="color:black;background:gold;font-weight:bold"  actionListener="#{usuariosMovilController.abrirDialogoListaAgencias()}" immediate="true" update="formLstAge" />
+
+                                <p:spacer  style="width:275px;height:20px" />
+
+                                <h:panelGrid   columns="1" id="panelx3">
+                                    <h:panelGrid   columns="2" >
+                                        <p:outputLabel value="TIPO USUARIO"   />
+                                        <p:selectOneMenu id="tipouser" value="#{usuariosMovilController.objeto.tipousuario}" style="width:200px" required="true" requiredMessage="Seleccione el tipo de Usuario">
+                                            <p:ajax update="panelx3 panelx4" />
+                                            <f:selectItem  itemLabel="**SELECCIONE**" itemValue="" noSelectionOption="true"/> 
+                                            <f:selectItems value="#{usuariosMovilController.lstTiposUsr}" var="tip" itemValue="#{tip.idtipousuario}" itemLabel="#{tip.descripcion}"/>  
+
+                                        </p:selectOneMenu>                                        
+                                    </h:panelGrid>
+
+
+                                    <h:panelGrid   columns="3" id="panelx4" rendered="#{usuariosMovilController.objeto.tipousuario=='2'?true:false}" >
+                                        <p:outputLabel  value="ID GESTOR: "    />
+                                        <p:spacer  style="width:10px;height:20px" />
+                                        <p:inputText value="#{usuariosMovilController.objeto.codigogestorcobro}" style="width:220px"/>
+                                    </h:panelGrid>
+
+                                </h:panelGrid>
+
+
+                            </h:panelGrid>
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle" actionListener="#{usuariosMovilController.insertar()}" update="msj @([id$=tabla1])"  value="GUARDAR"  />
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  immediate="true" oncomplete="PF('wdlUsuario').hide();"  value="SALIR"  />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+                <p:dialog  header="SELECCIONE USUARIO " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaUsuario" id="dlgListaUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formLstUs">  
+                        <h:panelGrid columns="3">
+                            <p:outputLabel value="BUSCAR POR NOMBRE EMPLEADO:"   />
+                            <p:inputText style="width:200px" id="txtnom2" value="#{usuariosMovilController.filtroNombre2}" />
+                            <p:commandButton styleClass="buttonOverRed" icon="fa fa-refresh" value="CONSULTAR"  actionListener="#{usuariosMovilController.buscarEmpleado2()}" style="color:white;background:#3b63a9;font-weight:bold" update="formLstUs" />
+
+                        </h:panelGrid>
+                        <p:dataTable id="tabla2"  emptyMessage="No hay datos" scrollable="true" scrollHeight="300"  style="font-size:10.5px;min-width: 900px;max-width: 900px" value="#{usuariosMovilController.lstUsuariosEmpleados}" var="us" >
+
+                            <p:column headerText="EMPLEADOID" style="width:10px;background-color: #{us.colorBack_T};">
+                                <p:outputLabel value="#{us.empleadoid}" />
+                            </p:column>
+                            <p:column headerText="USUARIO" style="width:20px;background-color: #{us.colorBack_T};">
+                                <p:outputLabel value="#{us.usuariotopaz}" />
+                            </p:column>
+                            <p:column headerText="NOMBRE" style="width:60px;background-color: #{us.colorBack_T};">
+                                <p:outputLabel value="#{us.nombre}" />
+                            </p:column>
+                            <p:column headerText="AGENCIA" style="width:20px;background-color: #{us.colorBack_T};">
+                                <p:outputLabel value="#{us.agencia}" />
+                            </p:column>
+                            <p:column headerText="PUESTO" style="width:20px;background-color: #{us.colorBack_T};">
+                                <p:outputLabel value="#{us.puesto}" />
+                            </p:column>
+
+                            <p:column headerText="SELEC" style="width:10px;background-color: #{us.colorBack_T};">
+                                <center>
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-check-circle" style="color:black;background:gold;font-weight:bold"  immediate="true"  actionListener="#{usuariosMovilController.seleccionar(us,'I')}" update="dlgUsuario" oncomplete="PF('wdlListaUsuario').hide();" />
+                                </center>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </p:dialog>
+
+
+
+                <p:dialog  header="AGENCIAS ASIGNADAS" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlAgenciasUsuario" id="dlgAgenciasUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formLstAge">  
+                        <h3>Agencias: #{usuariosMovilController.objeto.nombre} </h3>
+
+                        <p:selectManyCheckbox id="idagencheck" value="#{usuariosMovilController.selectedAgencias}" layout="grid" columns="3" styleClass="grid-checkbox">
+                            <f:selectItems value="#{usuariosMovilController.lstTodasAgencias}" var="agen" itemLabel="#{agen.agencia}" itemValue="#{agen.agenciaid}"/>
+                        </p:selectManyCheckbox>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlAgenciasUsuario').hide();" update=":msj formUs:panelx2" />
+                            </h:panelGrid>
+                        </center>
+
+                    </h:form>
+                </p:dialog>
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="#{usuariosMovilController.imgLoadin}" />
+                </p:dialog>
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>

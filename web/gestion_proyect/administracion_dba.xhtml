@@ -1,0 +1,820 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+    <h:head>
+        <title>Facelet Title</title>
+
+    </h:head>
+    <h:body>
+
+
+
+        <ui:composition template="/welcomePrimefaces.xhtml">
+            <ui:define name="bodyJR">
+                <p:growl id="msj" showDetail="true"/>
+
+                <h:form id="form">
+                    <center>
+                        <p:tabView style="font-size:14px;" dynamic="true" cache="true" activeIndex="0">
+                            <p:tab title="PANEL DE ADMINISTRADOR BASE DE DATOS"  >
+                                <f:facet name="actions" >
+                                    <p:commandButton value="?" styleClass="buttonOverRed"  style="margin-left:20px;color:white;background:#3b63a9;font-weight:bold"/>
+                                      
+                                </f:facet>
+                                <h:panelGrid columns="1" >
+                                    <p:panel header="Solicitudes De Ejecucion"  style="min-width: 1100px">
+                                        <h:panelGrid columns="1"  >
+                                            <p:dataTable id="tabla1"  emptyMessage="No hay datos" scrollable="true" scrollHeight="200"  style="font-size:10px;min-width: 1100px" value="#{admDBAController.lstAyudaSQL}" var="req" >
+
+                                                <p:column headerText="ID" style="width:10px;background-color: #{req.colorBack_T};">
+                                                    <p:outputLabel value="#{req.id}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE DE SOLICITUD" style="width:60px;background-color: #{req.colorBack_T};">
+                                                    <p:outputLabel value="#{req.nombre_corto}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:20px;background-color: #{req.colorBack_T};">
+                                                    <p:outputLabel value="#{req.estado}" />
+                                                </p:column>
+                                                <p:column headerText="DESARROLLADOR" style="width:60px;background-color: #{req.colorBack_T};">
+                                                    <p:outputLabel value="#{req.d_usuario}" />
+                                                </p:column>
+                                                <p:column headerText="FECHA_SOL" style="width:25px;background-color: #{req.colorBack_T};">
+                                                    <p:outputLabel value="#{req.fecha_autorizado}" />
+                                                </p:column>
+
+                                                <p:column headerText="VER" style="width:20px;background-color: #{req.colorBack_T};">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDBAController.ver_ayuda_enviada(req)}"   update="dlgEjecutaSQL dlgPermiso"   />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+                                    <p:panel header="Solicitudes De Permiso" style="min-width: 1100px">
+                                        <h:panelGrid columns="1" >
+                                            <p:dataTable id="tabla2" emptyMessage="No hay datos" scrollable="true" scrollHeight="200"  style="font-size:10px;min-width: 1100px" value="#{admDBAController.lstAyudaPermiso}"  var="cas" >
+                                                <p:column headerText="ID" style="width:5px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.id}" />
+                                                </p:column>
+                                                <p:column headerText="NOMBRE DE SOLICITUD" style="width:60px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.nombre_corto}" />
+                                                </p:column>
+                                                <p:column headerText="ESTADO" style="width:20px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.estado}" />
+                                                </p:column>
+                                                <p:column headerText="DESARROLLADOR" style="width:60px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.d_usuario}" />
+                                                </p:column>
+                                                <p:column headerText="FECHA_SOL" style="width:35px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.fecha_autorizado}" />
+                                                </p:column>
+                                                <p:column headerText="FECHA_INI" style="width:35px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.fecha_inicio_permiso}" />
+                                                </p:column>
+                                                <p:column headerText="FECHA_FIN" style="width:35px;background-color: #{cas.colorBack_P};">
+                                                    <p:outputLabel value="#{cas.fecha_fin_permiso}" />
+                                                </p:column>
+                                                <p:column headerText="VER" style="width:5px;background-color: #{cas.colorBack_P};">
+                                                    <center>
+                                                        <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDBAController.ver_ayuda_enviada(cas)}"   update="dlgEjecutaSQL dlgPermiso dlgCargaProce dlgEnvia"   />
+                                                    </center>
+                                                </p:column>
+                                            </p:dataTable>
+                                        </h:panelGrid>
+                                    </p:panel> 
+
+
+
+                                </h:panelGrid>
+
+                            </p:tab>
+                          
+                            <p:tab title="HISTORIAL SOLICITUDES"  >
+
+                                <h:panelGrid columns="7" >
+
+
+                                    <p:outputLabel value="Tipo:"   />  
+                                    <p:selectOneMenu  value="#{admDBAController.fil_tipo}" effect="fold" style="width:160px">
+                                        <f:selectItem  itemLabel="Todos" itemValue="T"/>
+                                        <f:selectItem  itemLabel="Ejecucion SQL" itemValue="E"/>
+                                        <f:selectItem  itemLabel="Permiso sobre Objeto" itemValue="P"/>
+                                    </p:selectOneMenu>
+
+                                    <p:outputLabel value="Estado:"   />   
+                                    <p:selectOneMenu id="estado"  value="#{admDBAController.fil_estado}" effect="fold" style="width:170px">
+                                        <f:selectItem  itemLabel="Todos" itemValue=""/>
+                                        <f:selectItem  itemLabel="Autorizado TI" itemValue="Autorizado TI"/>
+                                        <f:selectItem  itemLabel="En Desarrollo DBA" itemValue="En Desarrollo DBA"/>
+                                        <f:selectItem  itemLabel="Permiso Iniciado" itemValue="Permiso Ini"/>
+                                        <f:selectItem  itemLabel="Finalizado/Completado DBA" itemValue="Completado DBA"/>
+                                    </p:selectOneMenu>
+
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-calendar" value="FECHAS" style="color:white;background:#3b63a9;font-weight:bold"  oncomplete="PF('wdlFechas').show();" update="dlgFechas" />
+
+
+                                    <h:commandLink title="Exportar a Excel" style="border-color: #000000">
+                                        <p:graphicImage name="images/export/excel.png" width="24"/>
+                                        <p:dataExporter type="xls" target="tabla3"   fileName="Historial_casos" />
+                                    </h:commandLink>
+                                    <p:commandButton styleClass="buttonOverRed" icon="fa fa-refresh" value="CONSULTAR"  actionListener="#{admDBAController.listarReq('x')}" style="color:white;background:#3b63a9;font-weight:bold" update="form" />
+                                </h:panelGrid>
+
+
+
+                                <h:panelGrid columns="1" >
+                                    <p:dataTable id="tabla3"  emptyMessage="No hay datos" scrollable="true"   style="font-size:10px;min-width: 1100px" value="#{admDBAController.lstHistorial}" var="his" >
+
+                                        <p:column headerText="ID" style="width:10px">
+                                            <p:outputLabel value="#{his.id}" />
+                                        </p:column>
+                                        <p:column headerText="NOMBRE DE SOLICITUD" style="width:60px" sortBy="#{his.nombre_corto}">
+                                            <p:outputLabel value="#{his.nombre_corto}" />
+                                        </p:column>
+                                        <p:column headerText="ESTADO" style="width:20px" sortBy="#{his.estado}">
+                                            <p:outputLabel value="#{his.estado}" />
+                                        </p:column>
+                                        <p:column headerText="DESARROLLADOR" style="width:60px" sortBy="#{his.d_usuario}">
+                                            <p:outputLabel value="#{his.d_usuario}" />
+                                        </p:column>
+                                        <p:column headerText="FECHA_SOL" style="width:25px" sortBy="#{his.fecha_autorizado}">
+                                            <p:outputLabel value="#{his.fecha_autorizado}" />
+                                        </p:column>
+                                        <p:column headerText="FECHA_INICIO_PERMISO/PROCESO" width="0" styleClass="vd-hidden-column">
+                                            <p:outputLabel value="#{his.fecha_inicio_permiso}" />
+                                        </p:column>
+                                        <p:column headerText="FECHA_SUSPENDIO_PERMISO" width="0" styleClass="vd-hidden-column">
+                                            <p:outputLabel value="#{his.fecha_fin_permiso}" />
+                                        </p:column>
+
+                                        <p:column headerText="VER" exportable="false" style="width:20px">
+                                            <center>
+                                                <p:commandButton styleClass="buttonOverRed" icon="fa fa-eye" style="color:black;background:gold;font-weight:bold"  immediate="true" actionListener="#{admDBAController.ver_ayuda_enviada(his)}"   update="dlgEjecutaSQL dlgPermiso dlgCargaProce"   />
+                                            </center>
+                                        </p:column>
+                                    </p:dataTable>                                        
+
+                                </h:panelGrid>
+
+
+
+                            </p:tab>
+
+
+
+                        </p:tabView>
+                    </center>
+                </h:form>
+
+                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                    <center>
+                        <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
+                        <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
+                    </center>
+                </p:confirmDialog> 
+
+
+
+
+
+                <!-- Venta Dialogos -->
+
+
+                <p:dialog  header="REQUERIMIENTO ##{admDBAController.objeto.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlRequerimiento" id="dlgRequerimiento" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formReq">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objeto.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objeto.fecha}" style="width:90px"/>
+                                    <p:outputLabel   value="CIRCULAR"></p:outputLabel>
+                                    <p:inputText  value="#{admDBAController.objeto.circular}" style="width:100px"/>
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="3" cellpadding="5">
+                                <p:fieldset legend="Prioridad" style="margin-bottom:5px">
+                                    <p:selectOneRadio id="prioridad" value="#{admDBAController.objeto.prioridad}" >
+                                        <f:selectItem itemLabel="Baja" itemValue="Baja" />
+                                        <f:selectItem itemLabel="Media" itemValue="Media" />
+                                        <f:selectItem itemLabel="Alta" itemValue="Alta" />
+                                    </p:selectOneRadio>
+
+                                </p:fieldset>
+                                <p:fieldset legend="Tipo" style="margin-bottom:5px">
+                                    <p:selectOneRadio id="tipo" value="#{admDBAController.objeto.nuevo}" >
+                                        <f:selectItem itemLabel="Nuevo" itemValue="S" />
+                                        <f:selectItem itemLabel="Modificacion" itemValue="M" />
+
+                                    </p:selectOneRadio>
+
+                                </p:fieldset>
+
+                                <p:fieldset legend="Adjuntos(#{admDBAController.objeto.lstDocument.size()}) " style="margin-bottom:5px">
+                                    <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle"  value="Documentos" oncomplete="PF('wdlAdjunto').show();" update="dlgAdjunto"/>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="NOMBRE REQUERIMIENTO:"></p:outputLabel>
+                                <p:inputText  value="#{admDBAController.objeto.nombre_corto}"   />
+                                <h:commandLink id="reporte2" value="Ver Formato en PDF" target="_black" actionListener="#{admDBAController.verRequerimeintoPDF('RequerimientoP')}" />
+                            </h:panelGrid>
+                            <p:outputLabel style="font-weight:bold"  value="BREVE DESCRIPCION DEL REQUERIMIENTO:"></p:outputLabel>
+                            <p:inputTextarea  rows="8" cols="60" value="#{admDBAController.objeto.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+                             
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlRequerimiento').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+
+                <!-- OTRO DIALOGO -->
+                <p:dialog  header="CASO ##{admDBAController.objeto.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCaso" id="dlgCaso" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCaso">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objeto.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objeto.fecha}" style="width:90px"/>
+                                    <p:outputLabel   value="AGENCIA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objeto.d_agencia}" style="width:100px"/>
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Aplicativo Con Problemas:" >
+                                    <p:selectManyCheckbox  id="aplicativo" value="#{admDBAController.objeto.aplicativo}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Clientes" itemValue="Clientes_AP" />
+                                        <f:selectItem itemLabel="Solicitudes" itemValue="Solicitudes_AP" />
+                                        <f:selectItem itemLabel="Prestamos" itemValue="Prestamos_AP" />
+                                        <f:selectItem itemLabel="Garantias" itemValue="Garantias_AP" />
+                                        <f:selectItem itemLabel="Cuentas Ahorro" itemValue="Cuentas_Ahorro_AP" />
+                                        <f:selectItem itemLabel="Deposito Plazo" itemValue="Deposito_Plazo_AP" />
+                                        <f:selectItem itemLabel="Venta Seguros" itemValue="Venta_Seguros_AP" />
+                                        <f:selectItem itemLabel="Caja" itemValue="Caja_AP" />
+                                        <f:selectItem itemLabel="Contabilidad" itemValue="Contabilidad_AP" />
+                                        <f:selectItem itemLabel="Otros" itemValue="Otros_AP" >
+
+                                        </f:selectItem>
+
+                                    </p:selectManyCheckbox>
+                                    <p:inputText placeholder="Especifique otros.." value="#{admDBAController.objeto.especifique_otro}" style="width:450px"/>
+                                </p:fieldset>
+
+                                <p:fieldset legend="Adjuntos(#{admDBAController.objeto.lstDocument.size()})" style="margin-bottom:5px">
+                                    <p:commandButton styleClass="buttonOverRed" style="color:white;background:#3b63a9;font-weight:bold" icon="fa fa-check-circle"  value="Documentos" oncomplete="PF('wdlAdjunto').show();" update="dlgAdjunto"/>
+                                </p:fieldset>
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="NOMBRE DEL CASO:"></p:outputLabel>
+                                <p:inputText  value="#{admDBAController.objeto.nombre_corto}"   />
+                                <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDBAController.verRequerimeintoPDF('CasoAyuda')}" />
+                            </h:panelGrid>
+                            <p:outputLabel style="font-weight:bold"  value="BREVE DESCRIPCION DEL PROBLEMA:"></p:outputLabel>
+                            <p:inputTextarea  rows="8" cols="60" value="#{admDBAController.objeto.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlCaso').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <!-- Archivos Adjuntos-->
+                <p:dialog  header="Adjuntos"  style="font-size:14px;background:#DEDDDD;" widgetVar="wdlAdjunto" id="dlgAdjunto" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formAdjunto" enctype="multipart/form-data">  
+
+                        <p:panelGrid   columns="2" >
+                            <p:panelGrid   columns="1" >
+                                <h4>Lista de archivos Agregados</h4>
+                                <p:dataTable id="tablaA" emptyMessage="No hay documentos" scrollable="true" scrollHeight="177"  style="width: 400px;height: 200px; font-size:12px;;font-weight:bold" value="#{admDBAController.objeto.lstDocument}" var="do" >
+
+                                    <p:column headerText="Documento" style="width:80px; background-color: #{do.color}">
+                                        <p:outputLabel value="#{do.nombre}" />
+                                    </p:column>
+
+                                    <p:column headerText="Ver" style="width:20px; background-color: #{do.color}">
+                                        <center>
+                                            <p:commandButton id="downloadLink" rendered="#{do.estado==1?true:false}" icon="fa fa-arrow-circle-down"  ajax="false" onclick="PrimeFaces.monitorDownload(start, stop);" actionListener="#{admDBAController.objeto.prepDownload(do)}">
+                                                <p:fileDownload value="#{admDBAController.objeto.download}" />
+                                            </p:commandButton>
+
+                                        </center>
+                                    </p:column>
+                                </p:dataTable>
+
+                            </p:panelGrid>
+
+
+
+
+                        </p:panelGrid>
+
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlAdjunto').hide();"  value="CERRAR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+
+                <!-- DIALOGO EJEUCTAR SQL-->
+                <p:dialog  header="AYUDA A EJECUTAR SCRIPT ##{admDBAController.objetoSecundario.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlEjecutaSQL" id="dlgEjecutaSQL" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formEjecuta">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.fecha}" style="width:90px"/>
+
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Tipo de Comando:" >
+                                    <p:selectManyCheckbox  id="tipoComando" required="true" requiredMessage="Seleccione tipo de comando" value="#{admDBAController.objetoSecundario.tipo_comando}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Update" itemValue="Update_TPC" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_TPC" />
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_TPC" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                                <p:fieldset legend="Ambiente Base de Datos:" >
+                                    <p:selectOneRadio  id="ambiente" required="true" requiredMessage="Seleccione Ambiente" value="#{admDBAController.objetoSecundario.ambiente}"  layout="grid" columns="3">
+                                        <f:selectItem itemLabel="Produccion" itemValue="Produccion_TPA" />
+                                        <f:selectItem itemLabel="Mes Anterior" itemValue="Mes_Anterior_TPA" />
+                                        <f:selectItem itemLabel="Testing" itemValue="Testing_TPA" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="3">
+                                <p:outputLabel   value="Cantidad de Registros Afectados:"></p:outputLabel>
+                                <p:inputNumber decimalPlaces="0" required="true" requiredMessage="Ingrese la cantidad de Registros Afectados" value="#{admDBAController.objetoSecundario.cant_reg_afec}"   />
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="2">
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDBAController.operacion.equalsIgnoreCase('U')?true:false}" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Ver Requerimiento de Origen y la Documentacion" actionListener="#{admDBAController.ver_ayuda_Origen()}" update="dlgRequerimiento dlgCaso"/>
+                                <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDBAController.verFormadoSQLPermisoPDF('EjecutarSQL')}" />
+                            </h:panelGrid>
+                            <p:outputLabel style="font-weight:bold"  value="DESCRIPCION DE LO SOLICITADO:"></p:outputLabel>
+                            <p:inputTextarea required="true" requiredMessage="Ingrese la descripcion" rows="8" cols="60" value="#{admDBAController.objetoSecundario.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDBAController.disable_bt_completar()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" actionListener="#{admDBAController.completar_ayuda('Completado DBA')}" update="msj form"  value="FINALIZAR" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{admDBAController.disable_bt_completar()}" style="color:white;background:red ;font-weight:bold"  icon="fa fa-remove"  actionListener="#{admDBAController.completar_ayuda('Rechazado')}"  update="msj form" value="RECHAZAR" immediate="true" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlEjecutaSQL').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- DIALOGO PERMISO SOBRE OBJETO-->
+                <p:dialog  header="AYUDA CON PERMISO SOBRE OBJETO ##{admDBAController.objetoSecundario.id}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlPermiso" id="dlgPermiso" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formPermiso">  
+
+                        <h:panelGrid columns="1">
+                            <center>
+                                <h:panelGrid columns="6">
+                                    <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.d_usuario}" style="width:230px"  />
+                                    <p:outputLabel   value="FECHA"></p:outputLabel>
+                                    <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.fecha}" style="width:90px"/>
+
+                                </h:panelGrid>
+                            </center>
+
+                            <h:panelGrid   columns="2" cellpadding="5">
+                                <p:fieldset legend="Tipo de Permiso:" >
+                                    <p:selectManyCheckbox  id="tipoPermiso" required="true" requiredMessage="Seleccione tipo de Permiso" value="#{admDBAController.objetoSecundario.tipo_comando}"  layout="grid" columns="4">
+                                        <f:selectItem itemLabel="Select" itemValue="Select_TPP" />
+                                        <f:selectItem itemLabel="Update" itemValue="Update_TPP" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_TPP" />
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_TPP" />
+                                        <f:selectItem itemLabel="Truncate" itemValue="Truncate_TPP" />
+                                        <f:selectItem itemLabel="Excecute" itemValue="Excecute_TPP" />
+                                        <f:selectItem itemLabel="Debug" itemValue="Debug_TPP" />
+                                        <f:selectItem itemLabel="Drop" itemValue="Drop_TPP" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                                <p:fieldset legend="Ambiente Base de Datos:" >
+                                    <p:selectOneRadio  id="ambiente" required="true" requiredMessage="Seleccione Ambiente" value="#{admDBAController.objetoSecundario.ambiente}"  layout="grid" columns="2">
+                                        <f:selectItem itemLabel="Produccion" itemValue="Produccion_TPA" />
+                                        <f:selectItem itemLabel="Mes Anterior" itemValue="Mes_Anterior_TPA" />
+                                        <f:selectItem itemLabel="Testing" itemValue="Testing_TPA" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="4">
+                                <p:outputLabel   value="Tipo Objeto:"></p:outputLabel>
+                                <p:inputText required="true" requiredMessage="Ingrese tipo de objetos" value="#{admDBAController.objetoSecundario.tipo_objeto}"  />
+                                <p:outputLabel   value="Nombre Objeto:"></p:outputLabel>
+                                <p:inputText required="true" requiredMessage="Ingrese nombre de objetos" value="#{admDBAController.objetoSecundario.nombre_objeto}"   />
+
+                            </h:panelGrid>
+                            <h:panelGrid   columns="2">
+                                <p:commandButton styleClass="buttonOverRed" rendered="#{admDBAController.operacion.equalsIgnoreCase('U')?true:false}" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Ver Requerimiento de Origen y la Documentacion" actionListener="#{admDBAController.ver_ayuda_Origen()}" update="dlgRequerimiento dlgCaso"/>
+                                <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDBAController.verFormadoSQLPermisoPDF('Permiso')}" />
+                            </h:panelGrid>
+                            <p:outputLabel style="font-weight:bold"  value="DESCRIPCION DE LO SOLICITADO:"></p:outputLabel>
+                            <p:inputTextarea required="true" requiredMessage="Ingrese la descripcion" rows="8" cols="60" value="#{admDBAController.objetoSecundario.descripcion}" autoResize="false" style="width:700px;height: 200px"/>
+
+
+
+
+
+
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDBAController.disable_bt_iniciar_p()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-clock-o" actionListener="#{admDBAController.completar_ayuda('Permiso Ini')}" update="msj form"  value="INICIAR PERMISO" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Ya Asigno permisos?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDBAController.disable_bt_finalizar_p()}" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-clock-o" actionListener="#{admDBAController.completar_ayuda_permiso('Completado DBA')}" update="msj form"  value="FINALIZAR PERMISO" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Ya Quito los permisos?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{admDBAController.disable_bt_completar()}" style="color:white;background:red ;font-weight:bold"  icon="fa fa-remove"  actionListener="#{admDBAController.completar_ayuda('Rechazado')}"  update="msj form" value="RECHAZAR" immediate="true" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlPermiso').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+                    </h:form>
+                </p:dialog>
+
+
+
+                <!-- Dialogo Fechas -->
+
+
+                <p:dialog  header="FILTROS DE FECHA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFechas" id="dlgFechas" showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formFec">  
+                        <p:fieldset legend="Recepcion" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaR1" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDBAController.fechaR1}"/>
+                                <p:calendar id="txtfechaR2" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDBAController.fechaR2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+
+                        <p:fieldset legend="Completado" style="margin-bottom:20px">
+                            <h:panelGrid columns="2" cellpadding="5">
+                                <p:calendar id="txtfechaC1" placeholder="Desde" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDBAController.fechaC1}"/>
+                                <p:calendar id="txtfechaC2" placeholder="Hasta" pattern="dd-MM-yyyy" showOn="button" size="10" value="#{admDBAController.fechaC2}"/>
+                            </h:panelGrid>
+                        </p:fieldset>
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlFechas').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+                <!-- Dialogo solicitud carga nueva estructura-->
+                <p:dialog  header="SOLICITUD CARGA ESTRUCTURA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCargaProce" id="dlgCargaProce"  showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formCargaPro">  
+                        <center>
+                            <h:panelGrid columns="6">
+                                <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.d_usuario}" style="width:300px"  />
+                                <p:outputLabel   value="FECHA"></p:outputLabel>
+                                <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.fecha}" style="width:90px"/>
+                            </h:panelGrid>
+                        </center>
+                        <h:panelGrid columns="2">
+
+
+                            <h:panelGrid columns="1">
+
+                                <h:panelGrid columns="2">
+                                    <h:panelGrid columns="1">
+                                        <p:outputLabel   value="NOMBRE ESTRUCTURA"></p:outputLabel>
+                                        <p:inputText value="#{admDBAController.objetoSecundario.nombre_corto}" style="width:310px;text-transform: uppercase"   />
+                                    </h:panelGrid>
+
+                                    <p:commandButton  styleClass="buttonOverRed" style="color:black;background:greenyellow;font-weight:bold; margin-left: 50px" icon="fa fa-code" value="NUEVO SCRIPT SQL" oncomplete="var htmlTag = document.getElementById('dlgCodigo');htmlTag.style.height = Math.floor(window.innerHeight*0.7)+'px';PF('wdlCodigo').show();"   update=":msj :dlgCodigo"  />
+
+
+
+                                </h:panelGrid>
+
+
+
+                                <h:panelGrid   columns="3" cellpadding="5">
+                                    <p:fieldset legend="Tarea a Realizar" style="margin-bottom:5px">
+                                        <p:selectOneRadio id="prioridad" value="#{admDBAController.objetoSecundario.tarea}" >
+                                            <f:selectItem itemLabel="Crear" itemValue="Crear" />
+                                            <f:selectItem itemLabel="Modificar" itemValue="Modificar" />
+                                            <f:selectItem itemLabel="Eliminar" itemValue="Eliminar" />
+                                        </p:selectOneRadio>
+                                    </p:fieldset>
+                                    <p:fieldset legend="Ambiente" style="margin-bottom:5px">
+                                        <p:selectOneMenu  value="#{admDBAController.objetoSecundario.ambiente}" effect="fold" style="width:160px">
+                                            <f:selectItem itemLabel="Seleccione" itemValue=""/>
+                                            <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
+                                            <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />
+                                            <f:selectItem itemLabel="Desarrollo" itemValue="Desarrollo" />
+                                            <f:selectItem itemLabel="Mes Anterior" itemValue="Anterior" />
+                                            <f:selectItem itemLabel="Liberaciones" itemValue="Liberaciones" />
+                                            <f:selectItem itemLabel="Db Eventuales" itemValue="Db Eventuales" />
+                                            <f:selectItem itemLabel="Abanks" itemValue="Abanks" />
+                                            <f:selectItem itemLabel="Branch" itemValue="Branch" />
+                                            <f:selectItem itemLabel="Perdida" itemValue="Perdida" />
+                                        </p:selectOneMenu>
+                                    </p:fieldset>
+                                </h:panelGrid>
+                                <p:fieldset legend="Objeto Afectado" style="margin-bottom:5px" >
+                                    <p:selectOneRadio value="#{admDBAController.objetoSecundario.objetoTarea}" layout="grid" columns="5">
+                                        <f:selectItem itemLabel="Tabla" itemValue="Tabla" />
+                                        <f:selectItem itemLabel="Constraint" itemValue="Constraint" />
+                                        <f:selectItem itemLabel="Index" itemValue="Index" />
+                                        <f:selectItem itemLabel="Synonsym" itemValue="Synonsym" />
+                                        <f:selectItem itemLabel="Role" itemValue="Role" />
+                                        <f:selectItem itemLabel="User" itemValue="User" />
+                                        <f:selectItem itemLabel="Profile" itemValue="Profile" />
+                                        <f:selectItem itemLabel="Funcion" itemValue="Funcion" />
+                                        <f:selectItem itemLabel="Trigger" itemValue="Trigger" />
+                                        <f:selectItem itemLabel="Paquetes" itemValue="Paquetes" />
+                                        <f:selectItem itemLabel="Procedimiento" itemValue="Procedimiento" />
+                                        <f:selectItem itemLabel="Privilegio" itemValue="Privilegio" />
+                                        <f:selectItem itemLabel="Job" itemValue="Job" />
+                                        <f:selectItem itemLabel="Vista" itemValue="Vista" />
+                                    </p:selectOneRadio>
+                                </p:fieldset>
+                                <h:panelGrid   columns="3" cellpadding="5">
+                                    <p:outputLabel   value="USUARIOS QUE LO UTILIZARAN:"></p:outputLabel>
+                                    <p:chips
+                                        id="chips"
+                                        widgetVar="pf-chips"
+                                        value="#{admDBAController.objetoSecundario.des_usuarios_utilizan}"
+                                        styleClass="width:280px;max-height: 20px;"
+                                        onblur="
+                                                var e = document.createEvent('Event');
+                                                e.initEvent('keydown');
+                                                e.keyCode = 13;
+                                                e.which = 13;
+                                                PF('pf-chips').input[0].dispatchEvent(e);
+                                        "
+                                        onkeypress="
+                                                if (event.keyCode === 32 || event.keyCode === 44)
+                                                {
+                                                    var e = document.createEvent('Event');
+                                                    e.initEvent('keydown');
+                                                    e.keyCode = 13;
+                                                    e.which = 13;
+                                                    PF('pf-chips').input[0].dispatchEvent(e);
+                                                }"
+
+                                        ><p:keyFilter regEx="/[a-z0-9_]/i"/>  
+                                    </p:chips>
+
+
+                                </h:panelGrid>
+
+                                <p:fieldset legend="Actividades que podran realizar los usuarios" style="margin-bottom:5px">
+                                    <p:selectManyCheckbox  value="#{admDBAController.objetoSecundario.actividades_usuarios}"  >
+                                        <f:selectItem itemLabel="Insert" itemValue="Insert_AC" />
+                                        <f:selectItem itemLabel="Update" itemValue="Update_AC" />
+                                        <f:selectItem itemLabel="Select" itemValue="Select_AC" />
+                                        <f:selectItem itemLabel="Delete" itemValue="Delete_AC" />
+                                    </p:selectManyCheckbox>
+                                </p:fieldset>
+                            </h:panelGrid>
+                            <h:panelGrid columns="1">
+                                <h:panelGrid columns="2">
+                                    <p:commandButton styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold" icon="fa fa-dedent"  value="Requerimiento Origen" actionListener="#{admDBAController.ver_origen_estructura()}" oncomplete="PF('wdlRequerimiento').show();" immediate="true" update="msj dlgRequerimiento"/>
+                                    <h:commandLink id="reporte" value="Ver Formato en PDF" target="_black" actionListener="#{admDBAController.verFormatoSubPDF_Sec('Estructura')}" />
+                                </h:panelGrid>
+                                <p:panel header="Estructura de Tabla" style="min-width: 410px;max-width: 410px;margin-left: -10px; padding:0px; ">
+                                    <h:panelGrid columns="1"  >
+                                        <p:dataTable id="tablaSQL"  emptyMessage="No hay datos" scrollable="true" scrollHeight="360"  style="font-size:9px;min-width: 400px;max-width: 400px;margin-left:-15px; padding:0px;height: 380px " value="#{admDBAController.objetoSecundario.lstTabla}" var="tbl" editable="true" editMode="cell" widgetVar="cellCars">
+                                            <p:column headerText="NOMBRE CAMPO" style="width:60px;">
+
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.nombre}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.nombre}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+
+                                            </p:column>
+                                            <p:column headerText="TIPO" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.tipo}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.tipo}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="LONGITUD" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.tamano}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.tamano}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+                                            <p:column headerText="CONSTRAINT" style="width:20px">
+                                                <p:cellEditor>
+                                                    <f:facet name="output"><h:outputText value="#{tbl.constraint}" /></f:facet>
+                                                    <f:facet name="input"><p:inputText value="#{tbl.constraint}" style="width:96%"/></f:facet>
+                                                </p:cellEditor>
+                                            </p:column>
+
+                                        </p:dataTable>
+                                    </h:panelGrid>
+                                </p:panel>
+
+                            </h:panelGrid>
+
+                        </h:panelGrid>
+                        <h:panelGrid   columns="2">
+                            <p:outputLabel   value="NOTA:"></p:outputLabel>
+                            <p:inputText value="#{admDBAController.objetoSecundario.notas}" style="width:980px"/>
+                        </h:panelGrid>
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDBAController.disable_bt_completar()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" actionListener="#{admDBAController.completar_ayuda('Completado DBA')}" update="msj form"  value="FINALIZAR" immediate="true"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{admDBAController.disable_bt_completar()}" style="color:white;background:red ;font-weight:bold"  icon="fa fa-remove"  actionListener="#{admDBAController.completar_ayuda('Rechazado')}"  update="msj form" value="RECHAZAR" immediate="true" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlCargaProce').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+
+
+                    </h:form>
+                </p:dialog> 
+
+
+
+
+                <!-- Dialogo solicitud carga nueva estructura-->
+                <p:dialog  header="ENVIAR SCRIPT ESTRUCTURA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlEnvia" id="dlgEnvia"  showEffect="fold" hideEffect="explode" resizable="false">
+                    <h:form id="formEnvia">  
+                        
+                            <h:panelGrid columns="6">
+                                <p:outputLabel   value="USUARIO SOLICITA"></p:outputLabel>
+                                <p:inputText readonly="true"  value="#{admDBAController.objetoSecundario.d_usuario}" style="width:300px;"  />
+                                <p:outputLabel   value="FECHA"></p:outputLabel>
+                                <p:inputText readonly="true"  value="#{admDBAController.objetoSecundario.fecha}" style="width:90px"/>
+                            </h:panelGrid>
+                       
+
+
+                        <h:panelGrid columns="1">
+
+                            <h:panelGrid columns="4">
+
+                                <p:outputLabel   value="NOMBRE ESTRUCTURA"></p:outputLabel>
+                                <p:inputText readonly="true"  value="#{admDBAController.objetoSecundario.nombre_corto}" style="width:200px;text-transform: uppercase"   />
+
+                                <p:outputLabel   value="TIPO ESTRUCTURA"></p:outputLabel>
+                                <p:inputText readonly="true"  value="#{admDBAController.objetoSecundario.objetoTarea}" style="width:200px;text-transform: uppercase"   />
+
+                            </h:panelGrid>
+
+                            <h:panelGrid   columns="2">
+                                <p:outputLabel   value="NOTA:"></p:outputLabel>
+                                <p:inputText readonly="true" value="#{admDBAController.objetoSecundario.notas}" style="width:670px"/>
+                            </h:panelGrid>
+
+
+                        </h:panelGrid>
+
+                        <p:inputTextarea value="#{admDBAController.objetoSecundario.scriptSQLAnterior}" style="width: 100% !important;height: 100% !important;"  rows="22" autoResize="false" />
+
+
+                        <center>
+                            <h:panelGrid   columns="4" cellpadding="5">
+                                <p:commandButton styleClass="buttonOverRed" disabled="#{admDBAController.disable_bt_completar()}" style="color:black;background:greenyellow;font-weight:bold" icon="fa fa-check-circle" actionListener="#{admDBAController.enviar_Script('Completado DBA')}" update="msj form"  value="ENVIAR SCRIPT"  >
+                                    <p:confirm header="Confirmacion" message="¿Desea Finalizar/Enviar Script ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+                                <p:commandButton styleClass="buttonOverBlack" disabled="#{admDBAController.disable_bt_completar()}" style="color:white;background:red ;font-weight:bold"  icon="fa fa-remove"  actionListener="#{admDBAController.completar_ayuda('Rechazado')}"  update="msj form" value="RECHAZAR" immediate="true" >
+                                    <p:confirm header="Confirmacion" message="¿Desea Rechazar Solicitud ##{admDBAController.objetoSecundario.id} ?" icon="ui-icon-alert" />
+                                </p:commandButton>
+
+                                <p:commandButton styleClass="buttonOverRed" style="color:black;background:goldenrod ;font-weight:bold" icon="fa fa-backward"  oncomplete="PF('wdlEnvia').hide();"  value="SALIR" immediate="true" />
+                            </h:panelGrid>
+                        </center>
+
+
+
+
+                    </h:form>
+                </p:dialog> 
+
+
+
+
+
+                <!-- Dialogo script-->
+                <p:dialog  header="script" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlCodigo" id="dlgCodigo" width="70%" height="100%" modal="true" appendTo="@(body)" showEffect="fold" hideEffect="explode" resizable="false" >
+                    <h:form id="formCodigo">  
+                        <p:inputTextarea value="#{admDBAController.objetoSecundario.scriptSQL}" style="width: 100% !important;height: 100% !important;"  rows="28" autoResize="false" />
+
+                        <center>
+                            <h:panelGrid   columns="1" cellpadding="5">
+                                <p:commandButton  disabled="true" styleClass="buttonOverRed" style="color:black;background:gold;font-weight:bold " icon="fa fa-check-circle" value="Establecer" oncomplete="PF('wdlCodigo').hide();" update=":msj :form" />
+                            </h:panelGrid>
+                        </center>
+                    </h:form>
+                </p:dialog>
+
+
+
+
+
+
+
+
+
+                <p:ajaxStatus onstart="PF('statusDialog').show()" onsuccess="PF('statusDialog').hide()" />
+                <p:dialog modal="true" appendTo="@(body)" widgetVar="statusDialog" header="Status" draggable="false" closable="false" resizable="false" showHeader="false">
+                    <p:graphicImage name="#{admDBAController.imgLoadin}" />
+                </p:dialog>
+
+
+            </ui:define>
+        </ui:composition>
+
+
+
+    </h:body>
+</html>
+

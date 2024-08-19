@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="compromiso" pageWidth="612" pageHeight="792" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d6e99cca-04e3-422a-a3f4-46fc5cf9a252">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="id" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["20210623095150AALVARAD43135364538187787544"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="pathfirma" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["F:\\"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select liteuid,
+ c.nombre
+,REPLACE(concat(concat(dir.departamento,', '), concat(dir.municipio,', '),dir.barrio),'DATO GENERICO','') domicilio
+,d.nrodocumento
+,v.prestamo cuenta
+,COALESCE( cast(v.saldocuotasmoradia as varchar),'  ')   saldoatrasado
+,COALESCE( cast(v.diasmoradia as varchar) ,'  ') diasatraso
+, ad_agencia.municipio
+,COALESCE( cast((SELECT EXTRACT(DAY FROM v.fechacompleto)) as integer) ,0) dia
+,COALESCE((select REPLACE(
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+	REPLACE(REPLACE(REPLACE(REPLACE(REPLACE(
+	REPLACE(to_char(v.fechacompleto, 'Month'),
+						'January','Enero'),
+						'February','Febrero'),
+						'March','Marzo'),
+						'April','Abril'),
+					    'May','Mayo'),
+						'June','Junio'),
+						'July','Julio'),
+						'August','Agosto'),
+						'September','Septiembre'),
+						'October','Octubre'),
+						'November','Noviembre'),
+						'December','Diciembre')) ,'N/A') mes
+,COALESCE(cast((SELECT EXTRACT(YEAR FROM v.fechacompleto)) as integer ) ,0) anio
+,v.fechacompromiso
+,v.resultadovisita
+,v.comentario
+,COALESCE((select nombre from ad_usuarios where usuariotopaz=v.usragenda),' ') nombreasesor
+from ad_visitas v
+inner join ad_prestamos p on p.cuenta=v.prestamo and p.jtsoid=v.saldosjtsoid
+inner join ad_clientes c on p.idcliente=c.idcliente
+inner join ad_documentos d on p.idcliente=d.idcliente and d.principal='S'
+inner join ad_direcciones dir on p.idcliente=dir.idcliente and dir.tipodir='Real' and dir.formato='Personal'
+inner join (select dir.* from ad_agencias a
+				inner join ad_direcciones dir
+			on a.agenciaid=dir.idcliente
+			and dir.tipodir='Real'
+			and dir.formato='Sucursal') ad_agencia on ad_agencia.idcliente=p.idagencia
+where v.liteuid=$P{id}
+--order by c.nombre
+--set lc_time='es_ES.UTF-8']]>
+	</queryString>
+	<field name="liteuid" class="java.lang.String"/>
+	<field name="nombre" class="java.lang.String"/>
+	<field name="domicilio" class="java.lang.String"/>
+	<field name="nrodocumento" class="java.lang.String"/>
+	<field name="cuenta" class="java.math.BigDecimal"/>
+	<field name="saldoatrasado" class="java.lang.String"/>
+	<field name="diasatraso" class="java.lang.String"/>
+	<field name="municipio" class="java.lang.String"/>
+	<field name="dia" class="java.lang.Integer"/>
+	<field name="mes" class="java.lang.String"/>
+	<field name="anio" class="java.lang.Integer"/>
+	<field name="fechacompromiso" class="java.sql.Date"/>
+	<field name="resultadovisita" class="java.lang.String"/>
+	<field name="comentario" class="java.lang.String"/>
+	<field name="nombreasesor" class="java.lang.String"/>
+	<title>
+		<band height="689" splitType="Stretch">
+			<textField isStretchWithOverflow="true">
+				<reportElement x="5" y="14" width="556" height="21" uuid="2a663c44-0dbe-4df9-9eca-2bf5ce25d9a1"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="Arial" size="16" isBold="true" isUnderline="false"/>
+				</textElement>
+				<textFieldExpression><![CDATA["FINANCIERA SOLIDARIA S.A - Compromiso de Pago"]]></textFieldExpression>
+			</textField>
+			<line>
+				<reportElement x="5" y="38" width="556" height="1" uuid="050543cf-f02d-4ef5-987e-48bad7c3b1d4"/>
+				<graphicElement>
+					<pen lineWidth="6.0" lineStyle="Double" lineColor="#5B1400"/>
+				</graphicElement>
+			</line>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="22" y="52" width="530" height="190" uuid="aa7ea5c5-4417-4a23-833f-5f420c08a098"/>
+				<box topPadding="5" leftPadding="5" rightPadding="5"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Yo <nombre> mayor de edad del domicilio de".replaceAll("<nombre>","<b><u>"+$F{nombre}+"</u></b>")+
+" <domicilio>  con número de ".replaceAll("<domicilio>","<b><u>"+$F{domicilio}+"</u></b>")+
+"identidad <identidad>  , manifiesto solemnemente que tengo ".replaceAll("<identidad>","<b><u>"+$F{nrodocumento}+"</u></b>")+
+"un préstamo con Financiera Solidaria S.A # <ncuenta>  con un saldo ".replaceAll("<ncuenta>","<b><u>"+$F{cuenta}+"</u></b>")+
+"atrasado de Lps.  <saldoatrasado>  , que reflejan el atraso de ".replaceAll("<saldoatrasado>","<b><u>"+$F{saldoatrasado}+"</u></b>")+
+" <diasatraso> días de mi crédito.<br>Para este crédito ofrecí como garantía: ".replaceAll("<diasatraso>","<b><u>"+$F{diasatraso}+"</u></b>")+
+"_____________________________________________________________________________"+
+"_____________________________________________________________________________"+
+"_____________________________________________________________________________<br>"+
+"Por lo tanto por medio de este documento me comprometo con FINSOL S.A a cumplir el "+
+"siguiente compromiso de pago: (Detallar montos, fechas y hora del pago)."]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement x="22" y="247" width="530" height="30" uuid="a8db7004-08a2-434d-b06a-5542e3b16a7d"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="0.0"/>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{resultadovisita}.replace("_"," ")+": "+$F{comentario}.toUpperCase()+""
++($F{resultadovisita}.equals("ACEPTO_COMPROMISO")?
+   "\nFECHA COMPROMISO:("+$F{fechacompromiso}+")":""
+ )]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="277" width="530" height="30" uuid="c040d79a-0a97-4406-99d5-484bd45709f1"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="307" width="530" height="30" uuid="f5adb1ae-f04b-4cbd-b358-8f591674325e"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="337" width="530" height="30" uuid="67f3ef14-90ed-4839-bfab-aa56a117f6cd"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="367" width="530" height="30" uuid="48504ee5-a689-4da3-93df-958ef7a65908"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="397" width="530" height="30" uuid="771e81fe-6c92-4586-aa35-09d38051c70e"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="22" y="443" width="530" height="57" uuid="5b90fb87-8f54-4509-8c8f-b0d9b8684838"/>
+				<box topPadding="5" leftPadding="5" rightPadding="5"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Al incumplir este acuerdo de pago manifiesto mi entera disposición de someterme a los "+
+"procesos legales que considere la Financiera y asumir todos los costos que ello "+
+"representa."]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="570" width="262" height="80" uuid="96e817ae-3627-4037-8f1d-4e8665c0107a"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<textField isBlankWhenNull="true">
+				<reportElement x="284" y="570" width="262" height="80" uuid="5a334f1a-3388-4e6e-b975-3d1f0689fa80"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{nombreasesor}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="650" width="262" height="32" uuid="3856ff14-958c-4c83-961d-3675c88c10d6"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nombre y Firma del Cliente/Aval"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="284" y="650" width="262" height="32" uuid="e32d7bf5-90b9-48c7-b4bf-79af9577a283"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["Nombre Funcionario de Finsol"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="22" y="503" width="530" height="57" uuid="28d53a85-ae1a-4d51-904a-22ffe1bfd3e6"/>
+				<box topPadding="5" leftPadding="5" rightPadding="5"/>
+				<textElement textAlignment="Justified" markup="html">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA["En la ciudad de  <ciudad> , a los  <dias> días ".replaceAll("<ciudad>","<b><u>"+$F{municipio}+"</b></u>").replaceAll("<dias>","<b><u>"+$F{dia}+"</b></u>")+
+"del mes de  <mes> de <anio> Hora: _________________________.".replaceAll("<mes>","<b><u>"+$F{mes}+"</b></u>").replaceAll("<anio>","<b><u>"+$F{anio}+"</b></u>")]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="22" y="247" width="530" height="30" uuid="30dee72d-2f2a-41bd-af1b-bae8f7cd950e"/>
+				<box topPadding="1" leftPadding="10" bottomPadding="1" rightPadding="1">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font size="12"/>
+				</textElement>
+				<textFieldExpression><![CDATA[""]]></textFieldExpression>
+			</textField>
+			<image scaleImage="FillFrame" onErrorType="Blank">
+				<reportElement x="57" y="563" width="208" height="103" uuid="62dcda46-cf6f-462c-ae6a-27cb69c57326"/>
+				<imageExpression><![CDATA[$P{pathfirma}+$F{liteuid}+"_"+$F{nrodocumento}+"_f.png"]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>
