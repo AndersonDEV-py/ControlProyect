@@ -108,7 +108,7 @@
                     </center>
                 </h:form>
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:confirmDialog global="true"  > <!--showEffect="fade" hideEffect="explode"  -->
                     <center>
                         <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
                         <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
@@ -122,7 +122,7 @@
                 <!-- Venta Dialogos -->
 
 
-                <p:dialog  header="#{usuariosMovilController.texto} USUARIO ##{usuariosMovilController.objeto.empleadoid}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUsuario" id="dlgUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                <p:dialog  header="#{usuariosMovilController.texto} USUARIO ##{usuariosMovilController.objeto.empleadoid}" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUsuario" id="dlgUsuario" resizable="false" > <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formUs">  
 
                         <h:panelGrid id="contenDlg" columns="1">
@@ -234,7 +234,7 @@
 
 
 
-                <p:dialog  header="SELECCIONE USUARIO " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaUsuario" id="dlgListaUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                <p:dialog  header="SELECCIONE USUARIO " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaUsuario" id="dlgListaUsuario" resizable="false" > <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formLstUs">  
                         <h:panelGrid columns="3">
                             <p:outputLabel value="BUSCAR POR NOMBRE EMPLEADO:"   />
@@ -271,7 +271,7 @@
 
 
 
-                <p:dialog  header="AGENCIAS ASIGNADAS" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlAgenciasUsuario" id="dlgAgenciasUsuario" showEffect="fold" hideEffect="explode" resizable="false" >
+                <p:dialog  header="AGENCIAS ASIGNADAS" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlAgenciasUsuario" id="dlgAgenciasUsuario"  resizable="false" > <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formLstAge">  
                         <h3>Agencias: #{usuariosMovilController.objeto.nombre} </h3>
 

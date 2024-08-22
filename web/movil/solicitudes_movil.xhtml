@@ -136,7 +136,7 @@
                     </center>
                 </h:form>
 
-                <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">
+                <p:confirmDialog global="true" > <!<!-- showEffect="fade" hideEffect="explode" -->
                     <center>
                         <p:commandButton value="Si" styleClass="ui-confirmdialog-yes"  />
                         <p:commandButton value="No" styleClass="ui-confirmdialog-no"  />
@@ -150,7 +150,7 @@
                 <!-- Venta Dialogos -->
 
 
-                <p:dialog  header=" #DETALLES" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlSolicitudes" id="dlgSolicitudes" showEffect="fold" hideEffect="explode" resizable="false" >
+                <p:dialog  header=" #DETALLES" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlSolicitudes" id="dlgSolicitudes"  resizable="false" > <!<!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formDlg">  
 
                         <h:panelGrid columns="1">
@@ -255,7 +255,7 @@
                 <!-- Dialogo Fechas -->
 
 
-                <p:dialog  header="FILTROS DE FECHA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFechas" id="dlgFechas" showEffect="fold" hideEffect="explode" resizable="false">
+                <p:dialog  header="FILTROS DE FECHA" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlFechas" id="dlgFechas" resizable="false"> <!<!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formFec">  
                         <p:fieldset legend="Fecha de Solicitud:" style="margin-bottom:20px">
                             <h:panelGrid columns="2" cellpadding="5">
@@ -277,7 +277,7 @@
                 <!-- Dialogo MAPA -->
 
 
-                <p:dialog  header="Ubicacion Hogar" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionH" id="dlgUbicacionH" showEffect="fold" hideEffect="explode" resizable="false">
+                <p:dialog  header="Ubicacion Hogar" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionH" id="dlgUbicacionH" resizable="false"> <!<!-- showEffect="fold" hideEffect="explode"  -->
                     <h:form id="formUbicaH">  
 
                          <!--Honduras 14.4041703,-86.7056069  -->
@@ -290,7 +290,7 @@
                     </h:form>
                 </p:dialog>
                 
-                <p:dialog  header="Ubicacion Negocio" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionN" id="dlgUbicacionN" showEffect="fold" hideEffect="explode" resizable="false">
+                <p:dialog  header="Ubicacion Negocio" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlUbicacionN" id="dlgUbicacionN"  resizable="false"> <!<!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formUbicaN">  
 
                          <!--Honduras 14.4041703,-86.7056069  -->
@@ -303,7 +303,7 @@
                 
                 <!-- Dialogo PDF -->
                 
-                <p:dialog  header="PDF EQUIFAX" widgetVar="wdlPdf1"  id="dlgPdf1" showEffect="fold" hideEffect="fold"  height="600" width="70%" resizable="false" >
+                <p:dialog  header="PDF EQUIFAX" widgetVar="wdlPdf1"  id="dlgPdf1"  height="600" width="70%" resizable="false" > <!<!-- showEffect="fold" hideEffect="fold" -->
 
                     <p:media value="#{solicitudesMovilController.rutaPdfEquifax}" width="100%" height="95%">
                         Tu navegador no puede mostrar el pdf, <h:outputLink value="#{solicitudesMovilController.rutaPdfEquifax}">click</h:outputLink> para descargarlo.

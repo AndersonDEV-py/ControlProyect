@@ -6,7 +6,7 @@
 package finsolhn.com.ejb;
 
 import finsolhn.com.data.ClEncuestaPreguntaOpcion;
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 

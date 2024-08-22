@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -793,7 +794,7 @@ public class AdmJefeProyecController extends DataGeneralController {
     
     public void onRowSelect(SelectEvent event) {
         
-       diario=(Daily)event.getObject();
+       /*diario=(Daily)event.getObject();*/ /*Comentado ´por Kevin Anderson*/
         
        
         llenarListaDiarioDesarrollador();

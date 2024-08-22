@@ -1,16 +1,14 @@
 
 import java.io.Serializable;
 import java.util.ArrayList;
-/*import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.ViewScoped;*/
 
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Named;
 import java.util.List;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import org.primefaces.event.DragDropEvent;
 /*
  * To change this license header, choose License Headers in Project Properties.
@@ -50,7 +48,8 @@ public class DNDCarsView implements Serializable {
      
     public void onCarDrop(DragDropEvent ddEvent) {
         System.out.println("CAR1");
-        Car car = ((Car) ddEvent.getData());
+        Car car = ((Car) ddEvent.getData()); /*Comentado ´por Kevin Anderson*/
+        //Comentado por Kevin Anderson
         System.out.println("1 Selecciono: "+car.id +"   "+car.brand +" "+ddEvent.getDragId());
         
         
@@ -87,8 +86,8 @@ public class DNDCarsView implements Serializable {
     }
     public void onCarDrop2(DragDropEvent ddEvent) {
         System.out.println("CAR2");
-        Car car = ((Car) ddEvent.getData());
-        System.out.println("2 Selecciono: "+car.id +"   "+car.brand +" "+ddEvent.getDragId());
+        /*Car car = ((Car) ddEvent.getData());*/ /*Comentado ´por Kevin Anderson*/
+        /*System.out.println("2 Selecciono: "+car.id +"   "+car.brand +" "+ddEvent.getDragId());*/ /*Comentado ´por Kevin Anderson*/
         /*
          boolean x=false;
          System.out.println("2 Selecciono VAR: "+selectedCar );
@@ -106,8 +105,8 @@ public class DNDCarsView implements Serializable {
            
         }*/
         
-        droppedCars.remove(car);
-            cars.add(car);
+        /*droppedCars.remove(car);
+            cars.add(car);*/ /*Comentado ´por Kevin Anderson*/
        // droppedCars.add(car);
        // cars.remove(car);
     }
@@ -115,24 +114,24 @@ public class DNDCarsView implements Serializable {
     
     public void onCarDrop3(DragDropEvent ddEvent) {
         System.out.println("CAR3");
-        Car car = ((Car) ddEvent.getData());
+        /*Car car = ((Car) ddEvent.getData());
         
          System.out.println("3 Selecciono: "+car.id +"   "+car.brand +" "+ddEvent.getDragId());
   
             droppedCars.remove(car);
-            droppedCarsFin.add(car);
+            droppedCarsFin.add(car);*//*Comentado ´por Kevin Anderson*/
   
     }
     
         
     public void onCarDrop4(DragDropEvent ddEvent) {
         System.out.println("CAR4");
-        Car car = ((Car) ddEvent.getData());
+        /*Car car = ((Car) ddEvent.getData());
         
         System.out.println("4 Selecciono: "+car.id +"   "+car.brand +" "+ddEvent.getDragId());
   
         droppedCars.add(car);
-        droppedCarsFin.remove(car);
+        droppedCarsFin.remove(car);*/ /*Comentado ´por Kevin Anderson*/
   
     }
      

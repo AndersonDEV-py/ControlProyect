@@ -27,11 +27,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import jakarta.faces.application.FacesMessage;
-/*import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;*/
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;

@@ -9,7 +9,7 @@ import finsolhn.com.data.AdVVisitas;
 import finsolhn.com.model.Login;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

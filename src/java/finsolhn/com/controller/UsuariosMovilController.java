@@ -13,7 +13,8 @@ import java.util.ArrayList;
 import java.util.Collections;
 
 import java.util.List;
-import javax.annotation.PostConstruct;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -23,7 +24,7 @@ import org.primefaces.PrimeFaces;
 
 //Autor: Ingeniero Renan Cardona
 
-@Named("UsuariosMovilController")
+@Named("usuariosMovilController")
 @ViewScoped
 
 public class UsuariosMovilController extends DataGeneralController {

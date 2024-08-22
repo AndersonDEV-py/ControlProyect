@@ -396,7 +396,7 @@ public class Requerimientos implements Serializable{
     
     public void handleFileUpload(FileUploadEvent event) throws FileNotFoundException, IOException {
         
-         file = event.getFile();
+         /*file = event.getFile();*/ /*Comentado ´por Kevin Anderson*/
          if (file != null) {
          
             String raiz=Constantes.ruta_raiz_doc;
@@ -436,8 +436,8 @@ public class Requerimientos implements Serializable{
             lstDocument.add(mf);
             
             
-            FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            /*FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);*/ /*Comentado ´por Kevin Anderson*/
 
 
              

@@ -34,13 +34,13 @@
                                     <p:inputText style="width:150px" id="txtnom" value="#{admJefeProyecController.fil_nombre_proye}" />
 
                                     <p:outputLabel value="Desarrollador:"   />
-                                    <p:selectOneMenu id="desarrollador" value="#{admJefeProyecController.fil_c_desarrollador}" effect="fold" style="width:300px">
+                                    <p:selectOneMenu id="desarrollador" value="#{admJefeProyecController.fil_c_desarrollador}" style="width:300px"> <!-- effect="fold" -->
                                         <f:selectItem  itemLabel="Todos" itemValue=""/>
                                         <f:selectItems value="#{admJefeProyecController.lstDeveloper}" var="de" itemValue="#{de.id_empleado}" itemLabel="#{de.nombre}"/>    
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Estado:"   />
-                                    <p:selectOneMenu id="estado"  value="#{admJefeProyecController.fil_estado}" effect="fold" style="width:100px">
+                                    <p:selectOneMenu id="estado"  value="#{admJefeProyecController.fil_estado}" style="width:100px"> <!-- effect="fold" -->
                                         <f:selectItem  itemLabel="Todos" itemValue=""/>
                                         <f:selectItem  itemLabel="Sin Autorizar TI" itemValue="Sin Autorizar TI"/>
                                         <f:selectItem  itemLabel="Autorizado TI" itemValue="Autorizado TI"/>
@@ -51,7 +51,7 @@
                                         <f:selectItem  itemLabel="Rechazado" itemValue="Rechazado"/>
                                     </p:selectOneMenu>
                                     <p:outputLabel value="Prioridad:"   />
-                                    <p:selectOneMenu id="Prioridad" value="#{admJefeProyecController.fil_prioridad}" effect="fold" style="width:100px">
+                                    <p:selectOneMenu id="Prioridad" value="#{admJefeProyecController.fil_prioridad}"  style="width:100px"> <!-- effect="fold" -->
                                         <f:selectItem  itemLabel="Todos" itemValue=""/>
                                         <f:selectItem  itemLabel="Baja" itemValue="Baja"/>
                                         <f:selectItem  itemLabel="Media" itemValue="Media"/>
@@ -68,7 +68,7 @@
                                         <p:graphicImage name="images/export/excel.png" width="24"/>
                                         <p:dataExporter type="xls" target="tabla1"   fileName="Requerimientos_casos" />
                                     </h:commandLink>
-                                    <p:selectOneMenu  value="#{admJefeProyecController.fil_tipo}" effect="fold" style="width:120px">
+                                    <p:selectOneMenu  value="#{admJefeProyecController.fil_tipo}"  style="width:120px"> <!-- effect="fold" -->
                                         <f:selectItem  itemLabel="Requerimiento" itemValue="R"/>
                                         <f:selectItem  itemLabel="Casos Ayuda" itemValue="C"/>
                                     </p:selectOneMenu>
@@ -401,7 +401,7 @@
                         <h:panelGrid columns="3" cellpadding="5">
                             <p:fieldset legend="ASIGNAR A DESARROLLADOR:" style="margin-bottom:20px">
                                 <h:panelGrid columns="2" cellpadding="5">
-                                    <p:selectOneMenu id="desarrolladorS"  value="#{admJefeProyecController.objeto.c_developer}" effect="fold" style="width:300px">
+                                    <p:selectOneMenu id="desarrolladorS"  value="#{admJefeProyecController.objeto.c_developer}"  style="width:300px"> <!-- effect="fold" -->
                                         <f:selectItem  noSelectionOption="true" itemLabel="Seleccione" itemValue=""/>
                                         <f:selectItems value="#{admJefeProyecController.lstDeveloper}" var="de" itemValue="#{de.id_empleado}" itemLabel="#{de.nombre}"/>    
                                     </p:selectOneMenu>
@@ -966,7 +966,7 @@
                                         </p:selectOneRadio>
                                     </p:fieldset>
                                     <p:fieldset legend="Ambiente" style="margin-bottom:5px">
-                                        <p:selectOneMenu  value="#{admJefeProyecController.objetoSecundario.ambiente}" effect="fold" style="width:160px">
+                                        <p:selectOneMenu  value="#{admJefeProyecController.objetoSecundario.ambiente}"  style="width:160px"> <!-- effect="fold" -->
                                             <f:selectItem itemLabel="Seleccione" itemValue=""/>
                                             <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
                                             <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />

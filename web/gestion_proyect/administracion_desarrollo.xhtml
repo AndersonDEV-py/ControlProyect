@@ -115,13 +115,13 @@
                                     <p:inputText style="width:150px" id="txtnom" value="#{admDesarrolloController.fil_nombre_proye}" />
 
                                     <p:outputLabel value="Tipo:"   />  
-                                    <p:selectOneMenu  value="#{admDesarrolloController.fil_tipo}" effect="fold" style="width:160px">
+                                    <p:selectOneMenu  value="#{admDesarrolloController.fil_tipo}" style="width:160px"> <!-- effect="fold"  -->
                                         <f:selectItem  itemLabel="Requerimiento" itemValue="R"/>
                                         <f:selectItem  itemLabel="Casos Ayuda" itemValue="C"/>
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Estado:"   />   
-                                    <p:selectOneMenu id="estado"  value="#{admDesarrolloController.fil_estado}" effect="fold" style="width:170px">
+                                    <p:selectOneMenu id="estado"  value="#{admDesarrolloController.fil_estado}" style="width:170px"> <!-- effect="fold"  -->
                                         <f:selectItem  itemLabel="Todos" itemValue=""/>
                                         <f:selectItem  itemLabel="En Desarrollo" itemValue="En Desarrollo"/>
                                         <f:selectItem  itemLabel="Completado" itemValue="Completado"/>
@@ -962,7 +962,7 @@
                             <p:outputLabel   value="NOMBRE ARCHIVO"></p:outputLabel>
                             <p:inputText value="#{admDesarrolloController.arch.nombre_archivo}" style="width:310px"  />
                             <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
-                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}"  style="width:300px"> <!-- effect="fold"  -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                             </p:selectOneMenu>
@@ -991,7 +991,7 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
-                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" style="width:300px"> <!-- effect="fold"  -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                                 <p:ajax update="formProcesar" listener="#{admDesarrolloController.listenerComboTipo2()}"/>
@@ -1046,7 +1046,7 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
-                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                            <p:selectOneMenu id="tipoArchivo" value="#{admDesarrolloController.arch.tipo_archivo}" style="width:300px"> <!-- effect="fold"  -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admDesarrolloController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                                 <p:ajax update="formCargaNuevo" listener="#{admDesarrolloController.listenerComboTipo()}"/>
@@ -1166,7 +1166,7 @@
                             <p:outputLabel   value="NOMBRE ESTRUCTURA"></p:outputLabel>
                             <p:inputText required="true" requiredMessage="Ingrese el nombre de la estructura" value="#{admDesarrolloController.objetoEst.nombre_corto}" style="width:310px;text-transform: uppercase"   />
                             <p:outputLabel   value="TIPO ESTRUCTURA"></p:outputLabel>
-                            <p:selectOneMenu required="true" requiredMessage="Seleccione el tipo de estructura" id="tipoArchivo" value="#{admDesarrolloController.objetoEst.objetoTarea}" effect="fold" style="width:300px">
+                            <p:selectOneMenu required="true" requiredMessage="Seleccione el tipo de estructura" id="tipoArchivo" value="#{admDesarrolloController.objetoEst.objetoTarea}" style="width:300px"><!-- effect="fold"  -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admDesarrolloController.lstTipoBD}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                             </p:selectOneMenu>
@@ -1224,7 +1224,7 @@
                                         </p:selectOneRadio>
                                     </p:fieldset>
                                     <p:fieldset legend="Ambiente" style="margin-bottom:5px">
-                                        <p:selectOneMenu  value="#{admDesarrolloController.objetoEst.ambiente}" effect="fold" style="width:160px">
+                                        <p:selectOneMenu  value="#{admDesarrolloController.objetoEst.ambiente}" style="width:160px"> <!-- effect="fold"  -->
                                             <f:selectItem itemLabel="Seleccione" itemValue=""/>
                                             <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
                                             <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />
@@ -1299,7 +1299,7 @@
                             </h:panelGrid>
                             <h:panelGrid columns="1">
                                 <h:panelGrid columns="3" style="margin-left:-15px;">
-                                    <p:selectOneMenu  value="#{admDesarrolloController.tipo_conOracle}" effect="fold" style="width:40px">
+                                    <p:selectOneMenu  value="#{admDesarrolloController.tipo_conOracle}" style="width:40px"> <!-- effect="fold"  -->
                                         <f:selectItem itemLabel="Testing" itemValue="1"/>    
                                         <f:selectItem itemLabel="Desarrollo" itemValue="2"/>
                                     </p:selectOneMenu>
@@ -1436,8 +1436,8 @@
 
                         <p:panelGrid   columns="1" >
                             <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
-                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admDesarrolloController.handleFileUpload}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
-                                          update="msj :formCargaNuevo :formProcesar"   >
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir"  style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formCargaNuevo :formProcesar" listener="#{admDesarrolloController.handleFileUpload}"  > <!--  -->
                                 <p:panelGrid   columns="1" >
                                     <p:outputLabel value="Arrastre Aqui su Archivo"/>
 
@@ -1456,8 +1456,8 @@
 
                         <p:panelGrid   columns="1" >
                             <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
-                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admDesarrolloController.handleFileUpload2}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
-                                          update="msj :formCargaNuevo :formProcesar"   >
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir"  style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formCargaNuevo :formProcesar" listener="#{admDesarrolloController.handleFileUpload2}"  > <!--  -->
                                 <p:panelGrid   columns="1" >
                                     <p:outputLabel value="Arrastre Aqui su Archivo"/>
 

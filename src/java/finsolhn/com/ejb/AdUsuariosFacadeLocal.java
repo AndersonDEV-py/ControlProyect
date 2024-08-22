@@ -8,7 +8,8 @@ package finsolhn.com.ejb;
 import finsolhn.com.data.AdUsuarios;
 import finsolhn.com.model.Login;
 import java.util.List;
-import javax.ejb.Local;
+//import jakarta.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

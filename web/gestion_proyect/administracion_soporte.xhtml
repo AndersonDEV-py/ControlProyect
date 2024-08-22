@@ -36,9 +36,9 @@
                 </script>  
                 
                 
-                <p:socket onMessage="handleMessage" channel="/notify">
+                <!--<p:socket onMessage="handleMessage" channel="/notify">
                     <p:ajax event="message" update=":form"/>
-                </p:socket>
+                </p:socket> Comentado por Kevin Anderson-->
                 
                 <p:growl id="msj" widgetVar="wmsj" showDetail="true"/>
 
@@ -179,7 +179,7 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
-                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}" style="width:300px"> <!-- effect="fold" -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admSoporteController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                                 <p:ajax update="formRespuesta" listener="#{admSoporteController.listenerComboTipo()}"/>
@@ -227,7 +227,7 @@
                         <h:panelGrid columns="1">
 
                             <p:outputLabel   value="TIPO ARCHIVO"></p:outputLabel>
-                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}" effect="fold" style="width:300px">
+                            <p:selectOneMenu disabled="true" id="tipoArchivo" value="#{admSoporteController.arch.tipo_archivo}"  style="width:300px"> <!-- effect="fold" -->
                                 <f:selectItem  itemLabel="Seleccione" itemValue=""/>        
                                 <f:selectItems var="tp" value="#{admSoporteController.lstTipo}" itemLabel="#{tp.tipo_d}   {#{tp.extension}}" itemValue="#{tp.extension}" />
                                 <p:ajax update="formRespuesta2" listener="#{admSoporteController.listenerComboTipo()}"/>
@@ -265,8 +265,8 @@
 
                         <p:panelGrid   columns="1" >
                             <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
-                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admSoporteController.handleFileUpload}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
-                                          update="msj :formRespuesta"   >
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir"  style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formRespuesta"  listener="#{admSoporteController.handleFileUpload}" > <!--  -->
                                 <p:panelGrid   columns="1" >
                                     <p:outputLabel value="Arrastre Aqui su Archivo"/>
 
@@ -285,8 +285,8 @@
 
                         <p:panelGrid   columns="1" >
                             <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
-                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admSoporteController.handleFileUpload2}" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
-                                          update="msj :formRespuesta"   >
+                            <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" style="width: 800px;height: 400px;font-size:20px;" multiple="false" mode="advanced" dragDropSupport="true"
+                                          update="msj :formRespuesta" listener="#{admSoporteController.handleFileUpload2}"  > <!-- -->
                                 <p:panelGrid   columns="1" >
                                     <p:outputLabel value="Arrastre Aqui su Archivo"/>
 

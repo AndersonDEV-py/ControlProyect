@@ -22,6 +22,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
@@ -299,7 +300,7 @@ public class AdmSoporteController extends DataGeneralController {
         
         
         
-        arch.file_master=event.getFile();
+        /*arch.file_master=event.getFile();*/ /*Comentado ´por Kevin Anderson*/
          
          
         if(!arch.file_master.getFileName().substring(0, arch.file_master.getFileName().lastIndexOf('.')).equalsIgnoreCase(arch.getNombre_archivo()))
@@ -392,8 +393,8 @@ public class AdmSoporteController extends DataGeneralController {
             lstDocument.add(mf);
             
             */
-            FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            /*FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);*/ /*Comentado ´por Kevin Anderson*/
             
             //RequestContext context = RequestContext.getCurrentInstance();
             PrimeFaces.current().executeScript("PF('wdlFileUpload').hide();");
@@ -406,7 +407,7 @@ public class AdmSoporteController extends DataGeneralController {
         
         
         
-         arch.file_master=event.getFile();
+         /*arch.file_master=event.getFile();*/
          
          
         if(!arch.file_master.getFileName().substring(0, arch.file_master.getFileName().lastIndexOf('.')).equalsIgnoreCase(arch.getNombre_archivo()))
@@ -501,8 +502,8 @@ public class AdmSoporteController extends DataGeneralController {
             lstDocument.add(mf);
             
             */
-            FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            /*FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);*/ /*Comentado ´por Kevin Anderson*/
 
             //RequestContext context = RequestContext.getCurrentInstance();
             PrimeFaces.current().executeScript("PF('wdlFileUpload2').hide();");

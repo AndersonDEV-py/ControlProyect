@@ -8,7 +8,7 @@ package finsolhn.com.ejb;
 //import com.sun.xml.rpc.processor.modeler.j2ee.xml.string; comentado por KEVIN ANDERSON SANTOS porque dice unused import
 import finsolhn.com.data.ClEncuesta;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

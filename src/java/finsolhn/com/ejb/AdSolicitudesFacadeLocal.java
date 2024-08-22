@@ -7,7 +7,7 @@ package finsolhn.com.ejb;
 
 import finsolhn.com.data.AdSolicitudes;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

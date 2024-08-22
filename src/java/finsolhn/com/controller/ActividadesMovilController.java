@@ -25,11 +25,10 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import javax.annotation.PostConstruct;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
-/*import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ViewScoped;*/
 import jakarta.inject.Named;
 import jakarta.faces.view.ViewScoped;
 import jakarta.faces.context.FacesContext;
@@ -38,6 +37,7 @@ import org.primefaces.PrimeFaces;
 import org.primefaces.event.ItemSelectEvent;
 import org.primefaces.event.map.OverlaySelectEvent;
 import org.primefaces.model.charts.ChartData;
+import org.primefaces.model.charts.data.NumericPoint;
 import org.primefaces.model.charts.line.LineChartModel;
 import org.primefaces.model.charts.axes.cartesian.CartesianScales;
 import org.primefaces.model.charts.axes.cartesian.linear.CartesianLinearAxes;
@@ -356,7 +356,7 @@ public class ActividadesMovilController extends DataGeneralController {
 
     //Crear marcador de posición
     public void onMarkerSelect(OverlaySelectEvent event) {
-        marker = (Marker) event.getOverlay();
+        marker = (Marker) event.getOverlay(); /*Comentado por Kevin Anderson*/
 
         FacesContext.getCurrentInstance().addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO, "Seleccionado", marker.getTitle()));
     }
@@ -1124,7 +1124,7 @@ public class ActividadesMovilController extends DataGeneralController {
         BarChartDataSet barDataSet = new BarChartDataSet();
         barDataSet.setLabel("Comparativo");
 
-        List<Number> values = new ArrayList<>();
+        List<Object> values = new ArrayList<>();
         values.add(todas);
         values.add(completadas);
         barDataSet.setData(values);
@@ -1155,7 +1155,7 @@ public class ActividadesMovilController extends DataGeneralController {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setOffset(true);
         CartesianLinearTicks ticks = new CartesianLinearTicks();
-        ticks.setBeginAtZero(true);
+        /*ticks.setBeginAtZero(true); /*Comentado por Kevin Anderson*/
         linearAxes.setTicks(ticks);
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);
@@ -1192,7 +1192,7 @@ public class ActividadesMovilController extends DataGeneralController {
         barDataSet.setBackgroundColor("rgba(255, 99, 132, 0.2)");
         barDataSet.setBorderColor("rgb(255, 99, 132)");
         barDataSet.setBorderWidth(1);
-        List<Number> values = new ArrayList<>();
+        List<Object> values = new ArrayList<>();
         values.add(65);
         values.add(59);
         values.add(80);
@@ -1207,7 +1207,7 @@ public class ActividadesMovilController extends DataGeneralController {
         barDataSet2.setBackgroundColor("rgba(255, 159, 64, 0.2)");
         barDataSet2.setBorderColor("rgb(255, 159, 64)");
         barDataSet2.setBorderWidth(1);
-        List<Number> values2 = new ArrayList<>();
+        List<Object> values2 = new ArrayList<>();
         values2.add(85);
         values2.add(69);
         values2.add(20);
@@ -1237,7 +1237,7 @@ public class ActividadesMovilController extends DataGeneralController {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setOffset(true);
         CartesianLinearTicks ticks = new CartesianLinearTicks();
-        ticks.setBeginAtZero(true);
+        /*ticks.setBeginAtZero(true);*/ /*Comentado por Kevin Anderson*/
         linearAxes.setTicks(ticks);
         cScales.addYAxesData(linearAxes);
         options.setScales(cScales);
@@ -1257,7 +1257,7 @@ public class ActividadesMovilController extends DataGeneralController {
         HorizontalBarChartDataSet hbarDataSet = new HorizontalBarChartDataSet();
         hbarDataSet.setLabel("My First Dataset");
 
-        List<Number> values = new ArrayList<>();
+        List<Object> values = new ArrayList<>();
         values.add(65);
         values.add(59);
         values.add(80);
@@ -1307,7 +1307,7 @@ public class ActividadesMovilController extends DataGeneralController {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setOffset(true);
         CartesianLinearTicks ticks = new CartesianLinearTicks();
-        ticks.setBeginAtZero(true);
+        /*ticks.setBeginAtZero(true); /*Comentado por Kevin Anderson*/
         linearAxes.setTicks(ticks);
         cScales.addXAxesData(linearAxes);
         options.setScales(cScales);
@@ -1327,7 +1327,7 @@ public class ActividadesMovilController extends DataGeneralController {
         BarChartDataSet barDataSet = new BarChartDataSet();
         barDataSet.setLabel("Dataset 1");
         barDataSet.setBackgroundColor("rgb(255, 99, 132)");
-        List<Number> dataVal = new ArrayList<>();
+        List<Object> dataVal = new ArrayList<>();
         dataVal.add(62);
         dataVal.add(-58);
         dataVal.add(-49);
@@ -1340,7 +1340,7 @@ public class ActividadesMovilController extends DataGeneralController {
         BarChartDataSet barDataSet2 = new BarChartDataSet();
         barDataSet2.setLabel("Dataset 2");
         barDataSet2.setBackgroundColor("rgb(54, 162, 235)");
-        List<Number> dataVal2 = new ArrayList<>();
+        List<Object> dataVal2 = new ArrayList<>();
         dataVal2.add(-1);
         dataVal2.add(32);
         dataVal2.add(-52);
@@ -1353,7 +1353,7 @@ public class ActividadesMovilController extends DataGeneralController {
         BarChartDataSet barDataSet3 = new BarChartDataSet();
         barDataSet3.setLabel("Dataset 3");
         barDataSet3.setBackgroundColor("rgb(75, 192, 192)");
-        List<Number> dataVal3 = new ArrayList<>();
+        List<Object> dataVal3 = new ArrayList<>();
         dataVal3.add(-44);
         dataVal3.add(25);
         dataVal3.add(15);
@@ -1409,7 +1409,7 @@ public class ActividadesMovilController extends DataGeneralController {
         barDataSet.setLabel("Dataset 1");
         barDataSet.setBackgroundColor("rgb(255, 99, 132)");
         barDataSet.setStack("Stack 0");
-        List<Number> dataVal = new ArrayList<>();
+        List<Object> dataVal = new ArrayList<>();
         dataVal.add(-32);
         dataVal.add(-70);
         dataVal.add(-33);
@@ -1423,7 +1423,7 @@ public class ActividadesMovilController extends DataGeneralController {
         barDataSet2.setLabel("Dataset 2");
         barDataSet2.setBackgroundColor("rgb(54, 162, 235)");
         barDataSet2.setStack("Stack 0");
-        List<Number> dataVal2 = new ArrayList<>();
+        List<Object> dataVal2 = new ArrayList<>();
         dataVal2.add(83);
         dataVal2.add(18);
         dataVal2.add(86);
@@ -1437,7 +1437,7 @@ public class ActividadesMovilController extends DataGeneralController {
         barDataSet3.setLabel("Dataset 3");
         barDataSet3.setBackgroundColor("rgb(75, 192, 192)");
         barDataSet3.setStack("Stack 1");
-        List<Number> dataVal3 = new ArrayList<>();
+        List<Object> dataVal3 = new ArrayList<>();
         dataVal3.add(-45);
         dataVal3.add(73);
         dataVal3.add(-25);
@@ -1610,7 +1610,7 @@ public class ActividadesMovilController extends DataGeneralController {
         angelLines.setDisplay(true);
         angelLines.setLineWidth(0.5);
         angelLines.setColor("rgba(128, 128, 128, 0.2)");
-        rScales.setAngelLines(angelLines);
+        rScales.setAngleLines(angelLines); /*Comentado por Kevin Anderson*/
 
         RadialLinearPointLabels pointLabels = new RadialLinearPointLabels();
         pointLabels.setFontSize(14);
@@ -1652,7 +1652,7 @@ public class ActividadesMovilController extends DataGeneralController {
         ChartData data = new ChartData();
 
         BarChartDataSet dataSet = new BarChartDataSet();
-        List<Number> values = new ArrayList<>();
+        List<Object> values = new ArrayList<>();
         values.add(10);
         values.add(20);
         values.add(30);
@@ -1691,7 +1691,7 @@ public class ActividadesMovilController extends DataGeneralController {
         CartesianLinearAxes linearAxes = new CartesianLinearAxes();
         linearAxes.setOffset(true);
         CartesianLinearTicks ticks = new CartesianLinearTicks();
-        ticks.setBeginAtZero(true);
+        /*ticks.setBeginAtZero(true);*/ /*Comentado por Kevin Anderson*/
         linearAxes.setTicks(ticks);
 
         cScales.addYAxesData(linearAxes);
@@ -1760,7 +1760,7 @@ public class ActividadesMovilController extends DataGeneralController {
         FacesMessage msg = new FacesMessage(FacesMessage.SEVERITY_INFO, "Item selected",
                 "Item Index: " + event.getItemIndex() + ", DataSet Index:" + event.getDataSetIndex());
 
-        FacesContext.getCurrentInstance().addMessage(null, msg);
+        FacesContext.getCurrentInstance().addMessage(null, msg); /*Comentado por Kevin Anderson*/
     }
 
     public PieChartModel getPieModel() {

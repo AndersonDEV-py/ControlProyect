@@ -9,7 +9,8 @@ import finsolhn.com.data.AdUsuarios;
 import finsolhn.com.model.Login;
 import java.util.ArrayList;
 import java.util.List;
-import javax.ejb.Stateless;
+//import jakarta.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;
@@ -142,12 +143,6 @@ public class AdUsuariosFacade extends AbstractFacade<AdUsuarios> implements AdUs
         getEntityManager().getEntityManagerFactory().getCache().evictAll();
         return super.find(id); //To change body of generated methods, choose Tools | Templates.
     }
-    
-    
-
-   
-    
-    
     
     
 }

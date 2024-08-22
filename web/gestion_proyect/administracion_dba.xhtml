@@ -99,14 +99,14 @@
 
 
                                     <p:outputLabel value="Tipo:"   />  
-                                    <p:selectOneMenu  value="#{admDBAController.fil_tipo}" effect="fold" style="width:160px">
+                                    <p:selectOneMenu  value="#{admDBAController.fil_tipo}" style="width:160px"> > <!-- effect="fold"  -->
                                         <f:selectItem  itemLabel="Todos" itemValue="T"/>
                                         <f:selectItem  itemLabel="Ejecucion SQL" itemValue="E"/>
                                         <f:selectItem  itemLabel="Permiso sobre Objeto" itemValue="P"/>
                                     </p:selectOneMenu>
 
                                     <p:outputLabel value="Estado:"   />   
-                                    <p:selectOneMenu id="estado"  value="#{admDBAController.fil_estado}" effect="fold" style="width:170px">
+                                    <p:selectOneMenu id="estado"  value="#{admDBAController.fil_estado}"  style="width:170px"> <!-- effect="fold"  -->
                                         <f:selectItem  itemLabel="Todos" itemValue=""/>
                                         <f:selectItem  itemLabel="Autorizado TI" itemValue="Autorizado TI"/>
                                         <f:selectItem  itemLabel="En Desarrollo DBA" itemValue="En Desarrollo DBA"/>
@@ -584,7 +584,7 @@
                                         </p:selectOneRadio>
                                     </p:fieldset>
                                     <p:fieldset legend="Ambiente" style="margin-bottom:5px">
-                                        <p:selectOneMenu  value="#{admDBAController.objetoSecundario.ambiente}" effect="fold" style="width:160px">
+                                        <p:selectOneMenu  value="#{admDBAController.objetoSecundario.ambiente}" style="width:160px"> <!-- effect="fold"  -->
                                             <f:selectItem itemLabel="Seleccione" itemValue=""/>
                                             <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
                                             <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />

@@ -6,10 +6,10 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import javax.sql.DataSource;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
-/*import javax.naming.Context;
-import javax.naming.InitialContext;*/
+
 import org.apache.commons.dbcp.BasicDataSource;
 import org.primefaces.PrimeFaces;
 
@@ -203,6 +203,7 @@ public class DAO2 {
         PrimeFaces.current().dialog().showMessageDynamic(message);
     }*/
     
+    /*Comentado por Kevin Anderson*/
     public void mensajeDialogoInfo(String title, String msj){
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,title, msj);
         PrimeFaces.current().dialog().showMessageDynamic(message);

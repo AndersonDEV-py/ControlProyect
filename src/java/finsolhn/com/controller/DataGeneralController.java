@@ -30,16 +30,17 @@ import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-/*import javax.annotation.PostConstruct; se comento pero hay que ver si es de utilidad despues*/
+/*import jakarta.annotation.PostConstruct; se comento pero hay que ver si es de utilidad despues*/
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
-import jakarta.enterprise.context.SessionScoped;
+
 import jakarta.faces.view.ViewScoped;
 import jakarta.inject.Named;
+import jakarta.enterprise.context.SessionScoped;
 import jakarta.faces.context.FacesContext;
 import jakarta.servlet.http.HttpServletRequest;
-/*import javax.xml.bind.annotation.adapters.HexBinaryAdapter; se comento pero puede usarse despues, creo...*/
 import jakarta.xml.bind.annotation.adapters.HexBinaryAdapter;
 import org.primefaces.PrimeFaces;
 //import org.primefaces.context.RequestContext;
@@ -54,10 +55,10 @@ import org.primefaces.model.menu.MenuModel;
  *
  * @author rcardona
  */
-@Named("DataGeneralController")
+@Named("dataGeneralController")
 //@RequestScoped
-@ViewScoped
-//@SessionScoped
+//@ViewScoped
+@SessionScoped
 public class DataGeneralController implements Serializable {
 
     private String url_actual = ((HttpServletRequest) FacesContext.getCurrentInstance().getExternalContext().getRequest()).getRequestURI();
@@ -429,28 +430,29 @@ public class DataGeneralController implements Serializable {
         return "";
     }
 
+    
     public void mensajeDialogoInfo(String title, String msj) {
         //FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO, title, msj);
         //PrimeFaces.current().dialog().showMessageDynamic(message);
         
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_INFO,title,msj);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+        PrimeFaces.current().dialog().showMessageDynamic(message);/*Comentado por Kevin Anderson*/
         
     }
 
     public void mensajeDialogoError(String title, String msj) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, title, msj);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+        PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por Kevin Anderson*/
     }
 
     public void mensajeDialogoWaning(String title, String msj) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_WARN, title, msj);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+        PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por Kevin Anderson*/
     }
 
     public void mensajeDialogoFatal(String title, String msj) {
         FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_FATAL, title, msj);
-        PrimeFaces.current().dialog().showMessageDynamic(message);
+        PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por Kevin Anderson*/
     }
 
     //Crear menu lateral 

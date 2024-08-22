@@ -8,7 +8,7 @@ package finsolhn.com.ejb;
 ///import com.sun.xml.rpc.processor.modeler.j2ee.xml.string; se comento porque dice unused import por KEVIN ANDERSON SANTOS
 import finsolhn.com.data.ClEncuesta;
 import java.util.List;
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

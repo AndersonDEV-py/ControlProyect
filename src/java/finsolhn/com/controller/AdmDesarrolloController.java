@@ -34,12 +34,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
-/*import javax.faces.bean.ApplicationScoped;
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
-import javax.faces.bean.SessionScoped;
-import javax.faces.bean.ViewScoped;*/
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.enterprise.context.RequestScoped;
 import jakarta.enterprise.context.SessionScoped;
@@ -1706,7 +1702,7 @@ public class AdmDesarrolloController extends DataGeneralController {
         
         
         
-        arch.file3=event.getFile();
+        /*arch.file3=event.getFile();*/ /*Comentado ´por Kevin Anderson*/
          
          
         if(!arch.file3.getFileName().substring(0, arch.file3.getFileName().lastIndexOf('.')).equalsIgnoreCase(arch.getNombre_archivo()))
@@ -1798,8 +1794,8 @@ public class AdmDesarrolloController extends DataGeneralController {
             lstDocument.add(mf);
             
             */
-            FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            /*FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);*/ /*Comentado ´por Kevin Anderson*/
             
             //RequestContext context = RequestContext.getCurrentInstance();
             PrimeFaces.current().executeScript("PF('wdlFileUpload').hide();");
@@ -1812,7 +1808,7 @@ public class AdmDesarrolloController extends DataGeneralController {
         
         
         
-         arch.file4=event.getFile();
+         /*arch.file4=event.getFile();*/ /*Comentado ´por Kevin Anderson*/
          
          
         if(!arch.file4.getFileName().substring(0, arch.file4.getFileName().lastIndexOf('.')).equalsIgnoreCase(arch.getNombre_archivo()))
@@ -1906,8 +1902,8 @@ public class AdmDesarrolloController extends DataGeneralController {
             lstDocument.add(mf);
             
             */
-            FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
-            FacesContext.getCurrentInstance().addMessage(null, msg);
+            /*FacesMessage msg = new FacesMessage("Compleado", event.getFile().getFileName() + " cargado.");
+            FacesContext.getCurrentInstance().addMessage(null, msg);*/ /*Comentado ´por Kevin Anderson*/
 
             //RequestContext context = RequestContext.getCurrentInstance();
             PrimeFaces.current().executeScript("PF('wdlFileUpload2').hide();");

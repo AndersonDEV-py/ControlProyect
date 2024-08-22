@@ -6,7 +6,7 @@ import finsolhn.com.model.Login;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.Query;
 

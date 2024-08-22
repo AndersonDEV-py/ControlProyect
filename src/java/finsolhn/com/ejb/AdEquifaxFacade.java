@@ -7,7 +7,7 @@ package finsolhn.com.ejb;
 
 import finsolhn.com.data.AdEquifax;
 import java.util.List;
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

@@ -336,8 +336,8 @@
 
                             <p:panelGrid   columns="1" >
                                 <h4>Arrastre o Seleccione Archivos Para el Requerimiento</h4>
-                                <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir" fileUploadListener="#{admUsuariosController.objeto.handleFileUpload}" style="width: 600px;font-size:15px;" multiple="true" mode="advanced" dragDropSupport="true"
-                                              update="msj formAdjunto"   >
+                                <p:fileUpload messageTemplate="Hola Mundo" label="Seleccionar" cancelLabel="Cancelar" uploadLabel="Subir"  style="width: 600px;font-size:15px;" multiple="true" mode="advanced" dragDropSupport="true"
+                                              update="msj formAdjunto"  listener="#{admUsuariosController.objeto.handleFileUpload}" > <!--  -->
                                     <p:panelGrid   columns="1" >
                                         <p:outputLabel value="Arrastre Aqui sus Archivos"/>
 
@@ -780,7 +780,7 @@
                                         </p:selectOneRadio>
                                     </p:fieldset>
                                     <p:fieldset legend="Ambiente" style="margin-bottom:5px">
-                                        <p:selectOneMenu  value="#{admUsuariosController.objetoSecundario.ambiente}" effect="fold" style="width:160px">
+                                        <p:selectOneMenu  value="#{admUsuariosController.objetoSecundario.ambiente}"  style="width:160px"> <!-- effect="fold" -->
                                             <f:selectItem itemLabel="Seleccione" itemValue=""/>
                                             <f:selectItem itemLabel="Produccion" itemValue="Produccion" />
                                             <f:selectItem itemLabel="Pruebas" itemValue="Pruebas" />

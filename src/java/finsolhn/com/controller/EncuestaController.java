@@ -25,7 +25,8 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
-import javax.annotation.PostConstruct;
+import jakarta.faces.event.AjaxBehaviorEvent;
+import jakarta.annotation.PostConstruct;
 import jakarta.ejb.EJB;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.view.ViewScoped;
@@ -42,7 +43,7 @@ import org.primefaces.PrimeFaces;
  * @author ds010106
  */
 
-@Named("EncuestaController")
+@Named("encuestaController")
 @ViewScoped
 
 public class EncuestaController extends DataGeneralController{
@@ -347,7 +348,7 @@ ClEncuestaFacadeLocal encuestaEJB;
         if(filtroEncuesta.equals("0"))
         {
              current.executeScript("PF('wdlEncuesta').hide();");
-             current.dialog().showMessageDynamic(message);
+             current.dialog().showMessageDynamic(message); /*Comentado por kevin anderson*/
         }else
         {
             //Ejecucion del dialogo
@@ -399,7 +400,7 @@ ClEncuestaFacadeLocal encuestaEJB;
         //Validacion de datos cliente
         if(infoCliente.isEmpty())
         {
-            PrimeFaces.current().dialog().showMessageDynamic(message);
+            PrimeFaces.current().dialog().showMessageDynamic(message);/*Comentado por kevin*/
         }else{
             //Seteo de variables con informacion del objeto infoCliente
             nombreC=infoCliente.get(0);//nombre cliente
@@ -427,7 +428,7 @@ ClEncuestaFacadeLocal encuestaEJB;
         if(codCliente==null || nombreC.isEmpty())
         {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje", " No se ha ingresado Codigo de Cliente"+ "");
-            PrimeFaces.current().dialog().showMessageDynamic(message);
+            PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por kevin anderson*/
         }else{
             //Obtener las cuentas del cliente
             //Parametros : 1- cod cliente 2- tipo de encuesta
@@ -734,7 +735,7 @@ ClEncuestaFacadeLocal encuestaEJB;
         if(mapVal.isEmpty())
         {
             FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Error", "No se puede enviar la encuesta sin contestar. Conteste las preguntas");
-            PrimeFaces.current().dialog().showMessageDynamic(message);   
+            PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por Kevin Anderson*/
         }
         else
         {
@@ -769,7 +770,7 @@ ClEncuestaFacadeLocal encuestaEJB;
             {
                  //Mensaje de error
                  FacesMessage message = new FacesMessage(FacesMessage.SEVERITY_ERROR, "Mensaje", " No se pudo Guardar la informacion ");
-                 PrimeFaces.current().dialog().showMessageDynamic(message);
+                 PrimeFaces.current().dialog().showMessageDynamic(message); /*Comentado por Kevin Anderson*/
             }
         }
     }

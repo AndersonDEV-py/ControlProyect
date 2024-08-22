@@ -5,7 +5,7 @@ import finsolhn.com.data.AdVSolicitudes;
 import static finsolhn.com.util.Constantes.sdf_dmy;
 import static finsolhn.com.util.Constantes.sdf_dmy_ham;
 import java.util.*;
-import javax.ejb.Stateless;
+import jakarta.ejb.Stateless;
 import jakarta.persistence.EntityManager;
 import jakarta.persistence.PersistenceContext;
 import jakarta.persistence.Query;

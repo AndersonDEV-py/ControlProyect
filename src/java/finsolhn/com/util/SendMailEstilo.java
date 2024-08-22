@@ -9,7 +9,7 @@ package finsolhn.com.util;
  * @author DS010108
  */
 import java.util.Properties;
-//import javax.activation.DataHandler;
+import jakarta.faces.event.AjaxBehaviorEvent;
 import jakarta.faces.application.FacesMessage;
 import jakarta.faces.context.FacesContext;
 import jakarta.mail.Message;
@@ -23,8 +23,6 @@ import jakarta.mail.internet.MimeMessage;
 import jakarta.mail.internet.MimeMultipart;
 import jakarta.mail.BodyPart;
 import org.apache.poi.poifs.nio.DataSource;
-//import javax.activation.DataSource;
-//import javax.activation.FileDataSource;
 /**
  *
  * @author ds010106

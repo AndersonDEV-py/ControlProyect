@@ -9,7 +9,7 @@ import finsolhn.com.data.AdAgencias;
 import finsolhn.com.data.AdUsuariosxagencia;
 import finsolhn.com.model.Login;
 import java.util.List;
-import javax.ejb.Local;
+import jakarta.ejb.Local;
 
 /**
  *

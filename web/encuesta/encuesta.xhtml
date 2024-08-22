@@ -90,7 +90,7 @@
                 <!-- Dialogos -->
                 
                 <!-- Dialogo Encuesta -->
-                <p:dialog  header="#{encuestaController.texto}" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1400px; max-height: 800px;" widgetVar="wdlEncuesta" id="dlgEncuesta" showEffect="fold" hideEffect="explode" resizable="false" modal="true"  positionType="absolute" >
+                <p:dialog  header="#{encuestaController.texto}" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1400px; max-height: 800px;" widgetVar="wdlEncuesta" id="dlgEncuesta"  resizable="false" modal="true"  positionType="absolute" > <!-- showEffect="fold" hideEffect="explode" -->
                         <h:panelGrid id="contenDlg" columns="1">
                             <center>
                                 <h:form id="formCl" >
@@ -193,7 +193,7 @@
                 </p:dialog>
                 
                 <!-- Dialogo de Cuentas -->
-                <p:dialog  header="SELECCIONE UNA CUENTA " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaCuentas" id="dlgwdlListaCuentas" showEffect="fold" hideEffect="explode" resizable="false" modal="true" >
+                <p:dialog  header="SELECCIONE UNA CUENTA " style="font-size:14px;background:#DEDDDD;" widgetVar="wdlListaCuentas" id="dlgwdlListaCuentas"  resizable="false" modal="true" > <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form id="formC">
                         <h:panelGrid id="contenDlg" columns="1">
                             <center>
@@ -222,7 +222,7 @@
                 </p:dialog>
                 
                 <!-- Dialogo de Impresion -->
-                <p:dialog  header="Desea imprimir" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlPdf" id="dlgwdlPdf" showEffect="fold" hideEffect="explode" resizable="false" modal="true">
+                <p:dialog  header="Desea imprimir" style="font-size:14px;background:#DEDDDD;" widgetVar="wdlPdf" id="dlgwdlPdf"  resizable="false" modal="true"> <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form>
                         <center>
                              <h:commandLink id="reporte2"  style="color: maroon; font-weight: bold" value=" IMPRESION EN PDF" target="_black" actionListener="#{encuestaController.verDocumentoPDF()}" />
@@ -231,7 +231,7 @@
                 </p:dialog>
                 
                 <!-- Dialogo de Manual de Usuario -->
-                <p:dialog  header="Manual de Usuario" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1500px; max-height: 900px;" widgetVar="wdlManual" id="dlgwdManual" showEffect="fold" hideEffect="explode" resizable="false" minimizable="true">
+                <p:dialog  header="Manual de Usuario" style="font-size:14px;background:#DEDDDD; overflow: auto; max-width: 1500px; max-height: 900px;" widgetVar="wdlManual" id="dlgwdManual"  resizable="false" minimizable="true"> <!-- showEffect="fold" hideEffect="explode" -->
                     <h:form>
                         <center>
                             <p:media value="//jasper-encuesta//ManualUsuario.pdf" width="1400px%" height="800px"/>
